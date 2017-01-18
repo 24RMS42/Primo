@@ -1,0 +1,235 @@
+[
+    {
+        "outputFile": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-hr\\values-hr.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 61,
+                    "endOffset": 162
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-hr\\values-hr.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 105,
+                        "endColumn": 61,
+                        "endOffset": 162
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 167,
+                    "endColumn": 106,
+                    "endOffset": 269
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-hr\\values-hr.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 167,
+                        "endColumn": 106,
+                        "endOffset": 269
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 274,
+                    "endColumn": 120,
+                    "endOffset": 390
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-hr\\values-hr.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 274,
+                        "endColumn": 120,
+                        "endOffset": 390
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 395,
+                    "endColumn": 80,
+                    "endOffset": 471
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-hr\\values-hr.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 395,
+                        "endColumn": 80,
+                        "endOffset": 471
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 476,
+                    "endColumn": 105,
+                    "endOffset": 577
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-hr\\values-hr.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 476,
+                        "endColumn": 105,
+                        "endOffset": 577
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 582,
+                    "endColumn": 128,
+                    "endOffset": 706
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-hr\\values-hr.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 582,
+                        "endColumn": 128,
+                        "endOffset": 706
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 711,
+                    "endColumn": 109,
+                    "endOffset": 816
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-hr\\values-hr.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 711,
+                        "endColumn": 109,
+                        "endOffset": 816
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 821,
+                    "endColumn": 96,
+                    "endOffset": 913
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-hr\\values-hr.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 821,
+                        "endColumn": 96,
+                        "endOffset": 913
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 918,
+                    "endColumn": 90,
+                    "endOffset": 1004
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-hr\\values-hr.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 918,
+                        "endColumn": 90,
+                        "endOffset": 1004
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 1009,
+                    "endColumn": 94,
+                    "endOffset": 1099
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-hr\\values-hr.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 1009,
+                        "endColumn": 94,
+                        "endOffset": 1099
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1104,
+                    "endColumn": 91,
+                    "endOffset": 1191
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-hr\\values-hr.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 1104,
+                        "endColumn": 91,
+                        "endOffset": 1191
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 1196,
+                    "endColumn": 99,
+                    "endOffset": 1291
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-hr\\values-hr.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1196,
+                        "endColumn": 99,
+                        "endOffset": 1291
+                    }
+                }
+            }
+        ]
+    }
+]

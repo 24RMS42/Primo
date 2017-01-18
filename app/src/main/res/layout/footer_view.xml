@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/shipping_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/shipping_base"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_grey"/>
+
+            <com.primo.utils.views.SquareImageView
+                android:id="@+id/shipping_img"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/checkout_fragment_margin"
+                android:layout_marginRight="@dimen/checkout_fragment_margin"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/shipping"/>
+
+            <TextView
+                android:id="@+id/shipping_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/checkout_fragment_margin"
+                android:layout_marginStart="@dimen/checkout_fragment_margin"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@id/shipping_img"
+                android:textSize="15sp"
+                android:text="@string/default_cost" />
+
+            <TextView
+                android:id="@+id/shipping_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/shipping_count"
+                android:layout_toEndOf="@id/shipping_count"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:text="@string/shipping" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@id/shipping_count"
+                android:background="@color/color_grey"/>
+
+            <com.primo.utils.views.SquareImageView
+                android:id="@+id/shipping_more"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_chevron_right"
+                android:layout_marginRight="@dimen/checkout_fragment_margin"
+                android:layout_marginEnd="@dimen/checkout_fragment_margin"
+                android:layout_alignTop="@id/shipping_img"
+                android:layout_alignBottom="@id/shipping_count"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/shipping_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/total_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/checkout_fragment_margin"
+        android:layout_below="@id/shipping_layout"
+        layout="@layout/total_layout"/>
+
+    <EditText
+        android:id="@+id/seller_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_border"
+        android:layout_below="@id/total_layout"
+        android:gravity="start"
+        android:padding="10dp"
+        android:layout_marginLeft="@dimen/checkout_fragment_margin"
+        android:layout_marginRight="@dimen/checkout_fragment_margin"
+        android:layout_marginBottom="@dimen/checkout_fragment_margin"
+        android:lines="2"
+        android:hint="@string/send_seller_a_message"
+        android:visibility="invisible"/>
+
+    <com.primo.utils.views.SquareImageView
+        android:id="@+id/history_btn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/history_btn_selector"
+        android:layout_below="@id/seller_message"
+        android:layout_centerHorizontal="true"/>
+
+    <!---->
+
+    <TextView
+        android:id="@+id/history_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/checkout_fragment_margin"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/history_btn"
+        android:textColor="@drawable/txt_selector"
+        android:text="@string/history"/>
+
+</RelativeLayout>

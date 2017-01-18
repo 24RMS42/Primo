@@ -1,0 +1,235 @@
+[
+    {
+        "outputFile": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-bg\\values-bg.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 67,
+                    "endOffset": 168
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-bg\\values-bg.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 105,
+                        "endColumn": 67,
+                        "endOffset": 168
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 173,
+                    "endColumn": 110,
+                    "endOffset": 279
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-bg\\values-bg.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 173,
+                        "endColumn": 110,
+                        "endOffset": 279
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 284,
+                    "endColumn": 112,
+                    "endOffset": 392
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-bg\\values-bg.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 284,
+                        "endColumn": 112,
+                        "endOffset": 392
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 397,
+                    "endColumn": 80,
+                    "endOffset": 473
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-bg\\values-bg.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 397,
+                        "endColumn": 80,
+                        "endOffset": 473
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 478,
+                    "endColumn": 113,
+                    "endOffset": 587
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-bg\\values-bg.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 478,
+                        "endColumn": 113,
+                        "endOffset": 587
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 592,
+                    "endColumn": 118,
+                    "endOffset": 706
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-bg\\values-bg.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 592,
+                        "endColumn": 118,
+                        "endOffset": 706
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 711,
+                    "endColumn": 115,
+                    "endOffset": 822
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-bg\\values-bg.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 711,
+                        "endColumn": 115,
+                        "endOffset": 822
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 827,
+                    "endColumn": 94,
+                    "endOffset": 917
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-bg\\values-bg.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 827,
+                        "endColumn": 94,
+                        "endOffset": 917
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 922,
+                    "endColumn": 94,
+                    "endOffset": 1012
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-bg\\values-bg.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 922,
+                        "endColumn": 94,
+                        "endOffset": 1012
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 1017,
+                    "endColumn": 96,
+                    "endOffset": 1109
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-bg\\values-bg.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 1017,
+                        "endColumn": 96,
+                        "endOffset": 1109
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1114,
+                    "endColumn": 90,
+                    "endOffset": 1200
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-bg\\values-bg.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 1114,
+                        "endColumn": 90,
+                        "endOffset": 1200
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 1205,
+                    "endColumn": 105,
+                    "endOffset": 1306
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\values-bg\\values-bg.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1205,
+                        "endColumn": 105,
+                        "endOffset": 1306
+                    }
+                }
+            }
+        ]
+    }
+]

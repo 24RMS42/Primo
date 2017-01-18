@@ -1,0 +1,235 @@
+[
+    {
+        "outputFile": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\debug\\values-hi\\values-hi.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 60,
+                    "endOffset": 161
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\src\\main\\res\\values-hi\\strings.xml",
+                    "position": {
+                        "startLine": 30,
+                        "startColumn": 4,
+                        "startOffset": 1919,
+                        "endColumn": 60,
+                        "endOffset": 1975
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 166,
+                    "endColumn": 104,
+                    "endOffset": 266
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\src\\main\\res\\values-hi\\strings.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 1293,
+                        "endColumn": 104,
+                        "endOffset": 1393
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 271,
+                    "endColumn": 119,
+                    "endOffset": 386
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\src\\main\\res\\values-hi\\strings.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 1795,
+                        "endColumn": 123,
+                        "endOffset": 1914
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 391,
+                    "endColumn": 79,
+                    "endOffset": 466
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\src\\main\\res\\values-hi\\strings.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 809,
+                        "endColumn": 79,
+                        "endOffset": 884
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 471,
+                    "endColumn": 111,
+                    "endOffset": 578
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\src\\main\\res\\values-hi\\strings.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 889,
+                        "endColumn": 111,
+                        "endOffset": 996
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 583,
+                    "endColumn": 115,
+                    "endOffset": 694
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\src\\main\\res\\values-hi\\strings.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 1675,
+                        "endColumn": 119,
+                        "endOffset": 1790
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 699,
+                    "endColumn": 115,
+                    "endOffset": 810
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\src\\main\\res\\values-hi\\strings.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 1001,
+                        "endColumn": 115,
+                        "endOffset": 1112
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 815,
+                    "endColumn": 90,
+                    "endOffset": 901
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\src\\main\\res\\values-hi\\strings.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1498,
+                        "endColumn": 90,
+                        "endOffset": 1584
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 906,
+                    "endColumn": 86,
+                    "endOffset": 988
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\src\\main\\res\\values-hi\\strings.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 1117,
+                        "endColumn": 86,
+                        "endOffset": 1199
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 993,
+                    "endColumn": 88,
+                    "endOffset": 1077
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\src\\main\\res\\values-hi\\strings.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 1204,
+                        "endColumn": 88,
+                        "endOffset": 1288
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1082,
+                    "endColumn": 85,
+                    "endOffset": 1163
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\src\\main\\res\\values-hi\\strings.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 4,
+                        "startOffset": 1589,
+                        "endColumn": 85,
+                        "endOffset": 1670
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 1168,
+                    "endColumn": 99,
+                    "endOffset": 1263
+                },
+                "from": {
+                    "file": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\src\\main\\res\\values-hi\\strings.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 1398,
+                        "endColumn": 99,
+                        "endOffset": 1493
+                    }
+                }
+            }
+        ]
+    }
+]

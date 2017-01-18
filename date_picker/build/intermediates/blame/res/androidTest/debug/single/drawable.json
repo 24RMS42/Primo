@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\mdtp_done_background_color_dark.xml",
+        "source": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\drawable\\mdtp_done_background_color_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\mdtp_done_background_color.xml",
+        "source": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\drawable\\mdtp_done_background_color.xml"
+    },
+    {
+        "merged": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\mdtp_material_button_background.xml",
+        "source": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\drawable\\mdtp_material_button_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\mdtp_material_button_selected.xml",
+        "source": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\drawable\\mdtp_material_button_selected.xml"
+    }
+]

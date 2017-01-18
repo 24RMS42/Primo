@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.primo.utils.views.GestureRelativeLayout
+                android:id="@+id/gesture_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true">
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/first_name"
+                    style="@style/PrefixEditTextTheme"
+                    android:hint="@string/satoshi"
+                    app:prefix_text="@string/first_name" />
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/last_name"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/first_name"
+                    android:hint="@string/nakamoto"
+                    app:prefix_text="@string/last_name" />
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/phone_number"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/last_name"
+                    android:inputType="phone"
+                    android:maxLength="20"
+                    app:prefix_text="@string/phone_number" />
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/email"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/phone_number"
+                    android:hint="@string/user_domain_com"
+                    android:inputType="textEmailAddress"
+                    app:prefix_text="@string/email" />
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/password"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/email"
+                    android:fontFamily="sans-serif"
+                    android:hint="@string/enter_your_password"
+                    android:inputType="textPassword"
+                    android:maxLength="10"
+                    app:prefix_text="@string/password" />
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/repassword"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/password"
+                    android:fontFamily="sans-serif"
+                    android:inputType="textPassword"
+                    android:maxLength="10"
+                    app:prefix_text="@string/confirm_password" />
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/address"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/repassword"
+                    android:hint="@string/_919_cheltenham_avenue"
+                    app:prefix_text="@string/address" />
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/city"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/address"
+                    android:hint="@string/melrose_park"
+                    android:imeOptions="actionNext"
+                    app:prefix_text="@string/city" />
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/country"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/city"
+                    android:focusable="false"
+                    android:hint="@string/usa"
+                    app:prefix_text="@string/country"/>
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/state"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/country"
+                    android:focusable="false"
+                    android:hint="@string/pa"
+                    app:prefix_text="@string/state_province"/>
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/zip"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/state"
+                    android:digits="0123456789-"
+                    android:hint="@string/_19027"
+                    android:inputType="number"
+                    android:maxLength="8"
+                    app:prefix_text="@string/zip_postal_code"/>
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/card_n"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/zip"
+                    android:fontFamily="sans-serif"
+                    android:hint="@string/enter_your_card_number"
+                    android:inputType="numberPassword"
+                    android:maxLength="16"
+                    android:visibility="visible"
+                    app:prefix_text="@string/card_n" />
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/card_holder"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/card_n"
+                    android:hint="@string/enter_your_card_name"
+                    android:maxLength="16"
+                    android:visibility="visible"
+                    app:prefix_text="@string/card_holder" />
+
+                <TextView
+                    android:id="@+id/only"
+                    style="@style/HeadingText"
+                    android:layout_below="@id/card_holder"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="@string/only" />
+
+                <TextView
+                    android:id="@+id/never"
+                    style="@style/HeadingText"
+                    android:layout_below="@id/only"
+                    android:text="@string/never" />
+
+                <TextView
+                    android:id="@+id/aes"
+                    style="@style/HeadingText"
+                    android:layout_below="@id/never"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/aes" />
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/card_exp"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/aes"
+                    android:layout_toLeftOf="@+id/center"
+                    android:layout_toStartOf="@+id/center"
+                    android:background="@drawable/edit_text_top_bottom_lines"
+                    android:focusable="false"
+                    app:prefix_text="@string/card_exp" />
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/card_cvc"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/aes"
+                    android:layout_toEndOf="@+id/center"
+                    android:layout_toRightOf="@+id/center"
+                    android:background="@drawable/edit_text_top_bottom_lines"
+                    android:fontFamily="sans-serif"
+                    android:inputType="numberPassword"
+                    android:maxLength="4"
+                    app:prefix_text="@string/card_cvc" />
+
+                <TextView
+                    android:id="@+id/date_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/card_cvc"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="@string/time_of_the_day_receive"
+                    android:textColor="@android:color/black" />
+
+                <com.primo.utils.views.DateChooserView
+                    android:id="@+id/date_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/date_txt"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp" />
+
+                <LinearLayout
+                    android:id="@+id/email_txt_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_alignBottom="@+id/email_switch"
+                    android:layout_below="@id/date_view"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/email_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="@string/sign_up_text"
+                        android:textColor="@android:color/black" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/email_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingStart="10dp"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/checkout_btn"
+                    style="@style/RedButton"
+                    android:layout_marginBottom="15dp"
+                    android:layout_below="@id/email_txt_container"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/sign_up"/>
+
+                <TextView
+                    android:id="@+id/terms_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/checkout_btn"
+                    android:layout_marginBottom="15dp"
+                    android:autoLink="none"
+                    android:gravity="center"
+                    android:text="@string/by_clicking_check_out"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <Space
+                    android:id="@+id/center"
+                    android:layout_width="1px"
+                    android:layout_height="1px"
+                    android:layout_centerInParent="true" />
+
+            </com.primo.utils.views.GestureRelativeLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</FrameLayout>
+
+

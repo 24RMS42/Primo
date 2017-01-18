@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.primo.utils.views.GestureRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gesture_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/cart_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</com.primo.utils.views.GestureRelativeLayout>

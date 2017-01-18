@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/date_chooser_view_height"
+    android:background="@drawable/rounded_border">
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/morning"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/date_chooser_view_height"
+        android:layout_weight="1"
+        android:textAllCaps="false"
+        android:text="@string/morning"
+        android:textColor="@color/color_grey"
+        android:background="@android:color/transparent"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/color_grey"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/afternoon"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/date_chooser_view_height"
+        android:layout_weight="1"
+        android:textAllCaps="false"
+        android:text="@string/afternoon"
+        android:textColor="@color/color_grey"
+        android:background="@android:color/transparent"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/color_grey"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/evening"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/date_chooser_view_height"
+        android:layout_weight="1"
+        android:textAllCaps="false"
+        android:text="@string/evening"
+        android:textColor="@color/color_grey"
+        android:background="@android:color/transparent"/>
+
+</merge>

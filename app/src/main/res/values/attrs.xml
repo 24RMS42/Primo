@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PrefixedEditText">
+        <attr name="prefix_text" format="string" />
+        <attr name="prefix_space" format="dimension" />
+        <attr name="prefix_color" format="color" />
+    </declare-styleable>
+
+</resources>

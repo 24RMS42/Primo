@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\mdtp_time_title_view.xml",
+        "source": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\layout\\mdtp_time_title_view.xml"
+    },
+    {
+        "merged": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\mdtp_date_picker_view_animator.xml",
+        "source": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\layout\\mdtp_date_picker_view_animator.xml"
+    },
+    {
+        "merged": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\mdtp_date_picker_selected_date.xml",
+        "source": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\layout\\mdtp_date_picker_selected_date.xml"
+    },
+    {
+        "merged": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\mdtp_date_picker_dialog.xml",
+        "source": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\layout\\mdtp_date_picker_dialog.xml"
+    },
+    {
+        "merged": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\mdtp_done_button.xml",
+        "source": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\layout\\mdtp_done_button.xml"
+    },
+    {
+        "merged": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\mdtp_time_picker_dialog.xml",
+        "source": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\layout\\mdtp_time_picker_dialog.xml"
+    },
+    {
+        "merged": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\mdtp_year_label_text_view.xml",
+        "source": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\layout\\mdtp_year_label_text_view.xml"
+    },
+    {
+        "merged": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\mdtp_date_picker_header_view.xml",
+        "source": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\layout\\mdtp_date_picker_header_view.xml"
+    },
+    {
+        "merged": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\mdtp_time_header_label.xml",
+        "source": "C:\\Users\\slesh\\Desktop\\Workspace\\primo_android\\date_picker\\build\\intermediates\\bundles\\debug\\res\\layout\\mdtp_time_header_label.xml"
+    }
+]
