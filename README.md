@@ -4,7 +4,7 @@ PRIMO Android App
 
 ### Framework ###
 
-* Kotlin 1.0.1
+* Kotlin 1.0.5
 
 ### How to setup ###
 
@@ -34,34 +34,3 @@ PRIMO Android App
 * [Merchant Staging Site](http://staging.primo.im/merchant/signin) 
 Test merchant id:  merchant@primo.im
 Password: merchant
-
-### Contribution guidelines ###
-
-* Write with comment
-* Multi line comment:
-```
-/**
- * multi line
- * comment
- */
-```
-* Single line comment:
-```
-// single line comment
-```
-* Put the following comment at the top of every source file:
-```
-/**
- * Changes:
- *
- * - some changes
- * - some changes
- *
- * 2015 © Primo . All rights reserved.
- */
-
-```
-
-### Who do I talk to? ###
-
-* ts@primo.im
