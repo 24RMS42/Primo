@@ -2,8 +2,9 @@
 
 PRIMO Android App
 
-### Framework ###
+### Language ###
 
+* Java
 * Kotlin 1.0.5
 
 ### How to setup ###
