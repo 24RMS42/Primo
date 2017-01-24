@@ -1,3 +1,12 @@
+/**
+ * Changes:
+ *
+ * - Add Deeplink feature
+ * - Show Reject Fragment
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.goods.fragments
 
 import android.Manifest
@@ -50,6 +59,14 @@ class GoodsPagerFragment : BasePresenterFragment<GoodsPagerView, GoodsPagerPrese
             pager?.adapter = pagerAdapter
             pager?.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
                 override fun onPageSelected(position: Int) {
+
+                    if (position == 1){
+                        (activity as MainActivity).showMainTabbar(true)
+                        (activity as MainActivity).changeTabbarState(MainActivity.TabbarStates.CART)
+                    }
+                    else
+                        (activity as MainActivity).showMainTabbar(false)
+
                     super.onPageSelected(position)
                     activity.hideKeyboard()
                 }
@@ -76,6 +93,7 @@ class GoodsPagerFragment : BasePresenterFragment<GoodsPagerView, GoodsPagerPrese
         _subscriptions?.add(_rxBus?.toObserverable()
                 ?.subscribe({
 
+                    Log.d("Test", "Pager get event" + it.key)
                     when (it.key) {
 
                         Events.CONFIRMED,
@@ -95,9 +113,21 @@ class GoodsPagerFragment : BasePresenterFragment<GoodsPagerView, GoodsPagerPrese
                         }
                     }
                 }));
+
+        val pair = (activity as MainActivity).getDeeplinkData()
+        if (pair.first != "" && pair.second != "")
+            slideNext()
+
+        (activity as MainActivity).showMainTabbar(false)
+
+        //when click camera tab
+        val pageState = (activity as MainActivity).getPageState()
+        if (pageState == 1)
+            slideNext()
     }
 
     fun slideNext() {
+        (activity as MainActivity).showMainTabbar(true)
         pager?.currentItem = 1
     }
 
@@ -150,7 +180,44 @@ class GoodsPagerFragment : BasePresenterFragment<GoodsPagerView, GoodsPagerPrese
     }
 
     override fun showMessage(message: String?, event: RxEvent?) {
-        showDialog(message)
+
+        //If reject case, it shows Reject fragment
+        if (event?.key == Events.ORDER_REJECT) {
+
+            //Clear Cart list
+            MainClass.getRxBus()?.send(RxEvent(Events.UPDATE_PRODUCTS))
+
+            //Set data to RejectFragment
+            val bundle = Bundle()
+            bundle.putString("body_data", message)
+            bundle.putString("kind", "order_reject")
+            val fragObj = RejectFragment()
+            fragObj.arguments = bundle
+
+            showFragment(fragObj, true,
+                    R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right, RejectFragment::class.java.simpleName)
+        }
+        else if (event?.key == Events.REJECT) {
+
+            //Clear Cart list
+            MainClass.getRxBus()?.send(RxEvent(Events.UPDATE_PRODUCTS))
+
+            //Set data to RejectFragment
+            val bundle = Bundle()
+            bundle.putString("body_data", message)
+            bundle.putString("kind", "reject")
+            val fragObj = RejectFragment()
+            fragObj.arguments = bundle
+
+            showFragment(fragObj, true,
+                    R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right, RejectFragment::class.java.simpleName)
+        }
+        else
+            showDialog(message)
+    }
+
+    override fun displayErrorMessage(message : String?, code: Int?, event: RxEvent?){
+        showErrorDialog(message, code)
     }
 
     override fun onStop() {

@@ -1,10 +1,21 @@
+/**
+ * Changes:
+ *
+ * - Save encrypted token
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.main
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.primo.network.new_models.Auth
+import com.primo.utils.SecurePreferences
 import com.primo.utils.consts.*
 import com.primo.utils.other.RxBus
+import java.util.*
 
 object MainClass {
 
@@ -26,6 +37,10 @@ object MainClass {
 
     fun getSharedPreferences(): SharedPreferences {
         return context.getSharedPreferences(APP, Context.MODE_PRIVATE)
+    }
+
+    fun getSecurePreferences(): SecurePreferences {
+        return SecurePreferences(context, APP, SECUREKEY, true)
     }
 
     fun saveLoginData(email: String, password: String) {
@@ -52,20 +67,25 @@ object MainClass {
 
         auth?.let {
             getSharedPreferences().edit()
-                    .putString(ACCESS_TOKEN, auth.access_token)
+                    //.putString(ACCESS_TOKEN, auth.access_token)
                     .putLong(EXPIRES_IN, auth.expires_in)
                     .putInt(USER_STATUS, auth.user_status)
                     .putString(CART_ID, auth.cart_id)
                     .putString(CREDITCARD_ID, auth.creditcard_id)
                     .putString(SHIPPING_ID, auth.shipping_id).apply()
         }
+        getSecurePreferences().put(ACCESS_TOKEN, auth?.access_token)
+        Log.d("Test", "save token:" + auth?.access_token)
     }
 
     fun getAuth(): Auth {
 
         val prefs = getSharedPreferences()
 
-        val token = prefs.getString(ACCESS_TOKEN, "")
+        var token = getSecurePreferences().getString(ACCESS_TOKEN)
+        if (token == null) token = ""
+
+        //val token = prefs.getString(ACCESS_TOKEN, "")
         val expires = prefs.getLong(EXPIRES_IN, 0)
         val status = prefs.getInt(USER_STATUS, 0)
         val cartId = prefs.getString(CART_ID, "")
@@ -75,5 +95,20 @@ object MainClass {
         val auth = Auth(token, expires, status, cartId, creditId, shippingId)
 
         return auth
+    }
+
+    fun getCurrentTime(): Long{
+        val s = System.currentTimeMillis() / 1000
+        return s
+    }
+
+    fun saveSignUpTime(){
+        Log.d("Test", "signUptime:" + getCurrentTime())
+        getSharedPreferences().edit().putLong(SIGNUP_TIME, getCurrentTime()).apply()
+    }
+
+    fun getSignUpTime(): Long{
+        val s = getSharedPreferences().getLong(SIGNUP_TIME,0)
+        return s
     }
 }
