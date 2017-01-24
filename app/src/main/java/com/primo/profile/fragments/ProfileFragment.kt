@@ -1,9 +1,19 @@
+/**
+ * Changes:
+ *
+ * - Control toolbar
+ * - Handle auto login
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.profile.fragments
 
 import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.SwitchCompat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +25,7 @@ import com.primo.main.MainActivity
 import com.primo.main.MainClass
 import com.primo.network.models.Country
 import com.primo.network.models.State
-import com.primo.network.new_models.Auth
-import com.primo.network.new_models.CreditCard
-import com.primo.network.new_models.UserProfile
+import com.primo.network.new_models.*
 import com.primo.profile.mvp.OrderPresenter
 import com.primo.profile.mvp.OrderView
 import com.primo.profile.mvp.ProfilePresenterImpl
@@ -32,6 +40,7 @@ import com.primo.utils.views.GestureRelativeLayout
 import com.primo.utils.views.MonthYearPicker
 import com.primo.utils.views.PrefixedEditText
 import rx.subscriptions.CompositeSubscription
+import java.util.*
 
 class ProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), OrderView, View.OnClickListener,
         GestureRelativeLayout.OnSwipeListener, MultipleTextWatcher, PlaceBottomSheet.ListDialogResult {
@@ -98,6 +107,8 @@ class ProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Orde
 
             presenter?.retrieveUserData()
             presenter?.retrieveCardData()
+
+            (activity as MainActivity).showToolbar(true)
         }
 
         return rootView
@@ -241,6 +252,26 @@ class ProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Orde
         showDialog(message)
     }
 
+    override fun displayErrorMessage(message : String?, code: Int?, event: RxEvent?){
+        showErrorDialog(message, code)
+    }
+
+    override fun getAddressData(addressData: Address?){
+
+    }
+
+    override fun updateListShippingAddress(listShippingAddress: ArrayList<UserProfile>){
+
+    }
+
+    override fun updateShippingAddress(){
+
+    }
+
+    override fun updateListCreditCard(listCreditCard: ArrayList<CreditCardData>) {
+
+    }
+
     override fun updateUserData(userData: UserProfile?) {
 
         firstName?.setText(userData?.firstname ?: "")
@@ -348,6 +379,7 @@ class ProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Orde
                             dateView?.timePosition.toString(), emailSwitch?.isChecked ?: false)
 
                     MainClass.saveLoginData(email, password)
+                    MainClass.saveSignUpTime()
                 }
             }
 

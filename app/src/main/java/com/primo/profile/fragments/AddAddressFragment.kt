@@ -61,9 +61,9 @@ class AddAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), O
                     Log.d("Test", "AddAddress fragment get event:" + it.key)
                     when (it.key) {
 
-                        Events.TAB_CARD -> {
-                            onNextButtonClick()
-                        }
+//                        Events.TAB_CARD -> {
+//                            onNextButtonClick()
+//                        }
                     }
                 }));
     }
@@ -151,7 +151,10 @@ class AddAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), O
 
             R.id.delete_btn -> {
 
-                confirmDialogShow(1, item)
+                if (item?.is_default == 1)
+                    showMessage(MainClass.context.getString(R.string.cannot_delete_default_address))
+                else
+                    confirmDialogShow(1, item)
             }
 
             R.id.default_image -> {
@@ -180,8 +183,7 @@ class AddAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), O
                 presenter?.deleteShippingAddress(item!!.shipping_id)
 
             else if (dialogID == 2)
-                presenter?.updateDefaultShippingAddress(item!!.shipping_id, item!!.phone, item!!.firstname, item!!.lastname, item!!.address,
-                        item!!.city, item!!.state, item!!.country, item!!.postcode, 1)
+                presenter?.updateDefaultShippingAddress(item!!.shipping_id)
 
         }
 

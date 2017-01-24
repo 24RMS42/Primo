@@ -1,7 +1,22 @@
+/**
+ * Changes:
+ *
+ * - Parse status value
+ * - Add Reject parser
+ * - Change CartItem and WishItem for merchant info
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.network.parsers
 
+import android.util.Log
 import com.primo.network.new_models.*
 import com.primo.utils.*
+import com.primo.utils.consts.ACTIVE
+import com.primo.utils.consts.PARSE_ORDER
+import com.primo.utils.consts.PARSE_ORDER_REJECT
+import com.primo.utils.consts.PARSE_REJECT
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -74,6 +89,7 @@ object PrimoParsers {
         try {
 
             val jsonObject = JSONObject(data)
+            Log.d("Test", "user profile retrieved:" + data)
 
             val email = jsonObject.getString("email", "")
             val phone = jsonObject.getString("phone", "")
@@ -89,7 +105,7 @@ object PrimoParsers {
             val is_mail_campaign = jsonObject.getInt("is_mail_campaign", 0)
 
             userProfile = UserProfile(email, phone, cell_phone, firstname, lastname, address, city,
-                    state, country, postcode, delivery_preference, is_mail_campaign)
+                    state, country, postcode, delivery_preference, is_mail_campaign, 0, "")
 
         } catch (ex: JSONException) {
             ex.printStackTrace()
@@ -128,6 +144,7 @@ object PrimoParsers {
 
         try {
 
+            Log.d("Test", "product parser:" + data)
             val jsonObject = JSONObject(data)
 
             val detailObject = jsonObject.getJSONObject("detail", JSONObject())
@@ -224,9 +241,11 @@ object PrimoParsers {
         try {
 
             val jsonObject = JSONObject(data)
+            Log.d("Test", "cart item parser:" + data)
 
             val productId = jsonObject.getString("product_id", "")
             val cartItemId = jsonObject.getString("cart_item_id", "")
+            val status = jsonObject.getInt("status", 1)
             val quantity = jsonObject.getInt("quantity", 1)
             val productName = jsonObject.getString("product_name", "")
 
@@ -235,6 +254,14 @@ object PrimoParsers {
             val thumbnailUrl = defaultImageObj.getString("image_thumbnail_url", "")
 
             val stock = stockParser(jsonObject.getString("stock", "")) ?: Stock()
+
+            //Merchant Parsing
+            val merchantObject = jsonObject.getJSONObject("merchant", JSONObject())
+            val merchantName = merchantObject.getString("merchant_name", "")
+            val country = merchantObject.getString("country", "")
+            val url = merchantObject.getString("url", "")
+            val phone = merchantObject.getString("phone", "")
+            //end
 
             val dataSupportObject = jsonObject.getJSONObject("data_support", JSONObject())
             val currency = dataSupportObject.getInt("currency", 0)
@@ -245,9 +272,9 @@ object PrimoParsers {
             val shippingInterOption = dataSupportObject.getInt("shipping_international_option", 0)
             val shippingInterAmount = dataSupportObject.getDouble("shipping_international_amount", 0.0)
 
-            cartItem = CartItem(productId, cartItemId, quantity, productName, imageUrl, thumbnailUrl, stock,
+            cartItem = CartItem(productId, cartItemId, status, quantity, productName, imageUrl, thumbnailUrl, stock,
                     price, currency, description, shippingDomOption, shippingDomAmount,
-                    shippingInterOption, shippingInterAmount)
+                    shippingInterOption, shippingInterAmount, merchantName, country, url)
         } catch (ex: JSONException) {
             ex.printStackTrace()
         }
@@ -282,6 +309,7 @@ object PrimoParsers {
 
         try {
 
+            Log.d("Test", "wish item parser:" + data)
             val jsonObject = JSONObject(data)
 
             val quantity = jsonObject.getInt("quantity", 0)
@@ -292,6 +320,14 @@ object PrimoParsers {
             val productId = productObj.getString("product_id", "")
 
             val detailObject = productObj.getJSONObject("detail", JSONObject())
+
+            //Merchant Parsing
+            val merchantObject = productObj.getJSONObject("merchant", JSONObject())
+            val merchantName = merchantObject.getString("merchant_name", "")
+            val country = merchantObject.getString("country", "")
+            val url = merchantObject.getString("url", "")
+            val phone = merchantObject.getString("phone", "")
+            //end
 
             val productName = detailObject.getString("product_name", "")
             val currency = detailObject.getInt("currency", 0)
@@ -319,7 +355,7 @@ object PrimoParsers {
             wishItem = WishItem(productId, wishlistId, quantity, productName, category, variantType,
                     weightTypeUnit, weightAmount, zeroPriceAction, minimumOrderQty, maximumOrderQty,
                     taxType, taxAmount, creationDate, availSinceDate, outOfStockAction, imageUrl,
-                    thumbnailUrl, stock, price, currency, description)
+                    thumbnailUrl, stock, price, currency, description, merchantName, country, url)
         } catch (ex: JSONException) {
             ex.printStackTrace()
         }
@@ -499,6 +535,29 @@ object PrimoParsers {
         return list
     }
 
+    fun countParser(data: String): Int {
+
+        var result = 0
+
+        try {
+            val jsonObject = JSONObject(data)
+            val rejects = jsonObject.getJSONArrayExt("rejects")
+            val orders = jsonObject.getJSONArrayExt("orders")
+
+            if (rejects.length() > 0 && orders.length() > 0)
+                result = PARSE_ORDER_REJECT
+            else if (rejects.length() > 0 && orders.length() == 0)
+                result = PARSE_REJECT
+            else if (orders.length() > 0 && rejects.length() == 0)
+                result = PARSE_ORDER
+
+        } catch (ex: JSONException) {
+            ex.printStackTrace()
+        }
+
+        return result
+    }
+
     fun orderParser(data: String): Boolean {
 
         var isOrderSuccess = false
@@ -527,6 +586,88 @@ object PrimoParsers {
         }
 
         return isOrderSuccess
+    }
+
+    fun rejectParser(data: String): ArrayList<RejectItem> {
+
+        val reject_items = arrayListOf<RejectItem>()
+
+        try {
+
+            val dataObj = JSONObject(PrimoParsers.dataParser(data))
+            Log.d("Test", "only reject data:" + dataObj)
+            val rejectDataArr = dataObj.getJSONArrayExt("rejects")
+
+            val size = rejectDataArr.length()
+            for (i in 0..size - 1) {
+
+                val rejectDataItem = rejectDataArr.getJSONObject(i)
+
+                val code = rejectDataItem.getInt("code")
+                val items = rejectDataItem.getJSONObject("item")
+                val product_id = items.getString("product_id")
+                val product_name = items.getString("product_name")
+
+                val images = items.getJSONObject("default_image")
+                val product_image_url = images.getString("image_url")
+                val product_thumbnail_url = images.getString("image_thumbnail_url")
+
+                val reject_item =  RejectItem(product_id, product_name, product_image_url, product_thumbnail_url, code)
+                reject_items.add(reject_item)
+            }
+
+        } catch (ex: JSONException) {
+            ex.printStackTrace()
+        }
+
+        return reject_items
+    }
+
+    fun orderRejectParser(data: String): ArrayList<RejectItem> {
+
+        val items = arrayListOf<RejectItem>()
+
+        try {
+
+            val dataObj = JSONObject(PrimoParsers.dataParser(data))
+            val rejectDataArr = dataObj.getJSONArrayExt("rejects")
+            val orderDataArr  = dataObj.getJSONArrayExt("orders")
+
+            val size = orderDataArr.length()
+            for (i in 0..size - 1) {
+
+                val orderDataItem = orderDataArr.getJSONObject(i)
+                val rejectDataItem = rejectDataArr.getJSONObject(i)
+
+                val code = rejectDataItem.getInt("code")
+
+                val details = orderDataItem.optJSONArray("details")
+                if (details.length() > 0) {
+
+                    val detailObject = details.getJSONObject(0)
+
+                    val supportObject = detailObject.optJSONObject("data_support")
+
+                    val productName = supportObject.optString("product_name", "")
+
+                    val productImageUrl = supportObject.optString("product_image_url", "")
+                    val productThumbnailUrl = supportObject.optString("product_image_thumbnail_url", "")
+
+                    val product = supportObject.optJSONObject("product")
+                    val productId = product.optString("product_id", "")
+
+                    val item = RejectItem(productId, productName, productImageUrl, productThumbnailUrl, code)
+
+                    items.add(item)
+                }
+
+            }
+
+        } catch (ex: JSONException) {
+            ex.printStackTrace()
+        }
+
+        return items
     }
 
     fun orderHistoryParser(data: String): ArrayList<CartItem> {
@@ -574,7 +715,7 @@ object PrimoParsers {
                     val stock = Stock()
                     stock.stock_id = stockId
 
-                    val item = CartItem(productId, ""/*empty*/, 1, productName, productImageUrl, productImageUrl, stock, price, currency, description, -1, 0.0, -1, 0.0)
+                    val item = CartItem(productId, ""/*empty*/, ACTIVE, 1, productName, productImageUrl, productImageUrl, stock, price, currency, description, -1, 0.0, -1, 0.0)
 
                     items.add(item)
                 }
@@ -586,5 +727,119 @@ object PrimoParsers {
         }
 
         return items
+    }
+
+    fun postCodeParser(data: String): Address? {
+
+        var postCode: Address? = null
+
+        try {
+
+            val jsonObject = JSONObject(data)
+
+            val prefecture = jsonObject.getString("prefecture_kanji", "")
+            val city = jsonObject.getString("city_kanji", "")
+            val town = jsonObject.getString("town_kanji", "")
+
+            postCode = Address(prefecture, city, town)
+
+        } catch (ex: JSONException) {
+            ex.printStackTrace()
+        }
+
+        return postCode
+    }
+
+    fun listShippingAddressParser(data: String): ArrayList<UserProfile> {
+
+        val shippingAddress_items = arrayListOf<UserProfile>()
+
+        try {
+
+            val dataObj = JSONObject(data)
+            val dataArr = dataObj.optJSONArray("data")
+            Log.d("Test", "shipping address array:" + dataArr)
+
+            val size = dataArr.length()
+            for (i in 0..size - 1) {
+
+                val item = dataArr.getJSONObject(i)
+
+                val firstname   = item.getString("firstname")
+                val lastname    = item.getString("lastname")
+                val phone       = item.getString("phone")
+                val shipping_id = item.getString("shipping_id")
+                val post_code   = item.getString("postcode")
+                val address     = item.getString("address")
+                val city        = item.getString("city")
+                val state       = item.getString("state")
+                val country     = item.getInt("country")
+                val is_default  = item.getInt("is_default")
+
+                val shippingAddress_item =  UserProfile("", phone, "", firstname, lastname, address, city, state, country, post_code, 2, 1, is_default, shipping_id)
+                shippingAddress_items.add(shippingAddress_item)
+            }
+
+        } catch (ex: JSONException) {
+            ex.printStackTrace()
+        }
+
+        return shippingAddress_items
+    }
+
+    fun listCreditCardParser(data: String): ArrayList<CreditCardData> {
+
+        val creditCard_items = arrayListOf<CreditCardData>()
+
+        try {
+
+            val dataObj = JSONObject(data)
+            val dataArr = dataObj.optJSONArray("data")
+            Log.d("Test", "credit card array:" + dataArr)
+
+            val size = dataArr.length()
+            for (i in 0..size - 1) {
+
+                val item = dataArr.getJSONObject(i)
+
+                val creditcard_id = item.getString("creditcard_id")
+                val last_four     = item.getString("last_four")
+                val cardname      = item.getString("cardname")
+                val cardyear      = item.getInt("cardyear")
+                val cardmonth     = item.getInt("cardmonth")
+                val cardtype      = item.getInt("cardtype")
+                val cardtype_name = item.getString("cardtype_name")
+                val is_default    = item.getInt("is_default")
+
+                val creditCard_item =  CreditCardData(creditcard_id, cardname, cardyear, cardmonth, cardtype, cardtype_name, last_four, is_default)
+                creditCard_items.add(creditCard_item)
+            }
+
+        } catch (ex: JSONException) {
+            ex.printStackTrace()
+        }
+
+        return creditCard_items
+    }
+
+    fun checkShippingCardParser(data: String): Array<Boolean?> {
+
+        val array = arrayOfNulls<Boolean>(2)
+        Arrays.fill(array, true)
+
+        try {
+            Log.d("Test", "check shipping card parser:" + data)
+            val dataObj = JSONObject(data)
+            val is_shipping = dataObj.getBoolean("is_shipping")
+            val is_payment = dataObj.getBoolean("is_payment")
+
+            array[0] = is_shipping
+            array[1] = is_payment
+
+        } catch (ex: JSONException){
+            ex.printStackTrace()
+        }
+
+        return array
     }
 }

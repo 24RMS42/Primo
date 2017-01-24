@@ -1,8 +1,18 @@
+/**
+ * Changes:
+ *
+ * - Remove (-) button for 0 stock item
+ * - Show 'no stock' note
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.goods.adapter
 
 import android.net.Uri
 import android.support.v7.widget.RecyclerView
 import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +23,7 @@ import com.primo.goods.view.GoodsFooterView
 import com.primo.network.models.ShippingQuote
 import com.primo.network.new_models.CartItem
 import com.primo.utils.base.BaseItem
+import com.primo.utils.consts.ADD_TO_WISHLIST
 import com.primo.utils.getCurrency
 import com.primo.utils.interfaces.OnItemClickListener
 import com.primo.utils.round
@@ -63,12 +74,25 @@ class GoodsListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             val item = list[position]
 
             with(item) {
+                Log.d("Test", "list adapter item" + item)
                 holder.image?.setImageURI(Uri.parse(getBaseImage()))
                 holder.title?.text = getBaseName()
                 holder.description?.text = Html.fromHtml(getBaseDescription()).toString()
                 holder.price?.text = "${getCurrency(getBaseCurrency())} ${(getBasePrice()
                         /** quantity*/
                         ).round(2).toStringWithoutZeros() }"
+
+                //if status is 4, invisible - button
+                if (getBaseStatus() == ADD_TO_WISHLIST){
+                    holder.plusBtn?.visibility = View.GONE
+                    holder.noStockText?.visibility = View.VISIBLE
+                    holder.quantity?.visibility = View.INVISIBLE
+                } else{
+                    holder.plusBtn?.visibility = View.VISIBLE
+                    holder.noStockText?.visibility = View.GONE
+                    holder.quantity?.visibility = View.VISIBLE
+                }
+                //end
 
                 if (!hideMinus) {
                     holder.quantity?.text = getBaseQuantity().toString()
@@ -125,6 +149,7 @@ class GoodsListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         var plusBtn: View? = null
         var minusBtn: SquareImageView? = null
         var quantity: TextView? = null
+        var noStockText: TextView? = null
 
         var firstStockParam: TextView? = null
         var secondStockParam: TextView? = null
@@ -138,6 +163,7 @@ class GoodsListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             plusBtn = itemView?.findViewById(R.id.plus_btn)
             minusBtn = itemView?.findViewById(R.id.minus_btn) as SquareImageView
             quantity = itemView?.findViewById(R.id.quantity) as TextView
+            noStockText = itemView?.findViewById(R.id.txtNoStock) as TextView
 
             firstStockParam = itemView?.findViewById(R.id.first_stock_param) as TextView
             secondStockParam = itemView?.findViewById(R.id.second_stock_param) as TextView

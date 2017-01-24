@@ -145,7 +145,10 @@ class AddCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Orde
 
             R.id.delete_btn -> {
 
-                confirmDialogShow(1, item)
+                if (item?.is_default == 1)
+                    showMessage(MainClass.context.getString(R.string.cannot_delete_default_card))
+                else
+                    confirmDialogShow(1, item)
             }
 
             R.id.default_image -> {
