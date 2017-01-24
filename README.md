@@ -7,6 +7,14 @@ PRIMO Android App
 * Java
 * Kotlin 1.0.5
 
+### Technology stack used ###
+
+* Realm
+* Custom component (GestureRelativeLayout, PrefixedEditText, VerticalViewPager, MonthYearPicker)
+* RxJava (CompositeSubscription)
+* OkHTTP
+...
+
 ### How to setup ###
 
 * Checkout
