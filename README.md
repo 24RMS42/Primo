@@ -40,7 +40,5 @@ PRIMO Android App
 
 ### Helpful links ###
 * [API documentation](http://staging.primo.im/api/v1/ad09c3d49a3202772452bd229203a35c)
-* [Merchant Staging Site](http://staging.primo.im/merchant/signin) 
-Test merchant id:  merchant@primo.im
-Password: merchant
+* [Merchant Staging Site](http://staging.primo.im/merchant/signin)
 * [Google play store](https://play.google.com/store/apps/details?id=com.primo)
