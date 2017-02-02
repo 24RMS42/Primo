@@ -7,12 +7,12 @@ import okhttp3.OkHttpClient
 object APIPrimo {
 
     //DEV
-//    const val API_SCHEME = "http"
-//    const val API_HOST =  "staging.doughnut.primo.im" // "staging.primo.im" //
+    const val API_SCHEME = "http"
+    const val API_HOST =  "staging.doughnut.primo.im" // "staging.primo.im" //
 
     //RELEASE
-    const val API_SCHEME = "https"
-    const val API_HOST = "primo.im"
+//    const val API_SCHEME = "https"
+//    const val API_HOST = "primo.im"
 
     const val API_PATH = "api/v1"
 
@@ -21,25 +21,30 @@ object APIPrimo {
     const val AUTHORIZATION = "Authorization"
 
     //DEV
-//    const val CLIENT_ID_VALUE = "8pdQeisGsr4lDXRncpSYXRA7"
-//    const val CLIENT_SECRET_VALUE = "90u3sw1ZXRSwiIPSnYYgYGvufawBHpBK"
+    const val CLIENT_ID_VALUE = "8pdQeisGsr4lDXRncpSYXRA7"
+    const val CLIENT_SECRET_VALUE = "90u3sw1ZXRSwiIPSnYYgYGvufawBHpBK"
 
     //RELEASE
-    const val CLIENT_ID_VALUE = "PIVeoWaMGuIyr87A5JjVSc9z"
-    const val CLIENT_SECRET_VALUE = "56I3bwQk1YutAYLUQELibcHOlL9vELMu"
+//    const val CLIENT_ID_VALUE = "PIVeoWaMGuIyr87A5JjVSc9z"
+//    const val CLIENT_SECRET_VALUE = "56I3bwQk1YutAYLUQELibcHOlL9vELMu"
 
     const val API_USER = "user"
     const val API_PRODUCT = "product"
     const val API_TCART = "tcart"
     const val API_CART = "cart"
     const val API_ORDER = "order"
-
+    const val API_DOWN = "down"
 
     const val API_SIGNUP = "signup"
+    const val API_SIGNUP_BASIC = "signup/basic"
+    const val API_SIGNUP_NOCC = "signup/nocc"
+    const val API_JP = "jp"
+    const val API_POSTCODE = "postcode"
     const val API_CC = "cc"
     const val API_ACCESS = "access"
     const val API_PROFILE = "profile"
     const val API_SHIPPING = "shipping"
+    const val API_DEFAULT = "default"
     const val API_CHANGE = "change"
     const val API_PASSWORD = "password"
     const val API_TOKEN = "token"
@@ -54,6 +59,10 @@ object APIPrimo {
     const val API_WHISHLIST = "wishlist"
     const val API_HISTORY = "history"
     const val API_STOCKS = "stocks"
+    const val API_CHECK = "check"
+    const val API_PAYMENT = "payment"
+    const val API_BASIC = "basic"
+    const val API_COUNTRY = "country"
 
     val JSON = MediaType.parse("application/json; charset=utf-8")
 

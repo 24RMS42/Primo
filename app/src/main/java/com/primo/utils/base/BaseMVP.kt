@@ -16,6 +16,12 @@ interface BaseView: DebugInformer{
     override fun showErrorMessage(message: String) {
         //Toast.makeText(MainClass.context, "API ERROR: $message", Toast.LENGTH_LONG).show()
     }
+
+    override fun showToastMessage(message: String) {
+        Toast.makeText(MainClass.context, message, Toast.LENGTH_LONG).show()
+    }
+
+    fun displayErrorMessage(message : String? = "", code: Int?, event: RxEvent? = null)
 }
 
 abstract class BasePresenter <T : BaseView>(view : T) {

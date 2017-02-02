@@ -72,8 +72,9 @@ object PrimoParsers {
             val cart_id = jsonObject.getString("cart_id", "")
             val creditcard_id = jsonObject.getString("creditcard_id", "")
             val shipping_id = jsonObject.getString("shipping_id", "")
+            val country = jsonObject.getInt("country", -1)
 
-            auth = Auth(access_token, expires_in, user_status, cart_id, creditcard_id, shipping_id)
+            auth = Auth(access_token, expires_in, user_status, cart_id, creditcard_id, shipping_id, country)
 
         } catch(ex: JSONException) {
             ex.printStackTrace()

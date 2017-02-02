@@ -26,6 +26,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.primo.R
+import com.primo.auth.fragment.AuthFragment
 import com.primo.goods.fragments.GoodsPagerFragment
 import com.primo.main.MainActivity
 import com.primo.main.MainClass
@@ -84,6 +85,7 @@ class PageProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
     private var showPassword = false
     private var signUpState = 4 //normal
     private var action_kind = ""
+    private var deviceLanguage = "en"
 
     override fun onStart() {
         super.onStart()
@@ -149,11 +151,10 @@ class PageProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
         passwordErr= rootView?.findViewById(R.id.password_err) as TextView
         countryErr = rootView?.findViewById(R.id.country_err) as TextView
 
+        deviceLanguage = getDeviceLanguage()
         setOnClickListener(this, passwordEye, country, nextBtn)
 
         _rxBus = MainClass.getRxBus()
-
-        (activity as MainActivity).showToolbar(true)
 
         //show Profile Tab
         (activity as MainActivity).changeProfileTabState(MainActivity.ProfileTabStates.PROFILE_PAGE)
@@ -394,7 +395,7 @@ class PageProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
 
     }
 
-    override fun updateShippingAddress(){
+    override fun updateShippingAddress(){ //used B's method
         showMessage(MainClass.context.getString(R.string.successfully_update))
     }
 
@@ -417,7 +418,16 @@ class PageProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
         if (countryIndex >= 0) {
 
             val countryModel = countryList[countryIndex]
-            country?.setText(countryModel.name)
+
+            if (deviceLanguage == "en")
+                country?.setText(countryModel.name)
+            else if (deviceLanguage == "ja")
+                country?.setText(countryModel.name_ja)
+            else if (deviceLanguage == "ch")
+                country?.setText(countryModel.name_ch)
+            else if (deviceLanguage == "cht")
+                country?.setText(countryModel.name_cht)
+
             country?.tag = countryModel.fileName
         }
 
@@ -439,6 +449,10 @@ class PageProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
         //TODO DELETE
         activity?.onBackPressed()
         MainClass.getRxBus()?.send(RxEvent(Events.SIGNED))
+    }
+
+    override fun onSignUped() {
+        showFragment(AuthFragment(), true, R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right)
     }
 
     override fun onCountrySelected() {
@@ -544,15 +558,18 @@ class PageProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
     }
 
     override fun onSwipeToLeft() {
-        super.onSwipeToLeft()
-
+//        super.onSwipeToLeft()
 //        val activity = activity
 //        activity?.onBackPressed()
+        (activity as MainActivity).changeTabbarState(MainActivity.TabbarStates.CART)
+        (activity as MainActivity).setPageState(1); // Set Total fragment
         backToGoodsPage()
     }
 
     override fun onResume() {
         super.onResume()
+        (activity as MainActivity).showToolbar(true)
+        (activity as MainActivity).changeTabbarState(MainActivity.TabbarStates.SETTING)
         if (MainClass.getAuth().access_token.isEmpty())
             changeToolbarState(MainActivity.ToolbarStates.BACK_BTN_WITH_LOGIN)
         else

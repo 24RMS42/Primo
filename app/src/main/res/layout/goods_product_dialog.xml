@@ -24,80 +24,108 @@
         android:layout_below="@id/productTitle"
         app:layout_heightPercent="35%"/>
 
-    <TextView
-        android:id="@+id/productVendor"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:layout_below="@id/productImage"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBaseline="@+id/productPrice"
-        android:text="vendor"/>
-
-    <TextView
-        android:id="@+id/productPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_below="@id/productImage"
-        android:layout_toLeftOf="@id/productVendor"
-        android:layout_toStartOf="@id/productVendor"
-        android:text="US$ 4.22"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"/>
-
-    <LinearLayout
-        android:id="@+id/spinnerContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/productPrice"
-        android:layout_marginBottom="10dp">
-
-        <Spinner
-            android:id="@+id/firstSpinner"
+        android:layout_above="@+id/delete">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/productVendor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBaseline="@+id/productPrice"
+                android:visibility="invisible"/>
 
-        <Spinner
-            android:id="@+id/secondSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/productPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_toStartOf="@id/productVendor"
+                android:text="@string/default_cost"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"/>
 
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/spinnerContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/productPrice"
+                android:layout_marginBottom="10dp">
 
-    <TextView
-        android:id="@+id/productDescription"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:maxLines="4"
-        android:layout_below="@id/spinnerContainer"
-        android:layout_above="@+id/delete"/>
+                <Spinner
+                    android:id="@+id/firstSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"/>
+
+                <Spinner
+                    android:id="@+id/secondSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/productDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:maxLines="4"
+                android:layout_below="@id/spinnerContainer"
+                />
+
+            <LinearLayout
+                android:id="@+id/merchantInfo"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_below="@id/productDescription">
+                <TextView
+                    android:id="@+id/merchantName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="testetws"/>
+                <TextView
+                    android:id="@+id/merchantCountry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
+                    android:id="@+id/merchantUrl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:textColor="@color/color_blue"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/delete"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/center"
         android:layout_toStartOf="@+id/center"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginRight="5dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:text="@string/delete"
         android:textAllCaps="false"
@@ -107,13 +135,10 @@
         android:id="@+id/add"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/center"
         android:layout_toEndOf="@+id/center"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
         android:text="@string/add_to_wishlist"
         android:textAllCaps="false"

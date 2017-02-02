@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.0.1'
+    ext.kotlin_version = '1.0.4'
 
     repositories {
         mavenCentral()
@@ -36,10 +36,10 @@ android {
     buildToolsVersion "23.0.3"
     defaultConfig {
         applicationId "com.primo"
-        minSdkVersion 16
-        targetSdkVersion 23
-        versionCode 3
-        versionName "1.0.1"
+        minSdkVersion 17
+        targetSdkVersion 24
+        versionCode 10
+        versionName "1.5.6"
 
         project.ext.set("archivesBaseName", "primo_v" + defaultConfig.versionName);
     }
@@ -52,7 +52,7 @@ android {
             signingConfig signingConfigs.config
         }
         debug {
-            signingConfig signingConfigs.config
+            //signingConfig signingConfigs.config
         }
     }
     sourceSets {
@@ -63,12 +63,13 @@ android {
 repositories {
     mavenCentral()
     maven { url 'https://maven.fabric.io/public' }
+
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }
     compile 'com.android.support:multidex:1.0.1'
@@ -86,4 +87,6 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding-kotlin:0.4.0'
     compile 'com.github.zellius:rxlocationmanager.kotlin:0.1.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.kaopiz:kprogresshud:1.0.5'
+    compile files('src/main/lib/android-viewbadger.jar')
 }

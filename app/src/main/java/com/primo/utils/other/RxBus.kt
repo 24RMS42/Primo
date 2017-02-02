@@ -33,7 +33,14 @@ enum class Events {
     CAMERA_PERMISSION,
     LOCATION_PERMISSION,
     SIGNED,
-    CONFIRMED
+    CONFIRMED,
+    ORDER_REJECT,
+    REJECT,
+    PAGER_FIRST_ITEM,
+    TAB_PROFILE,
+    TAB_ADDRESS,
+    TAB_CARD,
+    TAB_ADDRESS_FROM_CARD
 }
 
 data class RxEvent(var key: Any, var sentObject: Any? = null) {

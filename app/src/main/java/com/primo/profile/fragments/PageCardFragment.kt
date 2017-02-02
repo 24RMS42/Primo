@@ -18,13 +18,8 @@ import android.os.Handler
 import android.support.v7.widget.SwitchCompat
 import android.text.InputType
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import com.jakewharton.rxbinding.view.enabled
 import com.primo.R
 import com.primo.main.MainActivity
@@ -49,7 +44,10 @@ import com.primo.utils.views.PrefixedEditText
 import kotlinx.android.synthetic.main.page_card_fragment.*
 import rx.subscriptions.CompositeSubscription
 import java.util.*
-import android.widget.CompoundButton
+import com.primo.auth.fragment.AuthFragment
+import android.view.*
+import android.widget.LinearLayout
+import android.view.LayoutInflater
 
 class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), OrderView, View.OnClickListener,
         GestureRelativeLayout.OnSwipeListener, MultipleTextWatcher, PlaceBottomSheet.ListDialogResult {
@@ -79,6 +77,8 @@ class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Ord
     private var cardHolderErr: TextView? = null
     private var cardExpErr: TextView? = null
     private var cardCvcErr: TextView? = null
+    private var passwordEye: ImageView? = null
+    private var cvcEye: ImageView? = null
 
     private var _subscriptions: CompositeSubscription? = null
     private var _rxBus: RxBus? = null
@@ -88,6 +88,7 @@ class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Ord
     private var card_year = ""
     private var card_month = ""
     private var is_default = 0
+    private var showPassword = false
 
     override fun onStart() {
         super.onStart()
@@ -129,6 +130,7 @@ class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Ord
 
         }
 
+        (activity as MainActivity).showToolbar(true)
         return rootView
     }
 
@@ -156,6 +158,8 @@ class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Ord
         cardHolderErr= rootView?.findViewById(R.id.card_holder_err) as TextView
         cardExpErr = rootView?.findViewById(R.id.card_exp_err) as TextView
         cardCvcErr = rootView?.findViewById(R.id.card_cvc_err) as TextView
+        passwordEye = rootView?.findViewById(R.id.passwordEye) as ImageView
+        cvcEye= rootView?.findViewById(R.id.cvcEye) as ImageView
 
         cardN?.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
@@ -166,16 +170,25 @@ class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Ord
             false
         })
 
-        setOnClickListener(this, checkoutBtn, termsTxt, cardExp, deleteBtn)
-        defaultSwitch?.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener {
-            buttonView, isChecked -> {
-                Log.d("Test", "default value:" + isChecked)
-
-            }
-        })
+        setOnClickListener(this, checkoutBtn, termsTxt, cardExp, deleteBtn, updateBtn, passwordEye, cvcEye)
+        defaultSwitch?.setOnCheckedChangeListener(onCheckedChanged())
 
         _rxBus = MainClass.getRxBus()
 
+    }
+
+    private fun onCheckedChanged(): CompoundButton.OnCheckedChangeListener {
+        return CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            when (buttonView.id) {
+                R.id.default_switch -> {
+
+                    if (!isChecked && is_default == 1){
+                        showMessage(MainClass.context.getString(R.string.must_have_default_card))
+                        defaultSwitch?.isChecked = true
+                    }
+                }
+            }
+        }
     }
 
     private fun changeViewsState() {
@@ -238,6 +251,7 @@ class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Ord
             is_default = arguments.getInt(IS_DEFAULT)
             //load temp data
             loadCardData()
+            showPassword = true
         }
         else {
             checkoutBtn?.text = MainClass.context.getString(R.string.sign_up)
@@ -495,6 +509,10 @@ class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Ord
         MainClass.getRxBus()?.send(RxEvent(Events.SIGNED))
     }
 
+    override fun onSignUped() {
+        showFragment(AuthFragment(), true, R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right)
+    }
+
     override fun onCountrySelected() {
 
     }
@@ -615,6 +633,22 @@ class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Ord
         alertDialog.show()
     }
 
+    fun cvcDialogShow() {
+
+        val builder = AlertDialog.Builder(context)
+        builder.setPositiveButton(MainClass.context.getString(R.string.ok)) {
+            dialog, which ->
+            dialog.dismiss()
+        }
+
+        val dialog = builder.create()
+        val inflater = LayoutInflater.from(context)
+        val dialogLayout = inflater.inflate(R.layout.cvc_dialog, null)
+        dialog.setView(dialogLayout)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.show()
+    }
+
     override fun onClick(v: View?) {
 
         when (v?.id) {
@@ -644,6 +678,24 @@ class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Ord
                 else
                     confirmDialogShow(1)
             }
+
+            R.id.passwordEye -> {
+
+                if (showPassword) {
+                    showPassword = false
+                    cardN?.inputType = 129
+                    passwordEye?.setBackgroundResource(R.drawable.password_show)
+                }
+                else {
+                    showPassword = true
+                    cardN?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    passwordEye?.setBackgroundResource(R.drawable.password_nshow)
+                }
+            }
+
+            R.id.cvcEye -> {
+                cvcDialogShow()
+            }
         }
     }
 
@@ -659,7 +711,7 @@ class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Ord
         if (MainClass.getAuth().access_token.isEmpty())
             changeToolbarState(MainActivity.ToolbarStates.BACK_BTN_WITH_LOGIN)
         else
-            changeToolbarState(MainActivity.ToolbarStates.BACK_BTN_AND_LOGOUT)
+            changeToolbarState(MainActivity.ToolbarStates.BACK_BTN)
     }
 
     override fun onPause() {

@@ -21,6 +21,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.TextView
 import com.primo.R
+import com.primo.auth.fragment.AuthFragment
 import com.primo.main.MainActivity
 import com.primo.main.MainClass
 import com.primo.network.models.Country
@@ -335,6 +336,10 @@ class ProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Orde
         //TODO DELETE
         activity?.onBackPressed()
         MainClass.getRxBus()?.send(RxEvent(Events.SIGNED))
+    }
+
+    override fun onSignUped() {
+        showFragment(AuthFragment(), true, R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right)
     }
 
     override fun onCountrySelected() {

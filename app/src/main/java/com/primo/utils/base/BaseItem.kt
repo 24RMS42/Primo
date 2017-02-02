@@ -12,6 +12,8 @@ interface BaseItem {
 
     fun getBaseCurrency(): Int
 
+    fun getBaseStatus(): Int
+
     fun getBaseQuantity(): Int
 
     fun getStockColor(): String
@@ -19,4 +21,10 @@ interface BaseItem {
     fun getStockSize(): String
 
     fun getStockCustom(): String
+
+    fun getMerchantName(): String
+
+    fun getMerchantCountry(): String
+
+    fun getMerchantUrl(): String
 }

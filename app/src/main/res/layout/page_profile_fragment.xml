@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.primo.utils.views.GestureRelativeLayout
+                android:id="@+id/gesture_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusableInTouchMode="true">
+
+                <TextView
+                    android:id="@+id/listTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:gravity="center"
+                    android:text="@string/profile"
+                    android:textSize="16sp"/>
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/first_name"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/listTitle"
+                    android:hint="@string/satoshi"
+                    app:prefix_text="@string/first_name" />
+
+                <TextView
+                    android:id="@+id/first_name_err"
+                    style="@style/ErrorText"
+                    android:layout_below="@id/first_name"/>
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/last_name"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/first_name_err"
+                    android:hint="@string/nakamoto"
+                    app:prefix_text="@string/last_name" />
+
+                <TextView
+                    android:id="@+id/last_name_err"
+                    style="@style/ErrorText"
+                    android:layout_below="@id/last_name"/>
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/phone_number"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/last_name_err"
+                    android:inputType="phone"
+                    android:maxLength="20"
+                    app:prefix_text="@string/phone_number" />
+
+                <TextView
+                    android:id="@+id/phone_number_err"
+                    style="@style/ErrorText"
+                    android:layout_below="@id/phone_number"/>
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/email"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/phone_number_err"
+                    android:hint="@string/user_domain_com"
+                    android:inputType="textEmailAddress"
+                    app:prefix_text="@string/email" />
+
+                <TextView
+                    android:id="@+id/email_err"
+                    style="@style/ErrorText"
+                    android:layout_below="@id/email"/>
+
+                <FrameLayout
+                    android:id="@+id/passwordLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/email_err">
+
+                    <com.primo.utils.views.PrefixedEditText
+                        android:id="@+id/password"
+                        style="@style/PrefixEditTextTheme"
+                        android:fontFamily="sans-serif"
+                        android:hint="@string/enter_your_password"
+                        android:inputType="textPassword"
+                        android:maxLength="32"
+                        app:prefix_text="@string/password" />
+                    <ImageButton
+                        android:id="@+id/passwordEye"
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
+                        android:background="@drawable/password_show"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginEnd="20dp"/>
+
+                    <TextView
+                        android:id="@+id/password_err"
+                        style="@style/ErrorText"
+                        android:layout_marginTop="50dp"/>
+
+                </FrameLayout>
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/repassword"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/passwordLayout"
+                    android:fontFamily="sans-serif"
+                    android:inputType="textPassword"
+                    android:maxLength="10"
+                    app:prefix_text="@string/confirm_password"
+                    android:text="fornoempty"
+                    android:visibility="gone"/>
+
+                <com.primo.utils.views.PrefixedEditText
+                    android:id="@+id/country"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_below="@id/repassword"
+                    android:focusable="false"
+                    android:hint="@string/usa"
+                    app:prefix_text="@string/country"/>
+
+                <TextView
+                    android:id="@+id/country_err"
+                    style="@style/ErrorText"
+                    android:layout_below="@id/country"/>
+
+                <TextView
+                    android:id="@+id/date_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/country_err"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="@string/time_of_the_day_receive"
+                    android:textColor="@android:color/black" />
+
+                <com.primo.utils.views.DateChooserView
+                    android:id="@+id/date_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/date_txt"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp" />
+
+                <Button
+                    android:id="@+id/next_btn"
+                    style="@style/RedButton"
+                    android:layout_marginBottom="15dp"
+                    android:layout_below="@id/date_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/next"/>
+
+                <Space
+                    android:id="@+id/center"
+                    android:layout_width="1px"
+                    android:layout_height="1px"
+                    android:layout_centerInParent="true" />
+
+            </com.primo.utils.views.GestureRelativeLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</FrameLayout>
+
+
