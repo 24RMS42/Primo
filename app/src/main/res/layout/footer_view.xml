@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/color_white">
 
     <LinearLayout
         android:id="@+id/shipping_layout"
@@ -44,11 +45,9 @@
                 android:id="@+id/shipping_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/shipping_count"
-                android:layout_toEndOf="@id/shipping_count"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/shipping_img"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="10dp"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:text="@string/shipping" />
@@ -112,9 +111,10 @@
         android:id="@+id/history_btn"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:src="@drawable/history_btn_selector"
+        android:src="@drawable/tab_history_selected"
         android:layout_below="@id/seller_message"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"/>
 
     <!---->
 
@@ -126,6 +126,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/history_btn"
         android:textColor="@drawable/txt_selector"
-        android:text="@string/history"/>
+        android:text="@string/history"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

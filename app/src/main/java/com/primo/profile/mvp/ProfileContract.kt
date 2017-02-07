@@ -29,6 +29,8 @@ interface OrderView : BaseView {
 
     fun onSigned()
 
+    fun onSignUped()
+
     fun onCountrySelected()
 
     fun onStateSelected()
@@ -114,9 +116,9 @@ abstract class OrderPresenter(view: OrderView) : BasePresenter<OrderView>(view) 
                                        city: String, state: String, country: Int, postcode: String,
                                        is_default: Int)
 
-    abstract fun updateDefaultShippingAddress(shipping_id: String, phone: String, firstname: String, lastname: String, address: String,
-                                       city: String, state: String, country: Int, postcode: String,
-                                       is_default: Int)
+    abstract fun updateDefaultShippingAddress(shipping_id: String)
 
     abstract fun deleteShippingAddress(shipping_id: String)
+
+    abstract fun setCountry(country: Int)
 }

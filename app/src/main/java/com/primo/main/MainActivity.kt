@@ -30,17 +30,14 @@ import com.primo.goods.fragments.GoodsPagerFragment
 import com.primo.goods.fragments.GoodsWishlistFragment
 import com.primo.network.new_models.Auth
 import com.primo.network.new_models.TempUserProfile
-import com.primo.utils.clearBackStack
 import com.primo.utils.consts.AUTOLOGIN_DELAY_TIME
 import com.primo.utils.consts.PERMISSION_CAMERA_REQUEST
 import com.primo.utils.consts.PERMISSION_LOCATION_REQUEST
 import com.primo.utils.other.Events
 import com.primo.utils.other.RxEvent
-import com.primo.utils.setOnClickListener
-import com.primo.utils.showFragment
-import com.primo.utils.slideAnimation
 import android.widget.RelativeLayout
 import com.primo.profile.fragments.*
+import com.primo.utils.*
 
 
 class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCallback, View.OnClickListener {
@@ -52,7 +49,7 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
         val BACK_BTN_WITH_LOGOUT = 3
         val BACK_BTN_ROTATED_ONLY = 4
         val OK_BTN = 5
-        val BACK_BTN_AND_LOGOUT = 6
+        val BACK_BTN = 6
     }
 
     object ProfileTabStates {
@@ -103,7 +100,7 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 
     var user: TempUserProfile? = null
     private var signUpState = SignUpStates.NORMAL // normal value
-    private var pageState = 0
+    private var pageState = 0 // 0:ScanFragment  1:TotalFragment
     private var profilePageState = ProfileTabStates.PROFILE_PAGE
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -285,10 +282,10 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
                 toolbarLogout?.visibility = View.GONE
             }
 
-            ToolbarStates.BACK_BTN_AND_LOGOUT -> {
+            ToolbarStates.BACK_BTN -> {
                 backBtn?.visibility = View.VISIBLE
                 toolbarLogin?.visibility = View.GONE
-                toolbarLogout?.visibility = View.VISIBLE
+                toolbarLogout?.visibility = View.GONE
                 toolbarOK?.visibility = View.GONE
                 backBtn?.setImageResource(R.drawable.ic_chevron_left_black)
             }

@@ -156,6 +156,7 @@ class ProfilePresenterImpl(view: OrderView) : OrderPresenter(view), DateChooserV
 
                     if (result != null) {
                         view?.showMessage(MainClass.context.getString(R.string.sign_up_message))
+                        view?.onSignUped()
                     }
                 }
 
@@ -185,10 +186,10 @@ class ProfilePresenterImpl(view: OrderView) : OrderPresenter(view), DateChooserV
 
         if (isUserProfileValid(email, firstname, lastname, phone, address, city, postcode, countryCode)) {
 
-            if (password.length < MIN_PASSWORD_LENGTH /*|| repassword.length < MIN_PASSWORD_LENGTH*/) {
+            /*if (password.length < MIN_PASSWORD_LENGTH || repassword.length < MIN_PASSWORD_LENGTH) {
                 view?.showMessage(MainClass.context.getString(R.string.that_password_is_too_short))
                 return
-            }/* else if (!password.equals(repassword)) {
+            } else if (!password.equals(repassword)) {
                 view?.showMessage(MainClass.context.getString(R.string.password_does_not_match))
                 return
             }*/
@@ -207,6 +208,7 @@ class ProfilePresenterImpl(view: OrderView) : OrderPresenter(view), DateChooserV
 
                     if (result != null) {
                         view?.showMessage(MainClass.context.getString(R.string.sign_up_message))
+                        view?.onSignUped()
                     }
                 }
 
@@ -247,10 +249,10 @@ class ProfilePresenterImpl(view: OrderView) : OrderPresenter(view), DateChooserV
         if (isUserProfileValid(email, firstname, lastname, phone, address, city, postcode, countryCode) &&
                 isCardValid(cardCvc, cardNumber, cardName, cardYear, cardMonth)) {
 
-            if (password.length < MIN_PASSWORD_LENGTH /*|| repassword.length < MIN_PASSWORD_LENGTH*/) {
+            /*if (password.length < MIN_PASSWORD_LENGTH || repassword.length < MIN_PASSWORD_LENGTH) {
                 view?.showMessage(MainClass.context.getString(R.string.that_password_is_too_short))
                 return
-            } /*else if (!password.equals(repassword)) {
+            } else if (!password.equals(repassword)) {
                 view?.showMessage(MainClass.context.getString(R.string.password_does_not_match))
                 return
             }*/
@@ -269,6 +271,7 @@ class ProfilePresenterImpl(view: OrderView) : OrderPresenter(view), DateChooserV
 
                     if (result != null) {
                         view?.showMessage(MainClass.context.getString(R.string.sign_up_message))
+                        view?.onSignUped()
                     }
                 }
 
@@ -517,7 +520,7 @@ class ProfilePresenterImpl(view: OrderView) : OrderPresenter(view), DateChooserV
             }
         })
 
-        if (!token.isEmpty() && !creditId.isEmpty())
+        if (!token.isEmpty()/* && !creditId.isEmpty()*/)
             listCardCall.getListCreditCard(token)
     }
 
@@ -549,7 +552,7 @@ class ProfilePresenterImpl(view: OrderView) : OrderPresenter(view), DateChooserV
             }
         })
 
-        if (!token.isEmpty() && !creditId.isEmpty())
+        if (!token.isEmpty()/* && !creditId.isEmpty()*/)
             updateCardCall.updateCreditCard(creditcard_id, cardname, cardyear, cardmonth, token, is_default)
     }
 
@@ -581,7 +584,7 @@ class ProfilePresenterImpl(view: OrderView) : OrderPresenter(view), DateChooserV
             }
         })
 
-        if (!token.isEmpty() && !creditId.isEmpty())
+        if (!token.isEmpty()/* && !creditId.isEmpty()*/)
             updateDefaultCardCall.updateDefaultCreditCard(creditcard_id, token)
     }
 
@@ -613,7 +616,7 @@ class ProfilePresenterImpl(view: OrderView) : OrderPresenter(view), DateChooserV
             }
         })
 
-        if (!token.isEmpty() && !creditId.isEmpty())
+        if (!token.isEmpty()/* && !creditId.isEmpty()*/)
             deleteCardCall.deleteCreditCard(creditcard_id, token)
     }
 
@@ -750,9 +753,7 @@ class ProfilePresenterImpl(view: OrderView) : OrderPresenter(view), DateChooserV
                     is_default, token)
     }
 
-    override fun updateDefaultShippingAddress(shipping_id: String, phone: String, firstname: String, lastname: String, address: String,
-                                       city: String, state: String, country: Int, postcode: String,
-                                       is_default: Int) {
+    override fun updateDefaultShippingAddress(shipping_id: String) {
 
         val token = MainClass.getAuth().access_token
 
@@ -780,9 +781,7 @@ class ProfilePresenterImpl(view: OrderView) : OrderPresenter(view), DateChooserV
         })
 
         if (!token.isEmpty())
-            updateDefaultShippingAddressCall.updateDefaultShippingAddress(shipping_id, phone, firstname, lastname, address,
-                    city, state, country, postcode,
-                    is_default, token)
+            updateDefaultShippingAddressCall.updateDefaultShippingAddress(shipping_id, token)
     }
 
     override fun deleteShippingAddress(shipping_id: String) {
@@ -816,6 +815,37 @@ class ProfilePresenterImpl(view: OrderView) : OrderPresenter(view), DateChooserV
             deleteShippingAddressCall.deleteShippingAddress(shipping_id, token)
     }
 
+    override fun setCountry(country: Int) {
+
+        val token = MainClass.getAuth().access_token
+
+        val setCountryCall: SetCountry = SetCountryImpl(object : ApiResult<String?> {
+
+            override fun onStart() {
+                view?.showProgress()
+            }
+
+            override fun onResult(result: String?) {
+                view?.backToPreviousScreen()
+                Log.d("Test", "set country result:" + result)
+            }
+
+            override fun onError(message: String, code: Int) {
+
+                view?.showErrorMessage(message)
+
+                displayMessage(message, code)
+            }
+
+            override fun onComplete() {
+                view?.hideProgress()
+            }
+        })
+
+        if (!token.isEmpty())
+            setCountryCall.setCountry(country, token)
+    }
+
     override fun saveCountry(countryValue: Int) {
         orderDB?.saveCountry(countryValue)
     }
@@ -833,6 +863,11 @@ class ProfilePresenterImpl(view: OrderView) : OrderPresenter(view), DateChooserV
 
         Log.d("Test", "signup error message:" + message)
         Log.d("Test", "signup error code:" + code)
+
+        if (code == 502) {
+            view?.showMessage(MainClass.context.getString(R.string.something_went_wrong_try_again))
+            return
+        }
 
         var codeError = -1
         val jsonObject = JSONObject(message)

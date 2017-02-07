@@ -10,11 +10,14 @@ import org.json.JSONObject
 
 object AssetsParser {
 
-    fun parseCountry(str: String) : Country? {
+    fun parseCountry(str: String, str_ja: String, str_ch: String, str_cht: String) : Country? {
 
         val country : Country
 
         val obj = JSONObject(str)
+        val obj_ja = JSONObject(str_ja)
+        val obj_ch = JSONObject(str_ch)
+        val obj_cht = JSONObject(str_cht)
 
         val name = obj.getString(NAME, "")
         val code = obj.getString(CODE, "")
@@ -22,7 +25,11 @@ object AssetsParser {
         val continent = obj.getString(CONTINENT, "")
         val fileName = obj.getString(FILENAME, "")
 
-        country = Country(name, value, code, continent, fileName)
+        val name_ja = obj_ja.getString(NAME, "")
+        val name_ch = obj_ch.getString(NAME, "")
+        val name_cht = obj_cht.getString(NAME, "")
+
+        country = Country(name, value, code, continent, fileName, name_ja, name_ch, name_cht)
 
         return country
     }
@@ -35,8 +42,9 @@ object AssetsParser {
 
         val name = obj.getString(NAME, "")
         val code = obj.getString(CODE, "")
+        val name_ja = obj.getString(NAME_JA, "")
 
-        state = State(key, name, code)
+        state = State(key, name, code, name_ja)
 
         return state
     }
