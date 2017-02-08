@@ -17,6 +17,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TextView
 import com.primo.R
 import com.primo.goods.adapter.CardListAdapter
 import com.primo.main.MainActivity
@@ -46,6 +47,7 @@ class AddCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Orde
     private var cardAdapter: CardListAdapter? = null
     private var plusButton: ImageButton? = null
     private var creditCardList: MutableList<CreditCardData>? = null
+    private var defaultText: TextView?= null
 
     private var _subscriptions: CompositeSubscription? = null
     private var _rxBus: RxBus? = null
@@ -79,6 +81,7 @@ class AddCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Orde
 
         }
 
+        (activity as MainActivity).showToolbar(true)
         (activity as MainActivity).setProfilePageState(MainActivity.ProfileTabStates.CARD_PAGE)
 
         return rootView
@@ -88,6 +91,7 @@ class AddCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Orde
 
         cardList = rootView?.findViewById(R.id.recycler_view) as RecyclerView
         plusButton = rootView?.findViewById(R.id.plusBtn) as ImageButton
+        defaultText = rootView?.findViewById(R.id.default_text) as TextView
 
         val layoutManager = LinearLayoutManager(context)
         cardList?.layoutManager = layoutManager
@@ -238,6 +242,11 @@ class AddCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Orde
         cardAdapter?.list?.clear()
         cardAdapter?.list?.addAll(listCreditCard)
         cardAdapter?.notifyDataSetChanged()
+
+        if (listCreditCard.size == 0)
+            defaultText?.visibility = View.INVISIBLE
+        else
+            defaultText?.visibility = View.VISIBLE
     }
 
     override fun updateUserData(userData: UserProfile?) {
@@ -249,6 +258,10 @@ class AddCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Orde
     }
 
     override fun onSigned() {
+
+    }
+
+    override fun onSignUped() {
 
     }
 
@@ -266,9 +279,9 @@ class AddCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Orde
         presenter?.retrieveListCardData()
 
         if (MainClass.getAuth().access_token.isEmpty())
-            changeToolbarState(MainActivity.ToolbarStates.BACK_BTN_WITH_LOGIN)
+            changeToolbarState(MainActivity.ToolbarStates.DEFAULT)
         else
-            changeToolbarState(MainActivity.ToolbarStates.BACK_BTN_WITH_LOGOUT)
+            changeToolbarState(MainActivity.ToolbarStates.DEFAULT)
     }
 
     override fun onPause() {

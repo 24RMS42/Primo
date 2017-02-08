@@ -17,6 +17,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TextView
 import com.primo.R
 import com.primo.goods.adapter.AddressListAdapter
 import com.primo.main.MainActivity
@@ -48,6 +49,7 @@ class AddAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), O
     private var addressAdapter: AddressListAdapter? = null
     private var plusButton: ImageButton? = null
     private var shippingAddressList: MutableList<UserProfile>? = null
+    private var defaultText: TextView?= null
 
     private var _subscriptions: CompositeSubscription? = null
     private var _rxBus: RxBus? = null
@@ -80,6 +82,7 @@ class AddAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), O
 
         }
 
+        (activity as MainActivity).showToolbar(true)
         (activity as MainActivity).setProfilePageState(MainActivity.ProfileTabStates.ADDRESS_PAGE)
 
         return rootView
@@ -89,6 +92,7 @@ class AddAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), O
 
         addressList = rootView?.findViewById(R.id.recycler_view) as RecyclerView
         plusButton = rootView?.findViewById(R.id.plusBtn) as ImageButton
+        defaultText = rootView?.findViewById(R.id.default_text) as TextView
 
         val layoutManager = LinearLayoutManager(context)
         addressList?.layoutManager = layoutManager
@@ -235,6 +239,11 @@ class AddAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), O
         addressAdapter?.list?.clear()
         addressAdapter?.list?.addAll(listShippingAddress)
         addressAdapter?.notifyDataSetChanged()
+
+        if (listShippingAddress.size == 0)
+            defaultText?.visibility = View.INVISIBLE
+        else
+            defaultText?.visibility = View.VISIBLE
     }
 
     override fun updateShippingAddress(){
@@ -257,6 +266,10 @@ class AddAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), O
 
     }
 
+    override fun onSignUped() {
+
+    }
+
     override fun onCountrySelected() {
 
     }
@@ -271,9 +284,9 @@ class AddAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), O
         presenter?.retrieveListShippingAddress()
 
         if (MainClass.getAuth().access_token.isEmpty())
-            changeToolbarState(MainActivity.ToolbarStates.BACK_BTN_WITH_LOGIN)
+            changeToolbarState(MainActivity.ToolbarStates.DEFAULT)
         else
-            changeToolbarState(MainActivity.ToolbarStates.BACK_BTN_WITH_LOGOUT)
+            changeToolbarState(MainActivity.ToolbarStates.DEFAULT)
     }
 
     override fun onPause() {

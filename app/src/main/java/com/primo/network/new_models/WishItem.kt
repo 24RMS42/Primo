@@ -1,3 +1,11 @@
+/**
+ * Changes:
+ *
+ * - Define getBaseStatus(), but not using
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.network.new_models
 
 import android.os.Parcel
@@ -26,9 +34,12 @@ data class WishItem(var productId: String = "",
                     var stock: Stock = Stock(),
                     var price: Double = 0.0,
                     var currency: Int = -1,
-                    var description: String = "") : BaseItem, Parcelable {
+                    var description: String = "",
+                    var merchant_name: String = "",
+                    var merchant_country: String = "",
+                    var merchant_url: String = "") : BaseItem, Parcelable {
 
-    constructor(source: Parcel): this(source.readString(), source.readString(), source.readInt(), source.readString(), source.readInt(), source.readInt(), source.readInt(), source.readDouble(), source.readInt(), source.readInt(), source.readInt(), source.readInt(), source.readDouble(), source.readString(), source.readString(), source.readInt(), source.readString(), source.readString(), source.readParcelable<Stock>(Stock::class.java.classLoader), source.readDouble(), source.readInt(), source.readString())
+    constructor(source: Parcel): this(source.readString(), source.readString(), source.readInt(), source.readString(), source.readInt(), source.readInt(), source.readInt(), source.readDouble(), source.readInt(), source.readInt(), source.readInt(), source.readInt(), source.readDouble(), source.readString(), source.readString(), source.readInt(), source.readString(), source.readString(), source.readParcelable<Stock>(Stock::class.java.classLoader), source.readDouble(), source.readInt(), source.readString(), source.readString(), source.readString(), source.readString())
 
     override fun getBaseImage() = imageUrl
 
@@ -40,6 +51,8 @@ data class WishItem(var productId: String = "",
 
     override fun getBaseCurrency() = currency
 
+    override fun getBaseStatus() = -1
+
     override fun getBaseQuantity() = quantity
 
     override fun getStockColor(): String = stock.color.name
@@ -47,6 +60,12 @@ data class WishItem(var productId: String = "",
     override fun getStockSize(): String = stock.size.name
 
     override fun getStockCustom(): String = stock.custom.name
+
+    override fun getMerchantName(): String = merchant_name
+
+    override fun getMerchantCountry(): String = merchant_country
+
+    override fun getMerchantUrl(): String = merchant_url
 
     override fun describeContents(): Int {
         return 0

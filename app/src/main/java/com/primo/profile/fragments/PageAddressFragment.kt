@@ -23,10 +23,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
+import android.widget.CompoundButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.jakewharton.rxbinding.view.enabled
 import com.primo.R
+import com.primo.auth.fragment.AuthFragment
 import com.primo.database.OrderDB
 import com.primo.database.OrderDBImpl
 import com.primo.main.MainActivity
@@ -93,6 +95,7 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
     private var signUpState = 4 //normal
     private var action_kind = ""
     private var is_default = 0
+    private var deviceLanguage = "en"
 
     override fun onStart() {
         super.onStart()
@@ -133,6 +136,7 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
 
         }
 
+        (activity as MainActivity).showToolbar(true)
         (activity as MainActivity).setProfilePageState(MainActivity.ProfileTabStates.ADDRESS_PAGE)
 
         return rootView
@@ -169,7 +173,21 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
         cityErr = rootView?.findViewById(R.id.city_err) as TextView
         addressErr = rootView?.findViewById(R.id.address_err) as TextView
 
-        val deviceLanguage = getDeviceLanguage()
+        state?.isEnabled = false
+
+        phoneNumber?.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                activity.hideKeyboard()
+                val handler = Handler()
+                handler.postDelayed({
+                    country?.performClick()
+                }, 300)
+                return@OnEditorActionListener true
+            }
+            false
+        })
+
+        deviceLanguage = getDeviceLanguage()
 
         if (deviceLanguage == "ja"){
 
@@ -189,7 +207,7 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
                     activity.hideKeyboard()
                     val handler = Handler()
                     handler.postDelayed({
-                        country?.performClick()
+                        state?.performClick()
                     }, 300)
                     return@OnEditorActionListener true
                 }
@@ -198,7 +216,7 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
         }
 
         setOnClickListener(this, country, state, nextBtn, deleteBtn, updateBtn)
-        //defaultSwitch?.setOnCheckedChangeListener { defaultSwitch, b ->  }
+        defaultSwitch?.setOnCheckedChangeListener(onCheckedChanged())
 
         _rxBus = MainClass.getRxBus()
 
@@ -245,6 +263,20 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
         }
     }
 
+    private fun onCheckedChanged(): CompoundButton.OnCheckedChangeListener {
+        return CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            when (buttonView.id) {
+                R.id.default_switch -> {
+
+                    if (!isChecked && is_default == 1){
+                        showMessage(MainClass.context.getString(R.string.must_have_default_address))
+                        defaultSwitch?.isChecked = true
+                    }
+                }
+            }
+        }
+    }
+
     private fun changeViewsState() {
 
         val auth = MainClass.getAuth()
@@ -263,13 +295,17 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
             presenter?.saveState("")
         }
 
+        state?.isEnabled = true
         this.country?.setText(country.name)
         this.country?.tag = country.fileName
         presenter?.saveCountry(country.value)
 
         (activity as MainActivity).user?.country = country.value
 
-        this.state?.postDelayed({ this.state?.performClick() }, 700)
+        //this.state?.postDelayed({ this.state?.performClick() }, 700)
+        zip?.isFocusableInTouchMode = true
+        zip?.requestFocus()
+        showKeyboard(zip)
     }
 
     override fun onStateSelected(state: State) {
@@ -382,6 +418,10 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
         MainClass.getRxBus()?.send(RxEvent(Events.SIGNED))
     }
 
+    override fun onSignUped() {
+        showFragment(AuthFragment(), true, R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right)
+    }
+
     override fun onCountrySelected() {
         state?.setText("")
     }
@@ -423,22 +463,35 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
         Log.d("Test", "country list:" + countryList)
 
         val countryIndex = countryList.indexOf(Country(value = userData?.country ?: -1))
-        Log.d("Test", "country:" + userData?.country + countryIndex)
 
         if (countryIndex >= 0) {
 
             val countryModel = countryList[countryIndex]
-            country?.setText(countryModel.name)
+
+            if (deviceLanguage == "en")
+                country?.setText(countryModel.name)
+            else if (deviceLanguage == "ja")
+                country?.setText(countryModel.name_ja)
+            else if (deviceLanguage == "ch")
+                country?.setText(countryModel.name_ch)
+            else if (deviceLanguage == "cht")
+                country?.setText(countryModel.name_cht)
+
             country?.tag = countryModel.fileName
 
-            val stateList = getStatesByKey(countryModel.fileName).orEmpty()
+            //TODO
+            /*val stateList = getStatesByKey(countryModel.fileName).orEmpty()
             presenter?.saveCountry(countryModel.value)
 
             val stateIndex = stateList.indexOf(State(name = userData?.state.orEmpty()))
             presenter?.saveState(userData?.state.orEmpty())
             if (stateIndex >= 0) {
                 state?.setText(stateList[stateIndex].name)
-            }
+                state?.isEnabled = true
+            }*/
+
+            state?.setText(userData?.state.orEmpty())
+            state?.isEnabled = true
         }
 
         val time = userData?.delivery_preference ?: -1
@@ -735,7 +788,7 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
         if (MainClass.getAuth().access_token.isEmpty())
             changeToolbarState(MainActivity.ToolbarStates.BACK_BTN_WITH_LOGIN)
         else
-            changeToolbarState(MainActivity.ToolbarStates.BACK_BTN_AND_LOGOUT)
+            changeToolbarState(MainActivity.ToolbarStates.BACK_BTN)
     }
 
     override fun onPause() {

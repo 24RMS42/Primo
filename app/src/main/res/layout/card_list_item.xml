@@ -31,13 +31,15 @@
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="11dp"
-        android:background="@drawable/rounded_image_border"/>
+        android:background="@drawable/rounded_image_border"
+        android:visibility="invisible"/>
 
     <ImageView
         android:id="@+id/default_image"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_toStartOf="@id/delete_btn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="11dp"
         android:layout_centerVertical="true"
         android:background="@drawable/icon_unchecked"/>
 

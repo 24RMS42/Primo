@@ -11,11 +11,107 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar_layout"/>
 
+    <LinearLayout
+        android:id="@+id/tabbar"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:baselineAligned="false"
+        android:visibility="visible">
+
+        <LinearLayout
+            style="@style/MainTabLinear">
+            <ImageButton
+                android:id="@+id/btn_setting"
+                android:background="@drawable/tab_settings"
+                style="@style/MainTabImageButton"/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/MainTabLinear">
+            <ImageButton
+                android:id="@+id/btn_history"
+                android:background="@drawable/tab_history"
+                style="@style/MainTabImageButton"/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/MainTabLinear">
+            <ImageButton
+                android:id="@+id/btn_camera"
+                android:background="@drawable/tab_camera"
+                style="@style/MainTabImageButton"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            android:background="@drawable/tabbar_top_border">
+            <ImageButton
+                android:id="@+id/btn_cart"
+                android:layout_width="45dp"
+                android:layout_height="33dp"
+                android:tint="@color/color_red"
+                android:background="@drawable/tab_cart"/>
+            <TextView
+                android:id="@+id/badge"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:textColor="@color/color_white"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:layout_alignTop="@id/btn_cart"
+                android:layout_alignEnd="@id/btn_cart"
+                android:background="@drawable/badge_circle1"
+                android:visibility="invisible"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/MainTabLinear">
+            <ImageButton
+                android:id="@+id/btn_wishlist"
+                android:background="@drawable/tab_wishlist"
+                style="@style/MainTabImageButton"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/profile_tab"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_above="@id/tabbar"
+        android:padding="3dp"
+        android:visibility="visible">
+        <ImageButton
+            android:id="@+id/btn_profile"
+            android:background="@drawable/tab_profile"
+            style="@style/ProfileTab"
+            android:layout_marginStart="20dp"/>
+        <ImageButton
+            android:id="@+id/btn_address"
+            android:background="@drawable/tab_homes"
+            style="@style/ProfileTab"/>
+        <ImageButton
+            android:id="@+id/btn_card"
+            android:background="@drawable/tab_cards"
+            style="@style/ProfileTab"/>
+    </LinearLayout>
+
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/app_bar"/>
+        android:layout_below="@id/app_bar"
+        android:layout_above="@id/profile_tab"/>
 
     <View
         android:id="@+id/toolbar_shadow"
@@ -23,7 +119,7 @@
         android:layout_height="4dp"
         android:layout_below="@id/app_bar"
         android:background="@drawable/shadow"
-        android:visibility="visible"/>
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/thank_message_txt"

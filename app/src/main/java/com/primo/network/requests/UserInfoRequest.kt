@@ -12,6 +12,7 @@ object UserInfoRequest {
         return Request.Builder()
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_USER)
+                        .addPathSegment(APIPrimo.API_BASIC)
                         .addPathSegment(APIPrimo.API_PROFILE)
                         .build())
                 .get()
@@ -34,6 +35,7 @@ object UserInfoRequest {
         return Request.Builder()
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_USER)
+                        .addPathSegment(APIPrimo.API_BASIC)
                         .addPathSegment(APIPrimo.API_PROFILE)
                         .build())
                 .put(body)
@@ -41,18 +43,20 @@ object UserInfoRequest {
                 .build()
     }
 
-    fun getListShippingAddress(): Request {
+    fun getListShippingAddress(token: String): Request {
 
         return Request.Builder()
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_USER)
                         .addPathSegment(APIPrimo.API_SHIPPING)
-                        .build()).get().build()
-        //TODO ADD BEARER TOKEN
+                        .build())
+                .get()
+                .header(APIPrimo.AUTHORIZATION, token)
+                .build()
     }
 
     fun addShippingAddress(alias: String, firstname: String, lastname: String, phone: String, postcode: String,
-          address: String, city: String, state: String, country: String, is_default: String): Request {
+          address: String, city: String, state: String, country: Int, is_default: Int, token: String): Request {
 
         val bodyObject = JSONObject()
         bodyObject.put("alias", alias).put("firstname", firstname).put("lastname", lastname)
@@ -64,22 +68,27 @@ object UserInfoRequest {
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_USER)
                         .addPathSegment(APIPrimo.API_SHIPPING)
-                        .build()).post(body).build()
-        //TODO ADD BEARER TOKEN
+                        .build())
+                .post(body)
+                .header(APIPrimo.AUTHORIZATION, token)
+                .build()
     }
 
-    fun retrieveShippingAddress(shipping_id: String): Request {
+    fun retrieveShippingAddress(shipping_id: String, token: String): Request {
 
         return Request.Builder()
                 .url(APIPrimo.getDefaultHttpBuilder()
+                        .addPathSegment(APIPrimo.API_USER)
                         .addPathSegment(APIPrimo.API_SHIPPING)
                         .addPathSegment(shipping_id)
-                        .build()).get().build()
-        //TODO ADD BEARER TOKEN
+                        .build())
+                .get()
+                .header(APIPrimo.AUTHORIZATION, token)
+                .build()
     }
 
     fun updateShippingAddress(shipping_id: String, alias: String, firstname: String, lastname: String, phone: String, postcode: String,
-                              address: String, city: String, state: String, country: String, is_default: String): Request {
+                              address: String, city: String, state: String, country: Int, is_default: Int, token: String): Request {
 
         val bodyObject = JSONObject()
         bodyObject.put("alias", alias).put("firstname", firstname).put("lastname", lastname)
@@ -90,34 +99,59 @@ object UserInfoRequest {
 
         return Request.Builder()
                 .url(APIPrimo.getDefaultHttpBuilder()
+                        .addPathSegment(APIPrimo.API_USER)
                         .addPathSegment(APIPrimo.API_SHIPPING)
                         .addPathSegment(shipping_id)
-                        .build()).put(body).build()
-        //TODO ADD BEARER TOKEN
+                        .build())
+                .put(body)
+                .header(APIPrimo.AUTHORIZATION, token)
+                .build()
     }
 
-    fun deleteShippingAddress(shipping_id: String): Request {
+    fun updateDefaultShippingAddress(shipping_id: String, token: String): Request {
+
+        val bodyObject = JSONObject()
+        val body = RequestBody.create(APIPrimo.JSON, bodyObject.toString())
 
         return Request.Builder()
                 .url(APIPrimo.getDefaultHttpBuilder()
+                        .addPathSegment(APIPrimo.API_USER)
                         .addPathSegment(APIPrimo.API_SHIPPING)
+                        .addPathSegment(APIPrimo.API_DEFAULT)
                         .addPathSegment(shipping_id)
-                        .build()).delete().build()
-        //TODO ADD BEARER TOKEN
+                        .build())
+                .put(body)
+                .header(APIPrimo.AUTHORIZATION, token)
+                .build()
     }
 
-    fun getListCreditCard(): Request {
+    fun deleteShippingAddress(shipping_id: String, token: String): Request {
+
+        return Request.Builder()
+                .url(APIPrimo.getDefaultHttpBuilder()
+                        .addPathSegment(APIPrimo.API_USER)
+                        .addPathSegment(APIPrimo.API_SHIPPING)
+                        .addPathSegment(shipping_id)
+                        .build())
+                .delete()
+                .header(APIPrimo.AUTHORIZATION, token)
+                .build()
+    }
+
+    fun getListCreditCard(token: String): Request {
 
         return Request.Builder()
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_USER)
                         .addPathSegment(APIPrimo.API_CC)
-                        .build()).get().build()
-        //TODO ADD BEARER TOKEN
+                        .build())
+                .get()
+                .header(APIPrimo.AUTHORIZATION, token)
+                .build()
     }
 
     fun addCreditCard(cardnumber: String, cardname: String, cardyear: String, cardmonth: String,
-                      cardcvc: String, is_default: String): Request {
+                      cardcvc: String, is_default: Int, token: String): Request {
 
         val bodyObject = JSONObject()
         bodyObject.put("cardnumber", cardnumber).put("cardname", cardname).put("cardyear", cardyear)
@@ -129,8 +163,10 @@ object UserInfoRequest {
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_USER)
                         .addPathSegment(APIPrimo.API_CC)
-                        .build()).post(body).build()
-        //TODO ADD BEARER TOKEN
+                        .build())
+                .post(body)
+                .header(APIPrimo.AUTHORIZATION, token)
+                .build()
     }
 
     fun retrieveCreditCard(creditcard_id: String, token: String): Request {
@@ -141,15 +177,16 @@ object UserInfoRequest {
                         .addPathSegment(APIPrimo.API_CC)
                         .addPathSegment(creditcard_id)
                         .build())
-                .get().header(APIPrimo.AUTHORIZATION, token)
+                .get()
+                .header(APIPrimo.AUTHORIZATION, token)
                 .build()
     }
 
     fun updateCreditCard(creditcard_id: String, cardname: String, cardyear: String, cardmonth: String,
-                         token: String, is_default: String): Request {
+                         token: String, is_default: Int): Request {
 
         val bodyObject = JSONObject()
-        bodyObject.put("card_id", creditcard_id).put("cardname", cardname).put("cardyear", cardyear)
+        bodyObject.put("cardname", cardname).put("cardyear", cardyear)
                 .put("cardmonth", cardmonth).put("is_default", is_default)
 
         val body = RequestBody.create(APIPrimo.JSON, bodyObject.toString())
@@ -159,18 +196,57 @@ object UserInfoRequest {
                         .addPathSegment(APIPrimo.API_USER)
                         .addPathSegment(APIPrimo.API_CC)
                         .addPathSegment(creditcard_id)
-                        .build()).put(body).header(APIPrimo.AUTHORIZATION, token).build()
+                        .build())
+                .put(body)
+                .header(APIPrimo.AUTHORIZATION, token)
+                .build()
     }
 
-    fun deleteCreditCard(creditcard_id: String): Request {
+    fun updateDefaultCreditCard(creditcard_id: String, token: String): Request {
+
+        val bodyObject = JSONObject()
+
+        val body = RequestBody.create(APIPrimo.JSON, bodyObject.toString())
+
+        return Request.Builder()
+                .url(APIPrimo.getDefaultHttpBuilder()
+                        .addPathSegment(APIPrimo.API_USER)
+                        .addPathSegment(APIPrimo.API_CC)
+                        .addPathSegment(APIPrimo.API_DEFAULT)
+                        .addPathSegment(creditcard_id)
+                        .build())
+                .put(body)
+                .header(APIPrimo.AUTHORIZATION, token)
+                .build()
+    }
+
+    fun deleteCreditCard(creditcard_id: String, token: String): Request {
 
         return Request.Builder()
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_USER)
                         .addPathSegment(APIPrimo.API_CC)
                         .addPathSegment(creditcard_id)
-                        .build()).delete().build()
-        //TODO ADD BEARER TOKEN
+                        .build())
+                .delete()
+                .header(APIPrimo.AUTHORIZATION, token)
+                .build()
+    }
+
+    fun setCountry(country: Int, token: String): Request {
+
+        val bodyObject = JSONObject()
+        bodyObject.put("country", country)
+
+        val body = RequestBody.create(APIPrimo.JSON, bodyObject.toString())
+        return Request.Builder()
+                .url(APIPrimo.getDefaultHttpBuilder()
+                        .addPathSegment(APIPrimo.API_USER)
+                        .addPathSegment(APIPrimo.API_COUNTRY)
+                        .build())
+                .put(body)
+                .header(APIPrimo.AUTHORIZATION, token)
+                .build()
     }
 
 }

@@ -3,11 +3,29 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/gesture_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/color_white">
+
+    <ImageView
+        android:id="@+id/toolbar_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:src="@drawable/toolbar_logo_staging"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/logo_padding"/>
+
+    <View
+        android:id="@+id/toolbar_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@id/toolbar_image_view"
+        android:background="@drawable/shadow"
+        android:visibility="invisible"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/cart_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_shadow"/>
 
 </com.primo.utils.views.GestureRelativeLayout>

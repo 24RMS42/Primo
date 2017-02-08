@@ -1,3 +1,11 @@
+/**
+ * Changes:
+ *
+ * - Change CartItem to get validation status for item
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.network.new_models
 
 import android.os.Parcel
@@ -6,6 +14,7 @@ import com.primo.utils.base.BaseItem
 
 data class CartItem(var productId: String = "",
                     var cartItemId: String = "",
+                    var status: Int = -1,
                     var quantity: Int = 1,
                     var productName: String = "",
                     var imageUrl: String = "",
@@ -17,9 +26,12 @@ data class CartItem(var productId: String = "",
                     var shippingDomesticOption: Int = 0,
                     var shippingDomesticAmount: Double = 0.0,
                     var shippingInternationalOption: Int = 0,
-                    var shippingInternationalAmount: Double = 0.0) : BaseItem, Parcelable {
+                    var shippingInternationalAmount: Double = 0.0,
+                    var merchant_name: String = "",
+                    var merchant_country: String = "",
+                    var merchant_url: String = "") : BaseItem, Parcelable {
 
-    constructor(source: Parcel): this(source.readString(), source.readString(), source.readInt(), source.readString(), source.readString(), source.readString(), source.readParcelable<Stock>(Stock::class.java.classLoader), source.readDouble(), source.readInt(), source.readString(), source.readInt(), source.readDouble(), source.readInt(), source.readDouble())
+    constructor(source: Parcel): this(source.readString(), source.readString(), source.readInt(), source.readInt(), source.readString(), source.readString(), source.readString(), source.readParcelable<Stock>(Stock::class.java.classLoader), source.readDouble(), source.readInt(), source.readString(), source.readInt(), source.readDouble(), source.readInt(), source.readDouble(), source.readString(), source.readString(), source.readString())
 
     override fun getBaseImage() = imageUrl
 
@@ -31,6 +43,8 @@ data class CartItem(var productId: String = "",
 
     override fun getBaseCurrency() = currency
 
+    override fun getBaseStatus() = status
+
     override fun getBaseQuantity() = quantity
 
     override fun getStockColor(): String = stock.color.name
@@ -38,6 +52,12 @@ data class CartItem(var productId: String = "",
     override fun getStockSize(): String = stock.size.name
 
     override fun getStockCustom(): String = stock.custom.name
+
+    override fun getMerchantName(): String = merchant_name
+
+    override fun getMerchantCountry(): String = merchant_country
+
+    override fun getMerchantUrl(): String = merchant_url
 
     override fun hashCode(): Int {
         return super.hashCode()
@@ -58,6 +78,7 @@ data class CartItem(var productId: String = "",
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.writeString(productId)
         dest?.writeString(cartItemId)
+        dest?.writeInt(status)
         dest?.writeInt(quantity)
         dest?.writeString(productName)
         dest?.writeString(imageUrl)
