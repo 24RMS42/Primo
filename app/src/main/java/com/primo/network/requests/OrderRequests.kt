@@ -1,3 +1,13 @@
+/**
+ * Changes:
+ *
+ * - change location value string to float
+ * - handling null data
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
+
 package com.primo.network.requests
 
 import okhttp3.Request
@@ -15,8 +25,8 @@ object OrderRequests {
                 .put("shipping_id", shippingId)
                 .put("cart_id", cartId)
 
-        bodyObject.put("lat", lat.toString())
-                .put("lng", lng.toString())
+        bodyObject.put("lat", lat)
+                .put("lng", lng)
 
 //        if (!lat.isEmpty() && !lng.isEmpty()) {
 //            bodyObject.put("lat", lat)
@@ -29,6 +39,12 @@ object OrderRequests {
 //                lng = null!!
 //            }
 //        }
+
+        if (lat == null && lng == null)
+        {
+            bodyObject.put("lat", JSONObject.NULL)
+                    .put("lng", JSONObject.NULL)
+        }
 
         val body = RequestBody.create(APIPrimo.JSON, bodyObject.toString())
 
@@ -61,5 +77,19 @@ object OrderRequests {
                         .addPathSegment(APIPrimo.API_HISTORY)
                         .addQueryParameter("page", page.toString())
                         .build()).get().header(APIPrimo.AUTHORIZATION, token).build()
+    }
+
+    fun checkShippingCard(token: String): Request {
+
+        return Request.Builder()
+                .url(APIPrimo.getDefaultHttpBuilder()
+                        .addPathSegment(APIPrimo.API_USER)
+                        .addPathSegment(APIPrimo.API_CHECK)
+                        .addPathSegment(APIPrimo.API_SHIPPING)
+                        .addPathSegment(APIPrimo.API_PAYMENT)
+                        .build())
+                .get()
+                .header(APIPrimo.AUTHORIZATION, token)
+                .build()
     }
 }

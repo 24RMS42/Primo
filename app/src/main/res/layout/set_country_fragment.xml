@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+            <com.primo.utils.views.GestureRelativeLayout
+                android:id="@+id/gesture_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/country"
+                    android:text="@string/set_your_country"
+                    android:textColor="@color/color_red"
+                    android:textSize="20sp"
+                    android:gravity="center"/>
+
+                <EditText
+                    android:id="@+id/country"
+                    style="@style/PrefixEditTextTheme"
+                    android:layout_width="250dp"
+                    android:focusable="false"
+                    android:hint="@string/usa"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="100dp"
+                    android:layout_marginBottom="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"/>
+
+                <Button
+                    android:id="@+id/updateBtn"
+                    style="@style/RedButton"
+                    android:text="@string/update"
+                    android:layout_below="@id/country"
+                    android:layout_centerHorizontal="true"/>
+
+            </com.primo.utils.views.GestureRelativeLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

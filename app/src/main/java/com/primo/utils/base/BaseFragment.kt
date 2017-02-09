@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
+import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
@@ -99,7 +100,15 @@ abstract class BaseFragment : Fragment() {
 
         val activity: Activity? = activity
         if (activity is MainActivity)
-            activity.showAlert(message = message, event = event)
+            activity.showAlert(message = message, code = -2, event = event)
+    }
+
+    protected fun showErrorDialog(message: String?, code: Int?, event: RxEvent? = null) {
+
+        Log.d("Test", "base fragment error dialgo" + code)
+        val activity: Activity? = activity
+        if (activity is MainActivity)
+            activity.showAlert(message = message, code = code, event = event)
     }
 
     override fun onPause() {

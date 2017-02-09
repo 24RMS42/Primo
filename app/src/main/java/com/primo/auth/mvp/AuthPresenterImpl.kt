@@ -1,6 +1,18 @@
+/**
+ * Changes:
+ *
+ * - 503 HTTP status handling
+ * - Add Fabric Answers Event
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
+
 package com.primo.auth.mvp
 
 import android.util.Log
+import com.crashlytics.android.answers.Answers
+import com.crashlytics.android.answers.LoginEvent
 import com.primo.R
 import com.primo.main.MainClass
 import com.primo.network.api_new.ApiResult
@@ -8,7 +20,9 @@ import com.primo.network.api_new.*
 import com.primo.network.new_models.Auth
 import com.primo.utils.consts.*
 import com.primo.utils.getAndroidId
+import com.primo.utils.getInt
 import com.primo.utils.isValidEmail
+import org.json.JSONObject
 
 
 //TODO ADD SEVERAL CONNECTION ERROR
@@ -28,8 +42,12 @@ class AuthPresenterImpl(view: AuthView) : AuthPresenter(view) {
                 }
 
                 override fun onResult(result: Auth?) {
+
+                    //Fabric Answers Event
+                    Answers.getInstance().logLogin(LoginEvent().putMethod("Primo").putSuccess(true))
+
                     if (result != null) {
-                        Log.d("Test", result.toString())
+                        Log.d("Test", "login result:" + result.toString())
                         view?.onSigned(result)
                     } else {
                         view?.hideProgress()
@@ -38,22 +56,11 @@ class AuthPresenterImpl(view: AuthView) : AuthPresenter(view) {
 
                 override fun onError(message: String, code: Int) {
 
-                    Log.d("TEST", code.toString())
-                    Log.d("TEST", message)
+                    Log.d("Test", "login error message:" + message)
+                    Log.d("Test", "http code:" + code.toString())
 
-                    when (code) {
 
-                        ACCESS_NOT_GRANTED_DATA_IS_NOT_VALID,
-                        NOT_FOUND_ERROR ->
-                            view?.showMessage(MainClass.context.getString(R.string.invalid_user_credentials))
-
-                        CONNECTION_ERROR ->
-                            view?.showMessage(MainClass.context.getString(R.string.please_check_your_internet_connection))
-
-                        ACCESS_NOT_GRANTED_USER_NOT_CONFIRMED -> view?.onNotConfirmed()
-
-                        else -> view?.showErrorMessage(message)
-                    }
+                    displayMessage(message, code)
                     view?.hideProgress()
                 }
             })
@@ -80,6 +87,8 @@ class AuthPresenterImpl(view: AuthView) : AuthPresenter(view) {
                 override fun onError(message: String, code: Int) {
                     Log.d("Test", message)
                     view?.showErrorMessage(message)
+
+                    displayMessage(message, code)
                 }
             })
 
@@ -137,16 +146,8 @@ class AuthPresenterImpl(view: AuthView) : AuthPresenter(view) {
                 override fun onError(message: String, code: Int) {
                     Log.d("Test", message)
                     Log.d("Test", code.toString())
-                    when (code) {
 
-                        UNPROCESSABLE_ENTITY ->
-                            view?.showMessage(MainClass.context.getString(R.string.the_email_address_is_not_registered))
-
-                        CONNECTION_ERROR ->
-                            view?.showMessage(MainClass.context.getString(R.string.please_check_your_internet_connection))
-
-                        else -> view?.showErrorMessage(message)
-                    }
+                    displayMessage(message, code)
                 }
 
                 override fun onComplete() {
@@ -155,6 +156,38 @@ class AuthPresenterImpl(view: AuthView) : AuthPresenter(view) {
             })
 
             restoreCall.forgotPassword(email)
+        }
+    }
+
+    fun displayMessage(message: String, code: Int){
+
+        var codeError = -1
+        val jsonObject = JSONObject(message)
+        codeError = jsonObject.getInt("error_code", -1)
+
+        when (codeError) {
+
+//            ACCESS_NOT_GRANTED_DATA_IS_NOT_VALID,
+//            NOT_FOUND_ERROR ->
+//                view?.showMessage(MainClass.context.getString(R.string.invalid_user_credentials))
+
+            ACCESS_NOT_GRANTED_USER_NOT_CONFIRMED -> view?.onNotConfirmed()
+            else -> view?.displayErrorMessage("", codeError)
+
+//            UNPROCESSABLE_ENTITY ->
+//                view?.showMessage(MainClass.context.getString(R.string.the_email_address_is_not_registered))
+//
+//            CONNECTION_ERROR ->
+//                view?.showMessage(MainClass.context.getString(R.string.please_check_your_internet_connection))
+//
+//            SERVICE_UNAVAILABLE_ERROR,
+//            UNAVAILABLE_ERROR ->
+//                view?.showMessage(MainClass.context.getString(R.string.performing_system_maintenance))
+//
+//            SERVICE_INTERNAL_ERROR,
+//            INTERNAL_ERROR ->
+//                view?.showMessage(MainClass.context.getString(R.string.server_is_having_some_issue))
+
         }
     }
 }
