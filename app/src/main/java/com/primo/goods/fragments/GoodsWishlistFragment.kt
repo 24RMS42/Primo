@@ -1,7 +1,17 @@
+/**
+ * Changes:
+ *
+ * - Add login in wishlist while logout
+ * - Control toolbar
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.goods.fragments
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +23,7 @@ import com.primo.goods.mvp.GoodsWishlistPresenter
 import com.primo.goods.mvp.GoodsWishlistPresenterImpl
 import com.primo.goods.mvp.GoodsWishlistView
 import com.primo.main.MainActivity
+import com.primo.main.MainClass
 import com.primo.network.new_models.WishItem
 import com.primo.utils.base.BasePresenterFragment
 import com.primo.utils.consts.ADD
@@ -20,6 +31,7 @@ import com.primo.utils.consts.DELETE
 import com.primo.utils.interfaces.OnDialogClickListener
 import com.primo.utils.interfaces.OnItemClickListener
 import com.primo.utils.other.RxEvent
+import com.primo.utils.showFragment
 import com.primo.utils.views.GestureRelativeLayout
 import kotlinx.android.synthetic.main.goods_list_fragment.*
 
@@ -35,7 +47,14 @@ class GoodsWishlistFragment : BasePresenterFragment<GoodsWishlistView, GoodsWish
 
     override fun onResume() {
         super.onResume()
-        changeToolbarState(MainActivity.ToolbarStates.BACK_BTN_ONLY)
+        (activity as MainActivity).changeTabbarState(MainActivity.TabbarStates.WISHLIST)
+        val auth = MainClass.getAuth()
+        val token = auth.access_token
+        Log.d("Test", "token:" + token)
+        if (token.isEmpty())
+            changeToolbarState(MainActivity.ToolbarStates.BACK_BTN_WITH_LOGIN)
+        else
+            changeToolbarState(MainActivity.ToolbarStates.BACK_BTN_ONLY)
     }
 
     override fun onPause() {
@@ -55,6 +74,9 @@ class GoodsWishlistFragment : BasePresenterFragment<GoodsWishlistView, GoodsWish
         gestureLayout.onSwipeListener = this
 
         presenter?.getWishes()
+
+        (activity as MainActivity).showToolbar(true)
+        Log.d("Test", "=======Wishlist Fragment create")
     }
 
     private fun initRecycler() {
@@ -98,7 +120,11 @@ class GoodsWishlistFragment : BasePresenterFragment<GoodsWishlistView, GoodsWish
     }
 
     override fun onSwipeToRight() {
-        activity?.onBackPressed()
+        //activity?.onBackPressed()
+        (activity as MainActivity).changeTabbarState(MainActivity.TabbarStates.CART)
+        (activity as MainActivity).setPageState(1); // Set Total fragment
+        showFragment(GoodsPagerFragment(), true,
+                R.anim.left_center, R.anim.center_right, R.anim.right_center, R.anim.center_left, GoodsPagerFragment::class.java.simpleName)
     }
 
     override fun onDialogClick(code: Int, dataObject: Any?) {
@@ -113,6 +139,11 @@ class GoodsWishlistFragment : BasePresenterFragment<GoodsWishlistView, GoodsWish
                 ADD -> presenter?.addItemToCart(dataObject)
             }
         }
+    }
+
+    override fun updateCartBadge() {
+
+        (activity as MainActivity).increaseBadge()
     }
 
     override fun showWishes(wishes: MutableList<WishItem>) {
@@ -139,7 +170,12 @@ class GoodsWishlistFragment : BasePresenterFragment<GoodsWishlistView, GoodsWish
     }
 
     override fun showMessage(message: String?, event: RxEvent?) {
-        throw UnsupportedOperationException()
+        //throw UnsupportedOperationException()
+        showDialog(message = message, event = event)
+    }
+
+    override fun displayErrorMessage(message : String?, code: Int?, event: RxEvent?){
+        showErrorDialog(message, code)
     }
 
 }

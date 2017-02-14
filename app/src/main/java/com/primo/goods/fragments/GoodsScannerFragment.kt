@@ -1,3 +1,14 @@
+/**
+ * Changes:
+ *
+ * - change custom dialog
+ * - add turn on camera button
+ * - control toolbar
+ * - fix price for 0 stock item on camera page
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.goods.fragments
 
 import android.Manifest
@@ -23,15 +34,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.facebook.drawee.view.SimpleDraweeView
+import com.jakewharton.rxbinding.view.visibility
 import com.journeyapps.barcodescanner.CompoundBarcodeView
+import com.kaopiz.kprogresshud.KProgressHUD
 import com.primo.R
 import com.primo.goods.mvp.GoodsScannerPresenter
 import com.primo.goods.mvp.GoodsScannerView
 import com.primo.goods.mvp.GoodsScannerPresenterImpl
+import com.primo.main.MainActivity
 import com.primo.main.MainClass
 import com.primo.network.new_models.Product
+import com.primo.profile.fragments.PageProfileFragment
 import com.primo.profile.fragments.ProfileFragment
 import com.primo.utils.*
 import com.primo.utils.base.BasePresenterFragment
@@ -58,6 +75,9 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
     private var progressDialog: ProgressDialog? = null
     //=====
 
+    private var turnonCameraBtn: Button? = null
+    private var turnCameraLayout: LinearLayout? = null
+
     private var barcodeView: CompoundBarcodeView? = null
     private var infoTxt: TextView? = null
     private var totalContainer: View? = null
@@ -77,6 +97,7 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
     private var _subscriptions: CompositeSubscription? = null
 
     private var isFirstRun: Boolean = false
+    var TAG = "matata"
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -95,12 +116,19 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
             } else {
                 presenter?.setPermission(true)
             }
+
+            (activity as MainActivity).showToolbar(false)
+            Log.d("Test", "=======Scanner Fragment create")
+
         }
 
         return rootView
     }
 
     private fun init() {
+
+        turnonCameraBtn = rootView?.findViewById(R.id.turn_camera_btn) as Button
+        turnCameraLayout = rootView?.findViewById(R.id.turn_camera_layout) as LinearLayout
 
         val galleryImg = rootView?.findViewById(R.id.gallery_img)
         val checkoutBtn = rootView?.findViewById(R.id.checkout_btn)
@@ -122,7 +150,7 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
         sensorAccel = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         //=====
 
-        setOnClickListener(this, galleryImg, checkoutBtn, count, countArrow)
+        setOnClickListener(this, galleryImg, checkoutBtn, turnonCameraBtn, count, countArrow)
     }
 
     private fun initScanner() {
@@ -148,6 +176,9 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
 
                 showMessage(getString(R.string.access_to_camera))
 
+                //visible turn on camera button
+                turnCameraLayout?.setVisibility(View.VISIBLE);
+
             } else {
 
                 ActivityCompat.requestPermissions(activity,
@@ -161,10 +192,16 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
 
     private fun changeTotalState(amount: Triple<Int, Double, String>) {
 
-        isProductExist = amount.second > 0
+        isProductExist = amount.first > 0 // determine product exist by quantity, not price
         infoTxt?.visibility = if (isProductExist) View.INVISIBLE else View.VISIBLE
         totalContainer?.visibility = if (isProductExist) View.VISIBLE else View.INVISIBLE
         totalPrice?.post({ totalPrice?.text = "${amount.third} ${amount.second.round(2).toStringWithoutZeros()}" })
+
+        if (!isProductExist)
+            count?.visibility = View.INVISIBLE
+        else
+            count?.visibility = View.VISIBLE
+
         count?.text = amount.first.toString()
         count?.bouncingAnimation()
     }
@@ -192,6 +229,10 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
         showDialog(message = message, event = event)
     }
 
+    override fun displayErrorMessage(message : String?, code: Int?, event: RxEvent?){
+        showErrorDialog(message, code)
+    }
+
     override fun onClick(v: View?) {
 
         when (v?.id) {
@@ -204,8 +245,8 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
 
                 if (isProductExist && token.isEmpty()) {
 
-                    showFragment(ProfileFragment(), true,
-                            R.anim.left_center, R.anim.center_right, R.anim.right_center, R.anim.center_left, ProfileFragment::class.java.simpleName)
+                    showFragment(PageProfileFragment(), true,
+                            R.anim.left_center, R.anim.center_right, R.anim.right_center, R.anim.center_left, PageProfileFragment::class.java.simpleName)
 
                 } else if (isProductExist) {
 
@@ -213,7 +254,8 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
                         if (isPhoneMove()) {
                             orderPlace()
                         } else {
-                            waitPhoneMove()
+                            //waitPhoneMove()
+                            wait_PhoneMove()
                         }
                     } else {
                         orderPlace()
@@ -224,13 +266,15 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
                 }
             }
             R.id.count, R.id.count_arrow -> {
-
+                Log.d("Test", "==== click count arrow")
                 val parent = parentFragment
 
                 if (parent != null && parent is GoodsPagerFragment) {
                     parent.slideNext()
                 }
             }
+            R.id.turn_camera_btn -> ActivityCompat.requestPermissions(activity,
+                    arrayOf(Manifest.permission.CAMERA), PERMISSION_CAMERA_REQUEST)
         }
     }
 
@@ -271,6 +315,7 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
         _subscriptions?.add(_rxBus?.toObserverable()
                 ?.subscribe({
 
+                    Log.d("Test", "Scan fragment get event" + it.key)
                     when (it.key) {
 
                         Events.QR_NOT_FOUND_DIALOG_CLOSE -> presenter?.onResumeScanning()
@@ -281,9 +326,14 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
 
                             if (it.sentObject is Int && it.sentObject == 0) {
                                 presenter?.setPermission(true)
+                                turnCameraLayout?.setVisibility(View.INVISIBLE)
                             } else {
                                 presenter?.setPermission(false)
                                 showMessage(getString(R.string.access_to_camera))
+
+                                //visible turn on camera button
+                                turnCameraLayout?.setVisibility(View.VISIBLE)
+                                Log.d(TAG, "========== camera permission false===========")
                             }
                         }
                     }
@@ -334,6 +384,37 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
                     }
                     GIGGLE_NO -> {
                         progressDialog?.dismiss()
+                    }
+                }
+            }
+        }
+
+        var wa: Thread = Thread(this)
+        wa.start()
+    }
+
+    fun wait_PhoneMove() {
+
+        var mkProgressHUD: KProgressHUD? = null
+        mkProgressHUD = KProgressHUD.create(context)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(true)
+                .setDetailsLabel(getString(R.string.check_out_giggle))
+                .setAnimationSpeed(1)
+                .setDimAmount(0.5f)
+                .show()
+
+        isWait = true
+        handler = object: Handler() {
+            override fun handleMessage(msg: Message) {
+                super.handleMessage(msg)
+                when(msg.what){
+                    GIGGLE_OK -> {
+                        mkProgressHUD?.dismiss()
+                        orderPlace()
+                    }
+                    GIGGLE_NO -> {
+                        mkProgressHUD?.dismiss()
                     }
                 }
             }

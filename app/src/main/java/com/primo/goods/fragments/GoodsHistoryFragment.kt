@@ -47,6 +47,9 @@ class GoodsHistoryFragment : BasePresenterFragment<GoodsHistoryView, GoodsHistor
             presenter?.getOrderHistory(1)
         }
 
+        //show toolbar
+        (activity as MainActivity).showToolbar(true)
+
         return rootView
     }
 
@@ -92,6 +95,7 @@ class GoodsHistoryFragment : BasePresenterFragment<GoodsHistoryView, GoodsHistor
 
     override fun onResume() {
         super.onResume()
+        (activity as MainActivity).changeTabbarState(MainActivity.TabbarStates.HISTORY)
         changeToolbarState(MainActivity.ToolbarStates.BACK_BTN_ROTATED_ONLY)
     }
 
@@ -130,7 +134,11 @@ class GoodsHistoryFragment : BasePresenterFragment<GoodsHistoryView, GoodsHistor
     }
 
     override fun showMessage(message: String?, event: RxEvent?) {
+        showDialog(message)
+    }
 
+    override fun displayErrorMessage(message : String?, code: Int?, event: RxEvent?){
+        showErrorDialog(message, code)
     }
 
     override fun onDetach() {

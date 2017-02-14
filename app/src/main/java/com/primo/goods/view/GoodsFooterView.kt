@@ -1,15 +1,30 @@
+/**
+ * Changes:
+ *
+ * - Calculate total price without 0 stock item
+ * - Fix price for 0 stock item on camera page
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.goods.view
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import com.primo.R
+import com.primo.main.MainClass
 import com.primo.network.models.ShippingQuote
 import com.primo.network.new_models.CartItem
 import com.primo.utils.*
+import com.primo.utils.consts.ADD_TO_WISHLIST
+import com.primo.utils.other.Events
+import com.primo.utils.other.RxBus
+import com.primo.utils.other.RxEvent
 import com.primo.utils.views.SquareImageView
 
 class GoodsFooterView : RelativeLayout, View.OnClickListener {
@@ -34,6 +49,8 @@ class GoodsFooterView : RelativeLayout, View.OnClickListener {
     private var shippingCost: Double = 0.0
     private var currency: String = ""
 
+    private var _rxBus: RxBus? = null
+
     var footerViewListener : FooterViewListener? = null
     var shippings: MutableList<ShippingQuote>? = null
 
@@ -50,6 +67,8 @@ class GoodsFooterView : RelativeLayout, View.OnClickListener {
     private fun init() {
 
         inflate(context, R.layout.footer_view, this)
+
+        _rxBus = MainClass.getRxBus()
 
         shippingLayout = rootView?.findViewById(R.id.shipping_layout)
         shippingBase = rootView?.findViewById(R.id.shipping_base)
@@ -103,7 +122,7 @@ class GoodsFooterView : RelativeLayout, View.OnClickListener {
 
             //Print total cost
             totalPrice?.text = "$currency ${(cost + shippingObj.rate).round(2).toStringWithoutZeros()}"
-            footerViewListener?.onCostChanged((cost + shippingObj.rate).round(2))
+            footerViewListener?.onCostChanged((cost + shippingObj.rate).round(2), 1)
         }
     }
 
@@ -125,7 +144,9 @@ class GoodsFooterView : RelativeLayout, View.OnClickListener {
 
     fun recalculate(productList : MutableList<CartItem>?) {
 
+        Log.d("Test", "=====recaluate price")
         val size = productList?.size ?: 0
+        var quantity = 0
 
         val isFilled = size > 0
 
@@ -137,17 +158,26 @@ class GoodsFooterView : RelativeLayout, View.OnClickListener {
 
         if (isFilled) {
             for (product in productList.orEmpty()) {
-                shippingCost += product.shippingDomesticAmount
-                cost += product.price * product.quantity
-                currency = getCurrency(product.currency)
+
+                if (product.status != ADD_TO_WISHLIST) {
+                    Log.d("Test", "=== product:" + product)
+                    shippingCost += product.shippingDomesticAmount
+                    cost += product.price * product.quantity
+                    currency = getCurrency(product.currency)
+                }
+                quantity += product.quantity
             }
         }
 
         cost = cost.round(2)
-        footerViewListener?.onCostChanged(cost + shippingCost)
+        Log.d("Test", "recalculate cost" + cost)
+        footerViewListener?.onCostChanged(cost + shippingCost, productList!!.size)
 
         shippingCount?.text = "$currency ${shippingCost.toStringWithoutZeros()}"
         totalPrice?.text = "$currency ${(cost + shippingCost).toStringWithoutZeros()}"
+
+        //send event of recalculated cost
+        _rxBus?.send(RxEvent(Events.CHANGE_COST, Triple(quantity, cost, currency)))
     }
 
     fun fillShippingContainer() {
@@ -202,6 +232,7 @@ class GoodsFooterView : RelativeLayout, View.OnClickListener {
 
         fun onHistoryClick()
 
-        fun onCostChanged(cost: Double)
+        //add quantity parameter, determine product exist by quantity, not price
+        fun onCostChanged(cost: Double, quantity: Int)
     }
 }

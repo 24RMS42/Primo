@@ -20,6 +20,8 @@ interface GoodsTotalView : BaseView {
     fun onSigned(result: Auth)
 
     fun deleteItem(cartItem: CartItem)
+
+    fun onCheckShippingCardBeforeCheckout(result: Array<Boolean?>)
 }
 
 abstract class GoodsTotalPresenter(view: GoodsTotalView) : BasePresenter<GoodsTotalView>(view) {
@@ -36,6 +38,8 @@ abstract class GoodsTotalPresenter(view: GoodsTotalView) : BasePresenter<GoodsTo
 
     abstract fun updateCartItem(stockId: String, cartItemId: String, quantity: String)
 
+    abstract fun searchProductById(productId: String)
+
     abstract fun addProduct(product: Product)
 
     abstract fun findProductByKeyword(keyword: String)
@@ -49,5 +53,7 @@ abstract class GoodsTotalPresenter(view: GoodsTotalView) : BasePresenter<GoodsTo
     abstract fun retrieveProductStock(product: CartItem)
 
     abstract fun signIn(email: String, password: String)
+
+    abstract fun checkShippingCardBeforeCheckout()
 
 }

@@ -1,3 +1,16 @@
+/**
+ * Changes:
+ *
+ * - change custom dialog
+ * - allow to go to signup page without product
+ * - control toolbar
+ * - add Deeplink feature
+ * - check Shipping address and Credit Card before checkout
+ * - add swipe down effect
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.goods.fragments
 
 import android.app.ProgressDialog
@@ -16,6 +29,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kaopiz.kprogresshud.KProgressHUD
 import com.primo.R
 import com.primo.goods.adapter.GoodsListAdapter
 import com.primo.goods.decoration.VerticalSpaceItemDecoration
@@ -24,13 +38,18 @@ import com.primo.goods.mvp.GoodsTotalPresenter
 import com.primo.goods.mvp.GoodsTotalPresenterImpl
 import com.primo.goods.mvp.GoodsTotalView
 import com.primo.goods.view.GoodsFooterView
+import com.primo.main.MainActivity
 import com.primo.main.MainClass
 import com.primo.network.models.ShippingQuote
 import com.primo.network.new_models.Auth
 import com.primo.network.new_models.CartItem
 import com.primo.network.new_models.Product
 import com.primo.network.new_models.Stock
+import com.primo.profile.fragments.AddAddressFragment
+import com.primo.profile.fragments.PageProfileFragment
 import com.primo.profile.fragments.ProfileFragment
+import com.primo.profile.fragments.SetCountryFragment
+import com.primo.utils.DialogUtils
 import com.primo.utils.base.BasePresenterFragment
 import com.primo.utils.consts.*
 import com.primo.utils.getCurrency
@@ -41,6 +60,7 @@ import com.primo.utils.other.RxBus
 import com.primo.utils.other.RxEvent
 import com.primo.utils.tapScaleAnimation
 import com.primo.utils.views.GestureRelativeLayout
+import kotlinx.android.synthetic.main.month_year_picker_view.*
 import rx.subscriptions.CompositeSubscription
 import java.util.*
 
@@ -71,6 +91,8 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
     private var productList: MutableList<CartItem>? = null
     private var goodsListAdapter: GoodsListAdapter? = null
     private var isLoading = false
+    private var mDialogUtils: DialogUtils? = null
+    private var totalCost = 0.0
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -107,6 +129,7 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
         sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensorAccel = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         //=====
+        mDialogUtils = DialogUtils()
     }
 
     override fun initPresenter() {
@@ -115,6 +138,7 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
 
     override fun onResume() {
         super.onResume()
+        (activity as MainActivity).changeTabbarState(MainActivity.TabbarStates.CART)
         presenter?.getProductList()
 
         sensorManager?.registerListener(this, sensorAccel, SensorManager.SENSOR_DELAY_NORMAL)
@@ -131,15 +155,17 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
         val auth = MainClass.getAuth()
         val token = auth.access_token
 
-        if (isProductExist && token.isEmpty())
+        if (isProductExist && token.isEmpty()) {
             loadOrderFragment()
+        }
         else if (isProductExist) {
 
             if(sensorAccel != null) {
                 if (isPhoneMove()) {
                     orderPlace()
                 } else {
-                    waitPhoneMove()
+                    //waitPhoneMove()
+                    wait_PhoneMove()
                 }
             } else {
                 orderPlace()
@@ -165,8 +191,9 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
                 R.anim.down_center, R.anim.center_up, R.anim.up_center, R.anim.center_down)
     }
 
-    override fun onCostChanged(cost: Double) {
-        isProductExist = cost > 0
+    override fun onCostChanged(cost: Double, quantity: Int) {
+        isProductExist = quantity > 0 // determine product exist by quantity, not cost
+        checkProductBeforeSignUp() // it should be calculated before go to SignUp page as user may click Setting tab to go to SignUp page
     }
 
     override fun onItemClick(view: View?, position: Int) {
@@ -204,10 +231,14 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
     override fun onStart() {
         super.onStart()
 
+        (activity as MainActivity).showToolbar(false)
+        Log.d("Test", "=======Total Fragment start")
+
         _subscriptions = CompositeSubscription();
         _subscriptions?.add(_rxBus?.toObserverable()
                 ?.subscribe({
 
+                    Log.d("Test", "TOTAL fragment get event:" + it.key)
                     when (it.key) {
 
                         Events.CONFIRMED -> {
@@ -229,6 +260,13 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
                         }
                     }
                 }));
+
+        val pair = (activity as MainActivity).getDeeplinkData()
+        if (pair.first != "" && pair.second != ""){
+            presenter?.searchProductById(pair.second)
+            (activity as MainActivity).initDeeplinkData()
+        }
+
     }
 
     override fun onSigned(result: Auth) {
@@ -236,12 +274,64 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
         MainClass.deleteLoginData()
 
         MainClass.saveAuth(result)
-        presenter?.getProductList()
+
+        // After login automatically, fix screen issue //
+        val activity = activity
+        if (activity != null && activity is MainActivity) {
+            if (result.country < 1 || result.country > 253) { // if country field is empty, then show the page to set country
+                activity.showMainTabbar(false)
+                activity.changeProfileTabState(MainActivity.ProfileTabStates.INVISIBLE)
+                showFragment(SetCountryFragment(), true,
+                        R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right, SetCountryFragment::class.java.simpleName)
+            } else {
+                Log.d("Test", " === onSigned === ")
+                activity.changeTabbarState(MainActivity.TabbarStates.CART)
+                activity.setPageState(1); // Set Total fragment
+                showFragment(GoodsPagerFragment(), true, R.anim.left_center, R.anim.center_right, R.anim.right_center, R.anim.center_left, GoodsPagerFragment::class.java.simpleName)
+
+                presenter?.getProductList()
+            }
+        }
+    }
+
+    override fun onCheckShippingCardBeforeCheckout(result: Array<Boolean?>) {
+
+        if (result[0] == false) {
+            showMessage(MainClass.context.getString(R.string.please_add_shipping_address))
+            (activity as MainActivity).changeProfileTabState(MainActivity.ProfileTabStates.PROFILE_PAGE)
+            showFragment(PageProfileFragment(), true,
+                    R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right, PageProfileFragment::class.java.simpleName)
+        }
+        else if (result[1] == false) {
+            showMessage(MainClass.context.getString(R.string.please_add_credit_card))
+            (activity as MainActivity).changeProfileTabState(MainActivity.ProfileTabStates.PROFILE_PAGE)
+            showFragment(PageProfileFragment(), true,
+                    R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right, PageProfileFragment::class.java.simpleName)
+        }
+        else {
+            val parent = parentFragment
+            if (parent != null && parent is GoodsPagerFragment) {
+                parent.getOrderPlace()
+            }
+        }
+    }
+
+    private fun checkProductBeforeSignUp(){
+
+        (activity as MainActivity).changeProfileTabState(MainActivity.ProfileTabStates.INVISIBLE)
+
+        if (isProductExist && totalCost > 0) //normal
+            (activity as MainActivity).changeProfileTabState(MainActivity.SignUpStates.NORMAL)
+        else if (isProductExist && totalCost == 0.0) //0 stock item
+            (activity as MainActivity).changeProfileTabState(MainActivity.SignUpStates.NOCC)
+        else //no product
+            (activity as MainActivity).changeProfileTabState(MainActivity.SignUpStates.BASIC)
+
     }
 
     private fun loadOrderFragment() {
-        showFragment(ProfileFragment(), true,
-                R.anim.left_center, R.anim.center_right, R.anim.right_center, R.anim.center_left, ProfileFragment::class.java.simpleName)
+        showFragment(PageProfileFragment(), true,
+                R.anim.left_center, R.anim.center_right, R.anim.right_center, R.anim.center_left, PageProfileFragment::class.java.simpleName)
     }
 
     override fun showDescriptionDialog(data: Pair<CartItem, ArrayList<Stock>>) {
@@ -278,15 +368,17 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
 
     override fun onSwipeToRight() {
 
-        if (isProductExist)
-            loadOrderFragment()
-        else
-            showDialog(getString(R.string.please_choose_at_least_one_product))
+        loadOrderFragment()
     }
 
     override fun onSwipeToLeft() {
         showFragment(GoodsWishlistFragment(), true, R.anim.right_center, R.anim.center_left,
                 R.anim.left_center, R.anim.center_right, GoodsWishlistFragment::class.java.simpleName)
+    }
+
+    override fun onSwipeDown() {
+        Log.d("Test", "== swiping down == ")
+        onHistoryClick()
     }
 
     override fun onDialogClick(code: Int, dataObject: Any?) {
@@ -332,20 +424,28 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
         isLoading = true
         val parent = parentFragment
         if (parent != null && parent is GoodsPagerFragment) {
-            parent.showProgress()
+            //parent.showProgress()
+            mDialogUtils?.showLoadingWithoutLabel(context)
         }
     }
 
     override fun hideProgress() {
+        Log.d("Test", "search add complete")
         isLoading = false
         val parent = parentFragment
         if (parent != null && parent is GoodsPagerFragment) {
-            parent.hideProgress()
+            //parent.hideProgress()
+            mDialogUtils?.hideLoading()
         }
     }
 
     override fun showMessage(message: String?, event: RxEvent?) {
+        showDialog(message = message, event = event)
+    }
 
+    override fun displayErrorMessage(message : String?, code: Int?, event: RxEvent?){
+        Log.d("Test", "total fragment error message" + code)
+        showErrorDialog(message, code)
     }
 
     private fun calculateCost(shippingCost: Double = 0.0) {
@@ -355,14 +455,25 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
         var currency = ""
 
         for (product in productList.orEmpty()) {
-            cost += product.price * product.quantity
-            quantity += product.quantity
-            currency = getCurrency(product.currency)
+            if (product.status != ADD_TO_WISHLIST) {
+                cost += product.price * product.quantity
+                currency = getCurrency(product.currency)
+            }
+            quantity += product.quantity // for no stock item, it is calculated in count
         }
 
         cost += shippingCost
+        totalCost = cost
+        Log.d("Test", "total cost:" + totalCost)
 
         _rxBus?.send(RxEvent(Events.CHANGE_COST, Triple(quantity, cost, currency)))
+
+        //update cart badge
+        //productList?.size : product count
+        //quantity : product total count with quantity
+        (activity as MainActivity).updateBadge(quantity)
+
+        checkProductBeforeSignUp()
     }
 
     override fun onStop() {
@@ -412,6 +523,37 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
         wa.start()
     }
 
+    fun wait_PhoneMove() {
+
+        var mkProgressHUD: KProgressHUD? = null
+        mkProgressHUD = KProgressHUD.create(context)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(true)
+                .setDetailsLabel(getString(R.string.check_out_giggle))
+                .setAnimationSpeed(1)
+                .setDimAmount(0.5f)
+                .show()
+
+        isWait = true
+        handler = object: Handler() {
+            override fun handleMessage(msg: Message) {
+                super.handleMessage(msg)
+                when(msg.what){
+                    GIGGLE_OK -> {
+                        mkProgressHUD?.dismiss()
+                        orderPlace()
+                    }
+                    GIGGLE_NO -> {
+                        mkProgressHUD?.dismiss()
+                    }
+                }
+            }
+        }
+
+        var wa: Thread = Thread(this)
+        wa.start()
+    }
+
     override fun onSensorChanged(p0: SensorEvent?) {
         when (p0?.sensor?.type) {
             Sensor.TYPE_ACCELEROMETER -> {
@@ -442,9 +584,7 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
     }
 
     private fun orderPlace() {
-        val parent = parentFragment
-        if (parent != null && parent is GoodsPagerFragment) {
-            parent.getOrderPlace()
-        }
+        // check Shipping address and Credit Card before checkout
+        presenter?.checkShippingCardBeforeCheckout()
     }
 }

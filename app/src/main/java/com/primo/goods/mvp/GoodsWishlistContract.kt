@@ -9,6 +9,8 @@ interface GoodsWishlistView : BaseView {
     fun showWishes(wishes: MutableList<WishItem>)
 
     fun deleteItem(wishItem: WishItem)
+
+    fun updateCartBadge()
 }
 
 abstract class GoodsWishlistPresenter(view : GoodsWishlistView) : BasePresenter<GoodsWishlistView>(view) {
