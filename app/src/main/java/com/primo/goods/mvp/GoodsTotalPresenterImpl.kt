@@ -1,16 +1,29 @@
+/**
+ * Changes:
+ *
+ * - Add message when scan 0 stock item
+ * - 503 HTTP status handling
+ * - Add Deeplink feature
+ * - Check Shipping address and Credit Card before checkout
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
+
 package com.primo.goods.mvp
 
 import android.util.Log
+import android.widget.Toast
 import com.primo.R
+import com.primo.main.MainActivity
 import com.primo.main.MainClass
 import com.primo.network.api_new.*
 import com.primo.network.new_models.*
-import com.primo.utils.consts.ACCESS_NOT_GRANTED_DATA_IS_NOT_VALID
-import com.primo.utils.consts.ACCESS_NOT_GRANTED_USER_NOT_CONFIRMED
-import com.primo.utils.consts.CONNECTION_ERROR
-import com.primo.utils.consts.NOT_FOUND_ERROR
+import com.primo.utils.consts.*
 import com.primo.utils.getAndroidId
+import com.primo.utils.getInt
 import com.primo.utils.isValidEmail
+import org.json.JSONObject
 import java.util.*
 
 
@@ -38,6 +51,8 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
                 override fun onError(message: String, code: Int) {
                     view?.showErrorMessage(message)
                     Log.d("TEST", message)
+
+                    displayMessage(message, code)
                 }
 
                 override fun onComplete() {
@@ -64,6 +79,8 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
                 override fun onError(message: String, code: Int) {
                     view?.showErrorMessage(message)
                     Log.d("TEST", message)
+
+                    displayMessage(message, code)
                 }
 
                 override fun onComplete() {
@@ -101,11 +118,50 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
                 override fun onError(message: String, code: Int) {
                     view?.showErrorMessage(message)
                     Log.d("TEST", message)
+
+                    displayMessage(message, code)
                 }
             })
 
             searchCall.searchProductByKeyword(keyword)
         }
+    }
+
+    override fun searchProductById(productId: String) {
+
+        val retrieveProductCall: RetrieveProduct = RetrieveProductImpl(object : ApiResult<Product> {
+
+                override fun onStart() {
+                    view?.showProgress()
+                }
+
+                override fun onResult(result: Product) {
+                    Log.d("Test", "search product result:" + result)
+                    if (result != null) {
+                        addProduct(result)
+                    }
+                }
+
+                override fun onError(message: String, code: Int) {
+                    view?.showErrorMessage(message)
+                    Log.d("Test", "search error:" + message)
+
+                    when (code) {
+                        NOT_FOUND_ERROR ->
+                            view?.showToastMessage(MainClass.context.getString(R.string.there_is_no_such_product))
+                    }
+
+                    displayMessage(message, code)
+                }
+
+                override fun onComplete() {
+                    Log.d("Test", "search complete")
+                    view?.hideProgress()
+                }
+        })
+
+        Log.d("Test", "search product by id")
+        retrieveProductCall.retrieveProduct(productId)
     }
 
     override fun addProduct(product: Product) {
@@ -114,23 +170,28 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
         val token = auth.access_token
         val cartId = auth.cart_id
 
-        if (token.isEmpty() || cartId.isEmpty()) {
-
+        if (token.isEmpty() /*|| cartId.isEmpty()*/) {
+            Log.d("Test","==== temp cart ====")
             val addTempCall: AddItemToTempCart = AddItemToTempCartImpl(object : ApiResult<Cart?> {
 
                 override fun onStart() {
-                    view?.showProgress()
+                    //view?.showProgress()
                 }
 
                 override fun onResult(result: Cart?) {
 
-                    if (result != null)
+                    Log.d("Test", "additemtempcart api result:" + result)
+                    if (result != null) {
+                        //addItemToTempCart(product.stocks[0].stock_id, 1.toString())
                         view?.updateProductList(result.products)
+                    }
                 }
 
                 override fun onError(message: String, code: Int) {
                     view?.showErrorMessage(message)
-                    Log.d("TEST", message)
+                    Log.d("TEST", "additemtempcart:errormsg:" + message)
+
+                    displayMessage(message, code)
                 }
 
                 override fun onComplete() {
@@ -138,19 +199,23 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
                 }
             })
 
-            if (product.stocks.size > 0)
+            if (product.stocks.size > 0) {
+                Log.d("Test", "adding item to temp cart")
                 addTempCall.addItemToTempCart(product.stocks[0].stock_id, 1.toString())
+            }
         } else {
-
+            Log.d("Test","==== cart ====");
             val addCall: AddItemToCart = AddItemToCartImpl(object : ApiResult<Cart?> {
 
                 override fun onStart() {
-                    view?.showProgress()
+                    //view?.showProgress()
                 }
 
                 override fun onResult(result: Cart?) {
 
                     if (result != null) {
+                        Log.d("Test", "product result:" + result)
+
                         view?.updateProductList(result.products)
 
                         if (!result.cartId.isEmpty()) {
@@ -162,19 +227,37 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
                 }
 
                 override fun onError(message: String, code: Int) {
+                    Log.d("Test", "add error" + message)
                     view?.showErrorMessage(message)
-                    Log.d("TEST", message)
+
+                    displayMessage(message, code)
                 }
 
                 override fun onComplete() {
+                    Log.d("Test", "add complete")
                     view?.hideProgress()
                 }
             })
 
-            if (product.stocks.size > 0)
+            if (product.stocks.size > 0) {
+                Log.d("Test", "adding item to cart")
                 addCall.addItemToCart(product.stocks[0].stock_id, 1.toString(), token)
+            }
         }
 
+    }
+
+    fun showDialog(message: String){
+
+            val builder = android.support.v7.app.AlertDialog.Builder(MainClass.context, R.style.DialogTheme)
+            builder.setMessage(message)
+
+            builder.setPositiveButton(android.R.string.ok, { dialogInterface, i ->
+                dialogInterface.dismiss()
+            })
+
+            val dialog = builder.create()
+            dialog.show()
     }
 
     override fun removeProduct(product: CartItem) {
@@ -194,6 +277,8 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
                 override fun onError(message: String, code: Int) {
                     view?.showErrorMessage(message)
                     Log.d("TEST", message)
+
+                    displayMessage(message, code)
                 }
             })
 
@@ -209,6 +294,8 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
                 override fun onError(message: String, code: Int) {
                     view?.showErrorMessage(message)
                     Log.d("TEST", message)
+
+                    displayMessage(message, code)
                 }
             })
 
@@ -235,8 +322,10 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
                 }
 
                 override fun onError(message: String, code: Int) {
-                    //view?.showErrorMessage(message)
+                    view?.showErrorMessage(message)
                     Log.d("TEST", message)
+
+                    displayMessage(message, code)
                 }
             })
 
@@ -253,6 +342,8 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
                 override fun onError(message: String, code: Int) {
                     view?.showErrorMessage(message)
                     Log.d("TEST", message)
+
+                    displayMessage(message, code)
                 }
             })
 
@@ -280,6 +371,8 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
                 override fun onError(message: String, code: Int) {
                     view?.showErrorMessage(message)
                     Log.d("TEST", message)
+
+                    displayMessage(message, code)
                 }
 
                 override fun onComplete() {
@@ -306,6 +399,8 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
             override fun onError(message: String, code: Int) {
                 view?.showErrorMessage(message)
                 Log.d("TEST", message)
+
+                displayMessage(message, code)
             }
 
             override fun onComplete() {
@@ -344,6 +439,7 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
                     view?.showErrorMessage(message)
 
                     view?.hideProgress()
+                    displayMessage(message, code)
                 }
 
             })
@@ -353,8 +449,46 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
         }
     }
 
+    override fun checkShippingCardBeforeCheckout() {
+
+        val auth = MainClass.getAuth()
+        val token = auth.access_token
+
+        val checkShippingCardCall: CheckShippingCard = CheckShippingCardImpl(object : ApiResult<Array<Boolean?>> {
+
+            override fun onStart() {
+                view?.showProgress()
+            }
+
+            override fun onResult(result: Array<Boolean?>) {
+
+                view?.onCheckShippingCardBeforeCheckout(result)
+            }
+
+            override fun onError(message: String, code: Int) {
+                view?.showErrorMessage(message)
+
+                displayMessage(message, code)
+            }
+
+            override fun onComplete() {
+                view?.hideProgress()
+            }
+        })
+
+        checkShippingCardCall.checkShippingCard(token)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
     }
 
+    fun displayMessage(message: String, code: Int){
+
+        var codeError = -1
+        val jsonObject = JSONObject(message)
+        codeError = jsonObject.getInt("error_code", -1)
+
+        view?.displayErrorMessage("", codeError)
+    }
 }

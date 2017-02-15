@@ -1,11 +1,23 @@
+/**
+ * Changes:
+ *
+ * - 503 HTTP status handling
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.goods.mvp
 
 import android.util.Log
+import com.primo.R
 import com.primo.main.MainClass
 import com.primo.network.api_new.*
 import com.primo.network.new_models.Cart
 import com.primo.network.new_models.CartItem
 import com.primo.network.new_models.WishItem
+import com.primo.utils.consts.*
+import com.primo.utils.getInt
+import org.json.JSONObject
 import java.util.*
 
 
@@ -32,6 +44,8 @@ class GoodsHistoryPresenterImpl(view: GoodsHistoryView) : GoodsHistoryPresenter(
                 override fun onError(message: String, code: Int) {
                     view?.showErrorMessage(message)
                     Log.d("TEST", message)
+
+                    displayMessage(message, code)
                 }
 
                 override fun onComplete() {
@@ -67,6 +81,8 @@ class GoodsHistoryPresenterImpl(view: GoodsHistoryView) : GoodsHistoryPresenter(
                 override fun onError(message: String, code: Int) {
                     view?.showErrorMessage(message)
                     Log.d("TEST", message)
+
+                    displayMessage(message, code)
                 }
 
                 override fun onComplete() {
@@ -82,5 +98,14 @@ class GoodsHistoryPresenterImpl(view: GoodsHistoryView) : GoodsHistoryPresenter(
 
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    fun displayMessage(message: String, code: Int){
+
+        var codeError = -1
+        val jsonObject = JSONObject(message)
+        codeError = jsonObject.getInt("error_code", -1)
+
+        view?.displayErrorMessage("", codeError)
     }
 }

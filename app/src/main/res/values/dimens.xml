@@ -8,11 +8,14 @@
 
     <dimen name="decoration_space">5dp</dimen>
 
-    <dimen name="red_btn_height">35dp</dimen>
+    <dimen name="red_btn_height">32dp</dimen>
     <dimen name="date_chooser_view_height">35dp</dimen>
 
     <dimen name="shipping_item_height">50dp</dimen>
 
     <dimen name="dialog_product_height">440dp</dimen>
+    
+    <dimen name="logo_padding">14dp</dimen>
+    <dimen name="action_button_width">100dp</dimen>
 
 </resources>

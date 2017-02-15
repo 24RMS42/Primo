@@ -15,12 +15,14 @@ interface UpdateUserProfile {
 
 interface GetListShippingAddress {
 
-    fun getListShippingAddress()
+    fun getListShippingAddress(token: String)
 }
 
 interface AddShippingAddress {
 
-    fun addShippingAddress()
+    fun addShippingAddress(phone: String, firstname: String, lastname: String, address: String,
+                           city: String, state: String, country: Int, postcode: String,
+                           is_default: Int, token: String)
 }
 
 interface RetrieveShippingAddress {
@@ -30,22 +32,30 @@ interface RetrieveShippingAddress {
 
 interface UpdateShippingAddress {
 
-    fun updateShippingAddress()
+    fun updateShippingAddress(shipping_id: String, phone: String, firstname: String, lastname: String, address: String,
+                              city: String, state: String, country: Int, postcode: String,
+                              is_default: Int, token: String)
+}
+
+interface UpdateDefaultShippingAddress {
+
+    fun updateDefaultShippingAddress(shipping_id: String, token: String)
 }
 
 interface DeleteShippingAddress {
 
-    fun deleteShippingAddress()
+    fun deleteShippingAddress(shipping_id: String, token: String)
 }
 
 interface GetListCreditCard {
 
-    fun getListCreditCard()
+    fun getListCreditCard(token: String)
 }
 
 interface AddCreditCard {
 
-    fun addCreditCard()
+    fun addCreditCard(cardnumber: String, cardname: String, cardyear: String, cardmonth: String,
+                      cardcvc: String, is_default: Int, token: String)
 }
 
 interface RetrieveCreditCard {
@@ -56,10 +66,20 @@ interface RetrieveCreditCard {
 interface UpdateCreditCard {
 
     fun updateCreditCard(creditcard_id: String, cardname: String, cardyear: String, cardmonth: String,
-                         token: String, is_default: String = 1.toString())
+                         token: String, is_default: Int = 0)
+}
+
+interface UpdateDefaultCreditCard {
+
+    fun updateDefaultCreditCard(creditcard_id: String, token: String)
 }
 
 interface DeleteCreditCard {
 
-    fun deleteCreditCard()
+    fun deleteCreditCard(creditcard_id: String, token: String)
+}
+
+interface SetCountry {
+
+    fun setCountry(country: Int, token: String)
 }

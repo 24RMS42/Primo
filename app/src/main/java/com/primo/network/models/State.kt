@@ -2,7 +2,7 @@ package com.primo.network.models
 
 import io.realm.RealmObject
 
-open class State(open var key: String = "", open var name: String = "", open var code: String = "") : RealmObject() {
+open class State(open var key: String = "", open var name: String = "", open var code: String = "", open var name_ja: String = "") : RealmObject() {
 
     override fun toString(): String {
         return name

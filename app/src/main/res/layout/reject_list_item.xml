@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/product"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@color/color_white">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/imageView"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="17dp"
+        fresco:actualImageScaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/productNameTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imageView"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="20dp"
+        android:ellipsize="end"
+        android:gravity="bottom"
+        android:lines="2"
+        android:padding="2dp"
+        android:textColor="@color/color_black"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/errorTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/productNameTxt"
+        android:layout_alignStart="@id/productNameTxt"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="3dp"
+        android:ellipsize="end"
+        android:lines="3"
+        android:padding="2dp"
+        android:textColor="@android:color/holo_red_light"
+        android:textStyle="bold"
+        android:textSize="12sp"/>
+
+
+    <View
+        android:id="@+id/toolbar_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shadow"
+        android:visibility="visible"/>
+
+</RelativeLayout>

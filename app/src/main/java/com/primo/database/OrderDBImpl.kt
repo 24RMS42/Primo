@@ -7,12 +7,14 @@ import com.primo.network.models.State
 import com.primo.network.new_models.Auth
 import com.primo.network.new_models.CreditCard
 import com.primo.network.new_models.UserProfile
+import com.primo.utils.getDeviceLanguage
 
 
 class OrderDBImpl : OrderDB() {
 
     private var user: UserProfile? = null
     //private var card: CreditCard? = null
+    private var name_key = "name"
 
     init {
 
@@ -31,6 +33,16 @@ class OrderDBImpl : OrderDB() {
             card = realm.createObject(CreditCard::class.java)
             realm.commitTransaction()
         }*/
+
+        val language = getDeviceLanguage()
+        if (language == "en")
+            name_key = "name"
+        else if (language == "ja")
+            name_key = "name_ja"
+        else if (language == "ch")
+            name_key = "name_ch"
+        else if (language == "cht")
+            name_key = "name_cht"
     }
 
     override fun saveUserData(v: View, s: CharSequence) {
@@ -110,7 +122,7 @@ class OrderDBImpl : OrderDB() {
     }
 
     override fun getCountryByName(name: String): Country? {
-        return realm.allObjects(Country::class.java).where().equalTo("name", name).findFirst()
+        return realm.allObjects(Country::class.java).where().equalTo(name_key, name).findFirst()
     }
 
     override fun getStatesByKey(key: String): MutableList<State> {
@@ -119,7 +131,7 @@ class OrderDBImpl : OrderDB() {
     }
 
     override fun getStateByName(name: String): State {
-        return realm.allObjects(State::class.java).where().equalTo("name", name).findFirst()
+        return realm.allObjects(State::class.java).where().equalTo(name_key, name).findFirst()
     }
 
 }

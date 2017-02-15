@@ -16,3 +16,8 @@ interface GetOrderHistory {
 
     fun getOrderHistory(page: Int, token: String)
 }
+
+interface CheckShippingCard {
+
+    fun checkShippingCard(token: String)
+}

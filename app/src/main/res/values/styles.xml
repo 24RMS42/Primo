@@ -50,7 +50,7 @@
         <item name="android:paddingRight">10dp</item>
         <item name="prefix_space">10dp</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/color_grey</item>
+        <item name="android:textColor">@color/color_black</item>
         <item name="android:background">@drawable/edit_text_bottom_line</item>
     </style>
 
@@ -62,4 +62,35 @@
         <item name="android:clickable">true</item>
     </style>
 
+    <style name="ProfileTab">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+    </style>
+
+    <style name="MainTabLinear">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:background">@drawable/tabbar_top_border</item>
+    </style>
+
+    <style name="MainTabImageButton">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+    </style>
+
+    <style name="ErrorText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_error_text</item>
+        <item name="android:layout_marginLeft">25dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:text">test</item>
+    </style>
 </resources>

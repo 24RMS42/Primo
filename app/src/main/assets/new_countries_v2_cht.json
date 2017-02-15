@@ -1,0 +1,1793 @@
+{
+    "merchant": [
+        {
+            "name": "澳大利亞",
+            "value": 14,
+            "code": "AU",
+            "continent": "Oceania",
+            "filename": "australia"
+        },
+        {
+            "name": "加拿大",
+            "value": 38,
+            "code": "CA",
+            "continent": "North America",
+            "filename": "canada"
+        },
+        {
+            "name": "中國",
+            "value": 48,
+            "code": "CN",
+            "continent": "Asia",
+            "filename": "china"
+        },
+        {
+            "name": "丹麥",
+            "value": 60,
+            "code": "DK",
+            "continent": "Europe",
+            "filename": "denmark"
+        },
+        {
+            "name": "芬蘭",
+            "value": 72,
+            "code": "FI",
+            "continent": "Europe",
+            "filename": "finland"
+        },
+        {
+            "name": "法國",
+            "value": 77,
+            "code": "FR",
+            "continent": "Europe",
+            "filename": "france"
+        },
+        {
+            "name": "英國",
+            "value": 79,
+            "code": "GB",
+            "continent": "Europe",
+            "filename": "united-kingdom"
+        },
+        {
+            "name": "愛爾蘭",
+            "value": 104,
+            "code": "IE",
+            "continent": "Europe",
+            "filename": "ireland"
+        },
+        {
+            "name": "日本",
+            "value": 116,
+            "code": "JP",
+            "continent": "Asia",
+            "filename": "japan"
+        },
+        {
+            "name": "挪威",
+            "value": 169,
+            "code": "NO",
+            "continent": "Europe",
+            "filename": "norway"
+        },
+        {
+            "name": "瑞典",
+            "value": 199,
+            "code": "SE",
+            "continent": "Europe",
+            "filename": "sweden"
+        },
+        {
+            "name": "美國",
+            "value": 236,
+            "code": "US",
+            "continent": "North America",
+            "filename": "united-states"
+        }
+    ],
+    "others": [
+        {
+            "name": "阿森松島",
+            "value": 1,
+            "code": "SH",
+            "continent": "Africa",
+            "filename": "saint-helena-ascension-and-tristan-da-cunha"
+        },
+        {
+            "name": "安道爾",
+            "value": 2,
+            "code": "AD",
+            "continent": "Europe",
+            "filename": "andorra"
+        },
+        {
+            "name": "阿拉伯聯合酋長國",
+            "value": 3,
+            "code": "AE",
+            "continent": "Asia",
+            "filename": "united-arab-emirates"
+        },
+        {
+            "name": "阿富汗",
+            "value": 4,
+            "code": "AF",
+            "continent": "Asia",
+            "filename": "afghanistan"
+        },
+        {
+            "name": "安堤瓜及巴爾布達",
+            "value": 5,
+            "code": "AG",
+            "continent": "North America",
+            "filename": "antigua-and-barbuda"
+        },
+        {
+            "name": "安圭拉",
+            "value": 6,
+            "code": "AI",
+            "continent": "North America"
+        },
+        {
+            "name": "阿爾巴尼亞",
+            "value": 7,
+            "code": "AL",
+            "continent": "Europe",
+            "filename": "albania"
+        },
+        {
+            "name": "亞美尼亞",
+            "value": 8,
+            "code": "AM",
+            "continent": "Europe",
+            "filename": "armenia"
+        },
+        {
+            "name": "安哥拉",
+            "value": 9,
+            "code": "AO",
+            "continent": "Africa",
+            "filename": "angola"
+        },
+        {
+            "name": "南極洲",
+            "value": 10,
+            "continent": "Antarctica",
+            "code": "AQ"
+        },
+        {
+            "name": "阿根廷",
+            "value": 11,
+            "code": "AR",
+            "continent": "South America",
+            "filename": "argentina"
+        },
+        {
+            "name": "美屬薩摩亞",
+            "value": 12,
+            "code": "AS",
+            "continent": "Oceania"
+        },
+        {
+            "name": "奧地利",
+            "value": 13,
+            "code": "AT",
+            "continent": "Europe",
+            "filename": "austria"
+        },
+        {
+            "name": "澳大利亞",
+            "value": 14,
+            "code": "AU",
+            "continent": "Oceania",
+            "filename": "australia"
+        },
+        {
+            "name": "阿魯巴",
+            "value": 15,
+            "code": "AW",
+            "continent": "Europe"
+        },
+        {
+            "name": "奧蘭群島",
+            "value": 16,
+            "code": "AF",
+            "continent": "Asia",
+            "filename": "afghanistan"
+        },
+        {
+            "name": "阿塞拜疆",
+            "value": 17,
+            "code": "AZ",
+            "continent": "Europe",
+            "filename": "azerbaijan"
+        },
+        {
+            "name": "波士尼亞和黑塞哥維那",
+            "value": 18,
+            "code": "BA",
+            "continent": "Europe",
+            "filename": "bosnia-and-herzegovina"
+        },
+        {
+            "name": "巴巴多斯",
+            "value": 19,
+            "code": "BB",
+            "continent": "North America",
+            "filename": "barbados"
+        },
+        {
+            "name": "孟加拉",
+            "value": 20,
+            "code": "BD",
+            "continent": "Asia",
+            "filename": "bangladesh"
+        },
+        {
+            "name": "比利時",
+            "value": 21,
+            "code": "BE",
+            "continent": "Europe",
+            "filename": "belgium"
+        },
+        {
+            "name": "伯基納法索",
+            "value": 22,
+            "code": "BF",
+            "continent": "Africa",
+            "filename": "burkina-faso"
+        },
+        {
+            "name": "保加利亞",
+            "value": 23,
+            "code": "BG",
+            "continent": "Europe",
+            "filename": "bulgaria"
+        },
+        {
+            "name": "巴林",
+            "value": 24,
+            "code": "BH",
+            "continent": "Asia",
+            "filename": "bahrain"
+        },
+        {
+            "name": "布隆迪",
+            "value": 25,
+            "code": "BI",
+            "continent": "Africa",
+            "filename": "burundi"
+        },
+        {
+            "name": "貝寧",
+            "value": 26,
+            "code": "BJ",
+            "continent": "Africa",
+            "filename": "benin"
+        },
+        {
+            "name": "聖巴泰勒米",
+            "value": 27
+        },
+        {
+            "name": "百慕大",
+            "value": 28,
+            "code": "BM",
+            "continent": "North America"
+        },
+        {
+            "name": "汶萊",
+            "value": 29,
+            "code": "BN",
+            "continent": "Asia",
+            "filename": "brunei-darussalam"
+        },
+        {
+            "name": "玻利維亞",
+            "value": 30,
+            "code": "BO",
+            "continent": "South America",
+            "filename": "bolivia"
+        },
+        {
+            "name": "荷蘭加勒比區",
+            "value": 31,
+            "code": "AN",
+            "continent": "Europe"
+        },
+        {
+            "name": "巴西",
+            "value": 32,
+            "code": "BR",
+            "continent": "South America",
+            "filename": "brazil"
+        },
+        {
+            "name": "巴哈馬",
+            "value": 33,
+            "code": "BS",
+            "continent": "North America",
+            "filename": "bahamas"
+        },
+        {
+            "name": "不丹",
+            "value": 34,
+            "code": "BT",
+            "continent": "Asia",
+            "filename": "bhutan"
+        },
+        {
+            "name": "博茨瓦納",
+            "value": 35,
+            "code": "BW",
+            "continent": "Africa",
+            "filename": "botswana"
+        },
+        {
+            "name": "白俄羅斯",
+            "value": 36,
+            "code": "BY",
+            "continent": "Europe",
+            "filename": "belarus"
+        },
+        {
+            "name": "伯利茲",
+            "value": 37,
+            "code": "BZ",
+            "continent": "North America",
+            "filename": "belize"
+        },
+        {
+            "name": "中非共和國",
+            "value": 41,
+            "code": "CA",
+            "continent": "North America",
+            "filename": "canada"
+        },
+        {
+            "name": "科科斯（基林）群島",
+            "value": 39,
+            "code": "CC",
+            "continent": "Oceania"
+        },
+        {
+            "name": "剛果（金）",
+            "value": 40
+        },
+        {
+            "name": "中非共和國",
+            "value": 41
+        },
+        {
+            "name": "剛果（布）",
+            "value": 42,
+            "code": "CG",
+            "continent": "Africa",
+            "filename": "congo"
+        },
+        {
+            "name": "瑞士",
+            "value": 43,
+            "code": "CH",
+            "continent": "Europe",
+            "filename": "switzerland"
+        },
+        {
+            "name": "象牙海岸",
+            "value": 44,
+            "code": "CI",
+            "continent": "Africa",
+            "filename": "cote-d-ivoire-republic-of"
+        },
+        {
+            "name": "科克群島",
+            "value": 45,
+            "continent": "Oceania",
+            "code": "CK"
+        },
+        {
+            "name": "智利",
+            "value": 46
+        },
+        {
+            "name": "喀麥隆",
+            "value": 47
+        },
+        {
+            "name": "中國",
+            "value": 48,
+            "code": "CN",
+            "continent": "Asia",
+            "filename": "china"
+        },
+        {
+            "name": "哥倫比亞",
+            "value": 49,
+            "code": "CL",
+            "continent": "South America",
+            "filename": "chile"
+        },
+        {
+            "name": "哥斯大黎加",
+            "value": 50,
+            "code": "CR",
+            "continent": "North America",
+            "filename": "costa-rica"
+        },
+        {
+            "name": "古巴",
+            "value": 51,
+            "code": "CU",
+            "continent": "North America",
+            "filename": "cuba"
+        },
+        {
+            "name": "佛得角",
+            "value": 52,
+            "code": "CV",
+            "continent": "Africa",
+            "filename": "cape-verde"
+        },
+        {
+            "name": "庫拉索",
+            "value": 53
+        },
+        {
+            "name": "聖誕島",
+            "value": 54,
+            "code": "CX",
+            "continent": "Oceania"
+        },
+        {
+            "name": "賽普勒斯",
+            "value": 55,
+            "code": "CY",
+            "continent": "Europe",
+            "filename": "cyprus"
+        },
+        {
+            "name": "捷克共和國",
+            "value": 56,
+            "code": "CZ",
+            "continent": "Europe",
+            "filename": "czech-republic"
+        },
+        {
+            "name": "德國",
+            "value": 57,
+            "code": "DE",
+            "continent": "Europe",
+            "filename": "germany"
+        },
+        {
+            "name": "迪戈加西亞島",
+            "value": 58,
+            "code": "DJ",
+            "continent": "Africa",
+            "filename": "djibouti"
+        },
+        {
+            "name": "吉布地",
+            "value": 59,
+            "code": "DJ",
+            "continent": "Africa",
+            "filename": "djibouti"
+        },
+        {
+            "name": "丹麥",
+            "value": 60,
+            "code": "DK",
+            "continent": "Europe",
+            "filename": "denmark"
+        },
+        {
+            "name": "多明尼克",
+            "value": 61,
+            "code": "DM",
+            "continent": "North America",
+            "filename": "dominica"
+        },
+        {
+            "name": "多明尼加共和國",
+            "value": 62,
+            "code": "DO",
+            "continent": "North America",
+            "filename": "dominican-republic"
+        },
+        {
+            "name": "阿爾及利亞",
+            "value": 63,
+            "code": "DZ",
+            "continent": "Africa",
+            "filename": "algeria"
+        },
+        {
+            "name": "休達及梅利利亞",
+            "value": 64,
+            "code": "KY",
+            "continent": "North America"
+        },
+        {
+            "name": "厄瓜多爾",
+            "value": 65,
+            "code": "EC",
+            "continent": "South America",
+            "filename": "ecuador"
+        },
+        {
+            "name": "愛沙尼亞",
+            "value": 66,
+            "code": "EE",
+            "continent": "Europe",
+            "filename": "estonia"
+        },
+        {
+            "name": "埃及",
+            "value": 67,
+            "code": "EG",
+            "continent": "Africa",
+            "filename": "egypt"
+        },
+        {
+            "name": "西撒哈拉",
+            "value": 68,
+            "continent": "Africa",
+            "code": "EH"
+        },
+        {
+            "name": "厄立特里亞",
+            "value": 69,
+            "code": "ER",
+            "continent": "Africa",
+            "filename": "eritrea"
+        },
+        {
+            "name": "西班牙",
+            "value": 70,
+            "code": "ES",
+            "continent": "Europe",
+            "filename": "spain"
+        },
+        {
+            "name": "埃塞俄比亞",
+            "value": 71,
+            "code": "ET",
+            "continent": "Africa",
+            "filename": "ethiopia"
+        },
+        {
+            "name": "芬蘭",
+            "value": 72,
+            "code": "FI",
+            "continent": "Europe",
+            "filename": "finland"
+        },
+        {
+            "name": "斐濟",
+            "value": 73,
+            "code": "FJ",
+            "continent": "Oceania",
+            "filename": "fiji"
+        },
+        {
+            "name": "福克蘭群島",
+            "value": 74,
+            "code": "FK",
+            "continent": "South America"
+        },
+        {
+            "name": "密克羅尼西亞",
+            "value": 75,
+            "code": "FM",
+            "continent": "Oceania",
+            "filename": "micronesia-federated-states-of"
+        },
+        {
+            "name": "法羅群島",
+            "value": 76,
+            "continent": "Europe",
+            "code": "FO"
+        },
+        {
+            "name": "法國",
+            "value": 77,
+            "code": "FR",
+            "continent": "Europe",
+            "filename": "france"
+        },
+        {
+            "name": "加蓬",
+            "value": 78,
+            "code": "GA",
+            "continent": "Africa",
+            "filename": "gabon"
+        },
+        {
+            "name": "英國",
+            "value": 79,
+            "code": "GB",
+            "continent": "Europe",
+            "filename": "united-kingdom"
+        },
+        {
+            "name": "格林伍德",
+            "value": 80,
+            "code": "GD",
+            "continent": "North America",
+            "filename": "grenada"
+        },
+        {
+            "name": "格魯吉亞",
+            "value": 81,
+            "code": "GE",
+            "continent": "Europe",
+            "filename": "georgia"
+        },
+        {
+            "name": "法屬圭亞那",
+            "value": 82,
+            "code": "GF",
+            "continent": "South America"
+        },
+        {
+            "name": "根西島",
+            "value": 83,
+            "continent": "Europe",
+            "code": "GG"
+        },
+        {
+            "name": "加納",
+            "value": 84,
+            "code": "GH",
+            "continent": "Africa",
+            "filename": "ghana"
+        },
+        {
+            "name": "直布羅陀",
+            "value": 85,
+            "continent": "Europe",
+            "code": "GI"
+        },
+        {
+            "name": "格陵蘭",
+            "value": 86,
+            "code": "GL",
+            "continent": "North America",
+            "filename": "greenland"
+        },
+        {
+            "name": "岡比亞",
+            "value": 87,
+            "code": "GM",
+            "continent": "Africa",
+            "filename": "gambia"
+        },
+        {
+            "name": "幾內亞",
+            "value": 88,
+            "code": "GN",
+            "continent": "Africa",
+            "filename": "guinea"
+        },
+        {
+            "name": "瓜德羅普",
+            "value": 89,
+            "code": "GP",
+            "continent": "North America"
+        },
+        {
+            "name": "赤道幾內亞",
+            "value": 90,
+            "code": "GQ",
+            "continent": "Africa",
+            "filename": "equatorial-guinea"
+        },
+        {
+            "name": "希臘",
+            "value": 91,
+            "code": "GR",
+            "continent": "Europe",
+            "filename": "greece"
+        },
+        {
+            "name": "南喬治亞島和南桑威齊群島",
+            "value": 92,
+            "code": "GS",
+            "continent": "South America"
+        },
+        {
+            "name": "瓜地馬拉",
+            "value": 93,
+            "code": "GT",
+            "continent": "North America",
+            "filename": "guatemala"
+        },
+        {
+            "name": "關島",
+            "value": 94,
+            "code": "GU",
+            "continent": "Oceania"
+        },
+        {
+            "name": "幾內亞比紹",
+            "value": 95,
+            "code": "GW",
+            "continent": "Africa",
+            "filename": "guinea-bissau"
+        },
+        {
+            "name": "圭亞那",
+            "value": 96,
+            "code": "GY",
+            "continent": "South America",
+            "filename": "guyana"
+        },
+        {
+            "name": "中國香港特別行政區",
+            "value": 97,
+            "code": "HK",
+            "continent": "Asia",
+            "filename": "hong-kong"
+        },
+        {
+            "name": "洪都拉斯",
+            "value": 98,
+            "code": "HN",
+            "continent": "North America",
+            "filename": "honduras"
+        },
+        {
+            "name": "克羅地亞",
+            "value": 99,
+            "code": "HR",
+            "continent": "Europe",
+            "filename": "croatia"
+        },
+        {
+            "name": "海地",
+            "value": 100,
+            "code": "HT",
+            "continent": "North America",
+            "filename": "haiti"
+        },
+        {
+            "name": "匈牙利",
+            "value": 101,
+            "code": "HU",
+            "continent": "Europe",
+            "filename": "hungary"
+        },
+        {
+            "name": "加納利群島",
+            "value": 102
+        },
+        {
+            "name": "印尼",
+            "value": 103
+        },
+        {
+            "name": "愛爾蘭",
+            "value": 104,
+            "code": "IE",
+            "continent": "Europe",
+            "filename": "ireland"
+        },
+        {
+            "name": "以色列",
+            "value": 105,
+            "code": "IL",
+            "continent": "Asia",
+            "filename": "israel"
+        },
+        {
+            "name": "曼島",
+            "value": 106,
+            "continent": "Europe",
+            "code": "IM"
+        },
+        {
+            "name": "印度",
+            "value": 107,
+            "code": "IN",
+            "continent": "Asia",
+            "filename": "india"
+        },
+        {
+            "name": "英屬印度洋領地",
+            "value": 108,
+            "continent": "Africa",
+            "code": "IO"
+        },
+        {
+            "name": "伊拉克",
+            "value": 109,
+            "code": "IQ",
+            "continent": "Asia",
+            "filename": "iraq"
+        },
+        {
+            "name": "伊朗",
+            "value": 110,
+            "code": "IR",
+            "continent": "Asia",
+            "filename": "iran-islamic-republic-of"
+        },
+        {
+            "name": "冰島",
+            "value": 111,
+            "code": "IS",
+            "continent": "Europe",
+            "filename": "iceland"
+        },
+        {
+            "name": "義大利",
+            "value": 112,
+            "code": "IT",
+            "continent": "Europe",
+            "filename": "italy"
+        },
+        {
+            "name": "澤西島",
+            "value": 113,
+            "continent": "Europe",
+            "code": "JE"
+        },
+        {
+            "name": "牙買加",
+            "value": 114,
+            "code": "JM",
+            "continent": "North America",
+            "filename": "jamaica"
+        },
+        {
+            "name": "約旦",
+            "value": 115,
+            "code": "JO",
+            "continent": "Asia",
+            "filename": "jordan"
+        },
+        {
+            "name": "日本",
+            "value": 116,
+            "code": "JP",
+            "continent": "Asia",
+            "filename": "japan"
+        },
+        {
+            "name": "肯雅",
+            "value": 117,
+            "code": "KE",
+            "continent": "Africa",
+            "filename": "kenya"
+        },
+        {
+            "name": "吉爾吉斯斯坦",
+            "value": 118,
+            "code": "KG",
+            "continent": "Asia",
+            "filename": "kyrgyzstan"
+        },
+        {
+            "name": "柬埔寨",
+            "value": 119,
+            "code": "KH",
+            "continent": "Asia",
+            "filename": "cambodia"
+        },
+        {
+            "name": "基裡巴斯",
+            "value": 120,
+            "code": "KI",
+            "continent": "Oceania",
+            "filename": "kiribati"
+        },
+        {
+            "name": "科摩羅",
+            "value": 121
+        },
+        {
+            "name": "聖基茨和尼維斯",
+            "value": 122,
+            "code": "KN",
+            "continent": "North America",
+            "filename": "saint-kitts-and-nevis"
+        },
+        {
+            "name": "朝鮮",
+            "value": 123,
+            "code": "KP",
+            "continent": "Asia",
+            "filename": "korea-democratic-people-s-republic-of"
+        },
+        {
+            "name": "韓國",
+            "value": 124,
+            "code": "KR",
+            "continent": "Asia",
+            "filename": "korea-republic-of"
+        },
+        {
+            "name": "科威特",
+            "value": 125,
+            "code": "KW",
+            "continent": "Asia",
+            "filename": "kuwait"
+        },
+        {
+            "name": "開曼群島",
+            "value": 126,
+            "code": "KY",
+            "continent": "North America"
+        },
+        {
+            "name": "哈薩克斯坦",
+            "value": 127,
+            "code": "KZ",
+            "continent": "Europe",
+            "filename": "kazakhstan"
+        },
+        {
+            "name": "老撾",
+            "value": 128,
+            "code": "LA",
+            "continent": "Asia",
+            "filename": "lao-people-s-democratic-republic"
+        },
+        {
+            "name": "黎巴嫩",
+            "value": 129,
+            "code": "LB",
+            "continent": "Asia",
+            "filename": "lebanon"
+        },
+        {
+            "name": "聖盧西亞",
+            "value": 130,
+            "code": "LC",
+            "continent": "North America",
+            "filename": "saint-lucia"
+        },
+        {
+            "name": "列支敦士登",
+            "value": 131,
+            "code": "LI",
+            "continent": "Europe",
+            "filename": "liechtenstein"
+        },
+        {
+            "name": "斯里蘭卡",
+            "value": 132,
+            "code": "LK",
+            "continent": "Asia",
+            "filename": "sri-lanka"
+        },
+        {
+            "name": "利比理亞",
+            "value": 133,
+            "code": "LR",
+            "continent": "Africa",
+            "filename": "liberia"
+        },
+        {
+            "name": "萊索托",
+            "value": 134,
+            "code": "LS",
+            "continent": "Africa",
+            "filename": "lesotho"
+        },
+        {
+            "name": "立陶宛",
+            "value": 135,
+            "code": "LT",
+            "continent": "Europe",
+            "filename": "lithuania"
+        },
+        {
+            "name": "盧森堡",
+            "value": 136,
+            "code": "LU",
+            "continent": "Europe",
+            "filename": "luxembourg"
+        },
+        {
+            "name": "拉脫維亞",
+            "value": 137,
+            "code": "LV",
+            "continent": "Europe",
+            "filename": "latvia"
+        },
+        {
+            "name": "利比亞",
+            "value": 138,
+            "code": "LY",
+            "continent": "Africa",
+            "filename": "libyan-arab-jamahiriya"
+        },
+        {
+            "name": "摩洛哥",
+            "value": 139,
+            "code": "MA",
+            "continent": "Africa",
+            "filename": "morocco"
+        },
+        {
+            "name": "摩納哥",
+            "value": 140,
+            "code": "MC",
+            "continent": "Europe",
+            "filename": "monaco"
+        },
+        {
+            "name": "莫爾達瓦",
+            "value": 141,
+            "code": "MD",
+            "continent": "Europe",
+            "filename": "moldova-republic-of"
+        },
+        {
+            "name": "黑山共和國",
+            "value": 142,
+            "code": "ME",
+            "continent": "Europe",
+            "filename": "montenegro"
+        },
+        {
+            "name": "法屬聖馬丁",
+            "value": 143,
+            "code": "MG",
+            "continent": "Africa",
+            "filename": "madagascar"
+        },
+        {
+            "name": "馬達加斯加",
+            "value": 144,
+            "code": "MG",
+            "continent": "Africa",
+            "filename": "madagascar"
+        },
+        {
+            "name": "馬紹爾群島",
+            "value": 145,
+            "code": "MH",
+            "continent": "Oceania",
+            "filename": "marshall-islands"
+        },
+        {
+            "name": "馬其頓",
+            "value": 146,
+            "code": "MK",
+            "continent": "Europe",
+            "filename": "macedonia-the-former-yugoslav-republic-of"
+        },
+        {
+            "name": "馬里",
+            "value": 147,
+            "code": "ML",
+            "continent": "Africa",
+            "filename": "mali"
+        },
+        {
+            "name": "緬甸",
+            "value": 148,
+            "code": "MM",
+            "continent": "Asia",
+            "filename": "myanmar"
+        },
+        {
+            "name": "蒙古",
+            "value": 149,
+            "code": "MN",
+            "continent": "Asia",
+            "filename": "mongolia"
+        },
+        {
+            "name": "中國澳門特別行政區",
+            "value": 150,
+            "code": "CN",
+            "continent": "Asia",
+            "filename": "china"
+        },
+        {
+            "name": "北馬利安納群島",
+            "value": 151,
+            "continent": "Oceania",
+            "code": "MP"
+        },
+        {
+            "name": "馬提尼克",
+            "value": 152,
+            "code": "MQ",
+            "continent": "North America"
+        },
+        {
+            "name": "茅利塔尼亞",
+            "value": 153,
+            "code": "MR",
+            "continent": "Africa",
+            "filename": "mauritania"
+        },
+        {
+            "name": "蒙特塞拉特",
+            "value": 154,
+            "code": "MS",
+            "continent": "North America"
+        },
+        {
+            "name": "馬爾他",
+            "value": 155,
+            "code": "MT",
+            "continent": "Europe",
+            "filename": "malta"
+        },
+        {
+            "name": "毛里求斯",
+            "value": 156,
+            "code": "MU",
+            "continent": "Africa",
+            "filename": "mauritius"
+        },
+        {
+            "name": "馬爾代夫",
+            "value": 157,
+            "code": "MV",
+            "continent": "Asia",
+            "filename": "maldives"
+        },
+        {
+            "name": "馬拉維",
+            "value": 158,
+            "code": "MW",
+            "continent": "Africa",
+            "filename": "malawi"
+        },
+        {
+            "name": "墨西哥",
+            "value": 159,
+            "code": "MX",
+            "continent": "North America",
+            "filename": "mexico"
+        },
+        {
+            "name": "馬來西亞",
+            "value": 160,
+            "code": "MY",
+            "continent": "Asia",
+            "filename": "malaysia"
+        },
+        {
+            "name": "莫三比克",
+            "value": 161,
+            "code": "MZ",
+            "continent": "Africa",
+            "filename": "mozambique"
+        },
+        {
+            "name": "納米比亞",
+            "value": 162,
+            "code": "NA",
+            "continent": "Africa",
+            "filename": "namibia"
+        },
+        {
+            "name": "新赫里多尼亞",
+            "value": 163,
+            "code": "NC",
+            "continent": "Oceania"
+        },
+        {
+            "name": "尼日爾",
+            "value": 164,
+            "code": "NE",
+            "continent": "Africa",
+            "filename": "niger"
+        },
+        {
+            "name": "諾福克島",
+            "value": 165,
+            "code": "NF",
+            "continent": "Oceania"
+        },
+        {
+            "name": "尼日利亞",
+            "value": 166,
+            "code": "NG",
+            "continent": "Africa",
+            "filename": "nigeria"
+        },
+        {
+            "name": "尼加拉瓜",
+            "value": 167,
+            "code": "NI",
+            "continent": "North America",
+            "filename": "nicaragua"
+        },
+        {
+            "name": "荷蘭",
+            "value": 168,
+            "code": "NL",
+            "continent": "Europe",
+            "filename": "netherlands"
+        },
+        {
+            "name": "挪威",
+            "value": 169,
+            "code": "NO",
+            "continent": "Europe",
+            "filename": "norway"
+        },
+        {
+            "name": "尼泊爾",
+            "value": 170,
+            "code": "NP",
+            "continent": "Asia",
+            "filename": "nepal"
+        },
+        {
+            "name": "瑙魯",
+            "value": 171,
+            "code": "NR",
+            "continent": "Oceania",
+            "filename": "nauru"
+        },
+        {
+            "name": "紐埃",
+            "value": 172,
+            "continent": "Oceania",
+            "code": "NU"
+        },
+        {
+            "name": "新西蘭",
+            "value": 173,
+            "code": "NZ",
+            "continent": "Oceania",
+            "filename": "new-zealand"
+        },
+        {
+            "name": "阿曼",
+            "value": 174,
+            "code": "OM",
+            "continent": "Asia",
+            "filename": "oman"
+        },
+        {
+            "name": "巴拿馬",
+            "value": 175,
+            "code": "PA",
+            "continent": "North America",
+            "filename": "panama"
+        },
+        {
+            "name": "秘魯",
+            "value": 176,
+            "code": "PE",
+            "continent": "South America",
+            "filename": "peru"
+        },
+        {
+            "name": "法屬波利尼西亞",
+            "value": 177,
+            "code": "PF",
+            "continent": "Oceania"
+        },
+        {
+            "name": "巴布亞新磯內亞",
+            "value": 178,
+            "code": "PG",
+            "continent": "Oceania",
+            "filename": "papua-new-guinea"
+        },
+        {
+            "name": "菲律賓",
+            "value": 179,
+            "code": "PH",
+            "continent": "Asia",
+            "filename": "philippines"
+        },
+        {
+            "name": "巴基斯坦",
+            "value": 180,
+            "code": "PK",
+            "continent": "Asia",
+            "filename": "pakistan"
+        },
+        {
+            "name": "波蘭",
+            "value": 181,
+            "code": "PL",
+            "continent": "Europe",
+            "filename": "poland"
+        },
+        {
+            "name": "聖匹島",
+            "value": 182,
+            "code": "PM",
+            "continent": "North America"
+        },
+        {
+            "name": "皮特凱恩群島",
+            "value": 183,
+            "continent": "Oceania",
+            "code": "PN"
+        },
+        {
+            "name": "波多黎各",
+            "value": 184,
+            "code": "PR",
+            "continent": "North America"
+        },
+        {
+            "name": "巴勒斯坦領土",
+            "value": 185,
+            "code": "PS",
+            "continent": "Asia",
+            "filename": "palestinian-territory-occupied"
+        },
+        {
+            "name": "葡萄牙",
+            "value": 186,
+            "code": "PT",
+            "continent": "Europe",
+            "filename": "portugal"
+        },
+        {
+            "name": "帕勞",
+            "value": 187,
+            "code": "PW",
+            "continent": "Oceania",
+            "filename": "palau"
+        },
+        {
+            "name": "巴拉圭",
+            "value": 188,
+            "code": "PY",
+            "continent": "South America",
+            "filename": "paraguay"
+        },
+        {
+            "name": "卡塔爾",
+            "value": 189,
+            "code": "QA",
+            "continent": "Asia",
+            "filename": "qatar"
+        },
+        {
+            "name": "留尼汪",
+            "value": 190,
+            "code": "QA",
+            "continent": "Asia",
+            "filename": "qatar"
+        },
+        {
+            "name": "羅馬尼亞",
+            "value": 191,
+            "code": "RO",
+            "continent": "Europe",
+            "filename": "romania"
+        },
+        {
+            "name": "塞爾維亞",
+            "value": 192,
+            "code": "RS",
+            "continent": "Europe",
+            "filename": "serbia"
+        },
+        {
+            "name": "俄羅斯",
+            "value": 193,
+            "code": "RU",
+            "continent": "Europe",
+            "filename": "russian-federation"
+        },
+        {
+            "name": "盧旺達",
+            "value": 194,
+            "code": "RW",
+            "continent": "Africa",
+            "filename": "rwanda"
+        },
+        {
+            "name": "沙烏地阿拉伯",
+            "value": 195,
+            "code": "SA",
+            "continent": "Asia",
+            "filename": "saudi-arabia"
+        },
+        {
+            "name": "所羅門群島",
+            "value": 196,
+            "code": "SB",
+            "continent": "Oceania",
+            "filename": "solomon-islands"
+        },
+        {
+            "name": "塞舌耳",
+            "value": 197,
+            "code": "SC",
+            "continent": "Africa",
+            "filename": "seychelles"
+        },
+        {
+            "name": "蘇丹",
+            "value": 198,
+            "code": "SD",
+            "continent": "Africa",
+            "filename": "sudan"
+        },
+        {
+            "name": "瑞典",
+            "value": 199,
+            "code": "SE",
+            "continent": "Europe",
+            "filename": "sweden"
+        },
+        {
+            "name": "新加坡",
+            "value": 200,
+            "code": "SG",
+            "continent": "Asia",
+            "filename": "singapore"
+        },
+        {
+            "name": "聖赫勒拿",
+            "value": 201,
+            "code": "SH",
+            "continent": "Africa",
+            "filename": "saint-helena-ascension-and-tristan-da-cunha"
+        },
+        {
+            "name": "斯洛文尼亞",
+            "value": 202,
+            "code": "SI",
+            "continent": "Europe",
+            "filename": "slovenia"
+        },
+        {
+            "name": "斯瓦爾巴特和揚馬延",
+            "value": 203,
+            "continent": "Europe",
+            "code": "SJ"
+        },
+        {
+            "name": "斯洛伐克",
+            "value": 204,
+            "code": "SK",
+            "continent": "Europe",
+            "filename": "slovakia"
+        },
+        {
+            "name": "塞拉里昂",
+            "value": 205,
+            "code": "SL",
+            "continent": "Africa",
+            "filename": "sierra-leone"
+        },
+        {
+            "name": "聖馬利諾",
+            "value": 206,
+            "code": "SM",
+            "continent": "Europe",
+            "filename": "san-marino"
+        },
+        {
+            "name": "塞內加爾",
+            "value": 207,
+            "code": "SN",
+            "continent": "Africa",
+            "filename": "senegal"
+        },
+        {
+            "name": "索馬里",
+            "value": 208,
+            "code": "SO",
+            "continent": "Africa",
+            "filename": "somalia"
+        },
+        {
+            "name": "蘇里南",
+            "value": 209,
+            "code": "SR",
+            "continent": "South America",
+            "filename": "suriname"
+        },
+        {
+            "name": "南蘇丹",
+            "value": 210,
+            "code": "SS",
+            "continent": "Africa",
+            "filename": "south-sudan"
+        },
+        {
+            "name": "聖多美及普林西比島",
+            "value": 211,
+            "code": "SV",
+            "continent": "North America",
+            "filename": "el-salvador"
+        },
+        {
+            "name": "薩爾瓦多",
+            "value": 212,
+            "code": "SV",
+            "continent": "North America",
+            "filename": "el-salvador"
+        },
+        {
+            "name": "荷屬聖馬丁",
+            "value": 213,
+            "code": "SV",
+            "continent": "North America",
+            "filename": "el-salvador"
+        },
+        {
+            "name": "敘利亞",
+            "value": 214,
+            "code": "SY",
+            "continent": "Asia",
+            "filename": "syrian-arab-republic"
+        },
+        {
+            "name": "斯威士蘭",
+            "value": 215,
+            "code": "SZ",
+            "continent": "Africa",
+            "filename": "swaziland"
+        },
+        {
+            "name": "特裡斯坦-達庫尼亞群島",
+            "value": 216,
+            "code": "SH",
+            "continent": "Africa",
+            "filename": "saint-helena-ascension-and-tristan-da-cunha"
+        },
+        {
+            "name": "特克斯和凱科斯群島",
+            "value": 217,
+            "code": "TC",
+            "continent": "North America"
+        },
+        {
+            "name": "乍得",
+            "value": 218,
+            "code": "TD",
+            "continent": "Africa",
+            "filename": "chad"
+        },
+        {
+            "name": "法屬南部領地",
+            "value": 219,
+            "continent": "Antarctica",
+            "code": "TF"
+        },
+        {
+            "name": "多哥",
+            "value": 220,
+            "code": "TG",
+            "continent": "Africa",
+            "filename": "togo"
+        },
+        {
+            "name": "泰國",
+            "value": 221,
+            "code": "TH",
+            "continent": "Asia",
+            "filename": "thailand"
+        },
+        {
+            "name": "塔吉克斯坦",
+            "value": 222,
+            "code": "TJ",
+            "continent": "Asia",
+            "filename": "tajikistan"
+        },
+        {
+            "name": "托克勞",
+            "value": 223,
+            "continent": "Oceania",
+            "code": "TK"
+        },
+        {
+            "name": "東帝汶",
+            "value": 224,
+            "code": "TL",
+            "continent": "Oceania",
+            "filename": "timor-leste"
+        },
+        {
+            "name": "土庫曼斯坦",
+            "value": 225,
+            "code": "TM",
+            "continent": "Asia",
+            "filename": "turkmenistan"
+        },
+        {
+            "name": "突尼斯",
+            "value": 226,
+            "code": "TN",
+            "continent": "Africa",
+            "filename": "tunisia"
+        },
+        {
+            "name": "湯加",
+            "value": 227,
+            "code": "TO",
+            "continent": "Oceania",
+            "filename": "tonga"
+        },
+        {
+            "name": "土耳其",
+            "value": 228,
+            "code": "TR",
+            "continent": "Europe",
+            "filename": "turkey"
+        },
+        {
+            "name": "特立尼達和多巴哥",
+            "value": 229,
+            "code": "TT",
+            "continent": "North America",
+            "filename": "trinidad-and-tobago"
+        },
+        {
+            "name": "圖瓦盧",
+            "value": 230,
+            "code": "TV",
+            "continent": "Oceania",
+            "filename": "tuvalu"
+        },
+        {
+            "name": "臺灣",
+            "value": 231,
+            "code": "TW",
+            "continent": "Asia",
+            "filename": "taiwan-province-of-china"
+        },
+        {
+            "name": "坦桑尼亞",
+            "value": 232,
+            "code": "TZ",
+            "continent": "Africa",
+            "filename": "tanzania-united-republic-of"
+        },
+        {
+            "name": "烏克蘭",
+            "value": 233,
+            "code": "UA",
+            "continent": "Europe",
+            "filename": "ukraine"
+        },
+        {
+            "name": "烏干達",
+            "value": 234,
+            "code": "UG",
+            "continent": "Africa",
+            "filename": "uganda"
+        },
+        {
+            "name": "美國本土外小島嶼",
+            "value": 235,
+            "code": "UM",
+            "continent": "North America",
+            "filename": "united-states-minor-outlying-islands"
+        },
+        {
+            "name": "美國",
+            "value": 236,
+            "code": "US",
+            "continent": "North America",
+            "filename": "united-states"
+        },
+        {
+            "name": "烏拉圭",
+            "value": 237,
+            "code": "UY",
+            "continent": "South America",
+            "filename": "uruguay"
+        },
+        {
+            "name": "烏茲別克斯坦",
+            "value": 238,
+            "code": "UZ",
+            "continent": "Asia",
+            "filename": "uzbekistan"
+        },
+        {
+            "name": "梵蒂岡",
+            "value": 239,
+            "code": "VC",
+            "continent": "North America",
+            "filename": "saint-vincent-and-the-grenadines"
+        },
+        {
+            "name": "聖文森特和格林納丁斯群島St.Vincent",
+            "value": 240,
+            "code": "VC",
+            "continent": "North America",
+            "filename": "saint-vincent-and-the-grenadines"
+        },
+        {
+            "name": "委內瑞拉",
+            "value": 241,
+            "code": "VE",
+            "continent": "South America",
+            "filename": "venezuela"
+        },
+        {
+            "name": "英屬維爾京群島",
+            "value": 242,
+            "code": "VG",
+            "continent": "North America"
+        },
+        {
+            "name": "美屬維爾京群島",
+            "value": 243,
+            "code": "VI",
+            "continent": "North America"
+        },
+        {
+            "name": "越南",
+            "value": 244,
+            "code": "VN",
+            "continent": "Asia",
+            "filename": "viet-nam"
+        },
+        {
+            "name": "瓦努阿圖",
+            "value": 245,
+            "code": "VU",
+            "continent": "Oceania",
+            "filename": "vanuatu"
+        },
+        {
+            "name": "瓦利斯和富圖納",
+            "value": 246,
+            "continent": "Oceania",
+            "code": "WF"
+        },
+        {
+            "name": "薩摩亞",
+            "value": 247,
+            "code": "WS",
+            "continent": "Oceania",
+            "filename": "samoa"
+        },
+        {
+            "name": "科索沃",
+            "value": 248,
+            "code": "RS",
+            "continent": "Europe",
+            "filename": "serbia"
+        },
+        {
+            "name": "葉門",
+            "value": 249,
+            "code": "YE",
+            "continent": "Asia",
+            "filename": "yemen"
+        },
+        {
+            "name": "馬約特",
+            "value": 250,
+            "code": "YT",
+            "continent": "Africa"
+        },
+        {
+            "name": "南非",
+            "value": 251,
+            "code": "ZA",
+            "continent": "Africa",
+            "filename": "south-africa"
+        },
+        {
+            "name": "尚比亞",
+            "value": 252,
+            "code": "ZM",
+            "continent": "Africa",
+            "filename": "zambia"
+        },
+        {
+            "name": "辛巴威",
+            "value": 253,
+            "code": "ZW",
+            "continent": "Africa",
+            "filename": "zimbabwe"
+        }
+    ]
+}

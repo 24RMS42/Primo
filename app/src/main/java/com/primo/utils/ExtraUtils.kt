@@ -1,3 +1,12 @@
+/**
+ * Changes:
+ *
+ * - distinguish Simplified or Traditional Chinese
+ * - get timezone
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.utils
 
 import android.app.Activity
@@ -7,6 +16,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.provider.Settings
 import android.text.TextUtils
+import android.util.Log
 import android.util.TypedValue
 import com.primo.R
 import com.primo.main.MainClass
@@ -177,12 +187,19 @@ fun getDeviceLanguage(): String {
 
     var language = Locale.ENGLISH.language
     val deviceLanguage = Locale.getDefault().language
+    var str_device_language = Locale.getDefault().toString()
 
     when (deviceLanguage) {
 
         Locale.JAPAN.language -> language = deviceLanguage
 
-        Locale.CHINA.language -> language = "ch"
+        //Locale.CHINA.language -> language = "ch"
+    }
+
+    when (str_device_language){
+
+        "zh_TW" -> language = "cht"
+        "zh_CN" -> language = "ch"
     }
 
     return language
@@ -192,7 +209,7 @@ fun getCurrency(value: Int): String {
 
     when (value) {
         1 -> return "USD"
-        2 -> return "JPY"
+        2 -> return "¥"
         3 -> return "CNY"
         else -> return ""
     }
@@ -230,4 +247,9 @@ fun getLocation(context: Context, listener: OnReceiveLocationListener) {
         }
     });
 
+}
+
+fun getTimeZone(){
+    val tz = TimeZone.getDefault()
+    Log.d("Test", "TimeZone   " + tz.getDisplayName(false, TimeZone.SHORT) + " Timezon id :: " + tz.id)
 }

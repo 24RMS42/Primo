@@ -5,7 +5,7 @@
     <string name="history">注文履歴</string>
     <string name="open_primo_tag_from_photos">写真フォルダーからプリモタグを開く</string>
     <string name="send_seller_a_message">販売元にメッセージを送る</string>
-    <string name="shipping">送料</string>
+    <string name="shipping">配送</string>
     <string name="take_a_photo_of_a_primo_tag_to_nbuy_something">赤枠内にプリモタグを認識する</string>
     <string name="total">合計</string>
     <string name="address">住所</string>
@@ -66,9 +66,9 @@
     <string name="your_cvc_number_should_contain">CVC番号には3, 4桁の数字を入力してください。</string>
     <string name="email_lower_case">メールアドレス</string>
     <string name="password_lower_case">パスワード</string>
-    <string name="only"><b>購入する際のみ請求されます</b></string>
-    <string name="never"><b>カード情報</b>は販売元に共有されません</string>
-    <string name="aes"><b>AES-256</b>暗号化方式</string>
+    <string name="only"><b>のみ</b> 購入する際請求されます</string>
+    <string name="never"><b>カード情報</b> は販売元に共有されません</string>
+    <string name="aes"><b>SSL</b> 暗号化</string>
     <string name="ok">オーケー</string>
     <string name="please_choose_a_shipping_option">配送オプションを選択してください。</string>
     <string name="access_to_camera"><![CDATA[カメラのアクセス許可が必要です。設定 > プライバシー > カメラより権限をご変更下さい。]]></string>
@@ -92,11 +92,105 @@
     <string name="size">サイズ:</string>
     <string name="problem_with_order">注文処理中にエラーが発生しました</string>
     <string name="card_holder">クレジットカード名義人</string>
-    <string name="enter_card_holder_name"></string>
     <string name="_919_cheltenham_avenue">神宮前6-16-13</string>
     <string name="melrose_park">渋谷区</string>
     <string name="usa">日本</string>
     <string name="pa">東京都</string>
     <string name="_19027">150-0001</string>
     <string name="user_domain_com">user@domain.com</string>
+    <string name="check_out_giggle">精算を完了するには、携帯電話を軽く振ってください</string>
+    <string name="maintenance">メンテナンス</string>
+
+    <string name="performing_system_maintenance">現在システムメンテナンス中のため、弊社サービスがご利用頂けません。お客様にはご不便をおかけいたしますが、もう暫しお待ち頂きますようお願い申し上げます。</string>
+    <string name="turn_camera_permission">Primoのカメラへのアクセスを許可してください</string>
+    <string name="tap_here">こちらをクリックしてください</string>
+    <string name="product_is_out_of_stock_add_to_wishlist">商品は在庫切れのため、欲しい物リストに追加されました</string>
+    <string name="no_stock">在庫無し</string>
+    <string name="server_is_having_some_issue">サーバーに障害が発生しています。お手数をお掛けしますが、暫く経ってから再度ご確認ください。</string>
+
+    <string name="profile">プロフィール</string>
+    <string name="payment">お支払</string>
+    <string name="add">追加</string>
+    <string name="secure_with">次のとおり保護する</string>
+    <string name="are_you_sure_change_default_shipping">この住所を標準設定してよろしいですか？</string>
+    <string name="are_you_sure_delete_shipping">この住所を消去してよろしいですか？</string>
+    <string name="are_you_sure_change_default_card">このクレジットカード情報を標準設定してよろしいですか？</string>
+    <string name="are_you_sure_delete_card">このクレジットカード情報を消去してよろしいですか？</string>
+    <string name="are_you_sure_update_address">この住所情報を更新してよろしいですか？</string>
+    <string name="are_you_sure_update_card">このカード情報を更新してよろしいですか？</string>
+    <string name="enter_card_expiration">有効期限を入力</string>
+    <string name="enter_card_cvc">クレジットカードのセキュリティコード(cvc)を入力</string>
+    <string name="please_add_shipping_address">設定画面から、送付先住所を最低１つ追加してください</string>
+    <string name="please_add_credit_card">設定画面から、支払情報を最低１つ追加してください</string>
+    <string name="add_address">住所を追加</string>
+    <string name="add_payment">カードを追加</string>
+    <string name="successfully_update">更新を完了しました！</string>
+    <string name="set_as_default">デフォルトに設定</string>
+    <string name="cannot_delete_default_card">この既定クレジットカード情報は消去出来ません</string>
+    <string name="cannot_delete_default_address">この既定住所は消去出来ません</string>
+    <string name="must_have_default_card">デフォルト(標準)のクレジットカードが必要です。このカードをデフォルトでないように設定するためには、もう1つカード情報を追加してください</string>
+    <string name="must_have_default_address">デフォルト(標準)の住所が必要です。この住所をデフォルトに設定しないためには、もう1つ住所情報を追加してください</string>
+    <string name="try_another_email">別のメールアドレスで試してください</string>
+    <string name="hit_api_limit">当社ページへのアクセス回数が短時間内で大変集中しています。暫く経ってから再試行してください</string>
+
+    <!--payment error-->
+    <string name="stripe_not_found">クレジットカード情報が見当たりません。登録情報を更新をしてください。</string>
+    <string name="stripe_approve_with_id">決済が承認されません。再度行うか、詳細についてカード発行会社にお問い合わせください。</string>
+    <string name="stripe_card_not_supported">ご使用のカードは今回の購入方法に対応していません。詳細については、カード発行会社にお問い合わせください。</string>
+    <string name="stripe_card_velocity_exceeded">与信限度額を越えています。詳細については、カード発行会社にお問い合わせください。</string>
+    <string name="stripe_currency_not_supported">ご使用のカードは、指定通貨に対応していません。詳細については、カード発行会社にお問い合わせください。</string>
+    <string name="stripe_fraudulent">支払が拒否されました。詳細については、カード発行会社にお問い合わせください。</string>
+    <string name="stripe_insufficient_funds">ご使用のカードは残高不足です。カードもしくは支払い方法を変更してください。</string>
+    <string name="stripe_invalid_account">ご使用のカードは無効です。詳細については、カード発行会社にお問い合わせください。</string>
+    <string name="stripe_invalid_amount">支払金額が無効もしくは上限を越えています。詳細については、カード発行会社にお問い合わせください。</string>
+    <string name="stripe_invalid_pin">カードの暗証番号(PIN)が正しくありません。カード読み取り機で再度スキャンしてください。</string>
+    <string name="stripe_issuer_not_available">決済が承認されず、カード発行元に到達できません。詳細については、カード発行会社にお問い合わせください。</string>
+    <string name="stripe_lost_card">支払が拒否されました。詳細については、カード発行会社にお問い合わせください。</string>
+    <string name="stripe_new_account_info_available">ご使用のカードもしくは口座情報の更新が必要です。詳細については、カード発行会社にお問い合わせください。</string>
+    <string name="stripe_not_permitted">決済が承認されません。詳細については、カード発行会社にお問い合わせください。</string>
+    <string name="stripe_reenter_transaction">支払手続きが処理されませんでした。再度やり直してください。</string>
+    <string name="stripe_testmode_decline">模擬カードでは処理できません。ご使用できる(本物の)カードで再度処理してください</string>
+    <string name="stripe_try_again_later">ご使用のカードは拒否されました。再度行うか、詳細についてカード発行会社にお問い合わせください。</string>
+    <string name="stripe_withdrawal_count_limit_exceeded">クレジットカードの有効期限が切れています。カードもしくは支払い方法を変更してください。</string>
+    <string name="stripe_invalid_number">ご使用のカード番号は有効でありません。クレジットカード情報を更新してください。</string>
+    <string name="stripe_invalid_expiry_month">Yご使用のカードの有効期限月は無効です。クレジットカード情報を更新してください。</string>
+    <string name="stripe_invalid_expiry_year">ご使用のカードの有効期限年は無効です。クレジットカード情報を更新してください。</string>
+    <string name="stripe_invalid_cvc">ご使用のカードのセキュリティコードは無効です。クレジットカード情報を更新してください。</string>
+    <string name="stripe_invalid_swipe_data">ご使用のカードの読み取りデータは無効です。詳細についてカード発行会社にお問い合わせください。</string>
+    <string name="stripe_incorrect_number">ご使用のカード番号は無効です。クレジットカード情報を更新してください。</string>
+    <string name="stripe_expired_card">ご使用のカードは失効しています。クレジットカード情報を更新してください。</string>
+    <string name="stripe_incorrect_cvc">ご使用のカードのセキュリティコードに誤りがあります。クレジットカード情報を更新してください。</string>
+    <string name="stripe_incorrect_zip">ご使用のカードは、郵便番号の検証に失敗しました。詳細についてカード発行会社にお問い合わせください。</string>
+    <string name="stripe_missing">ご使用のアカウントには、使用可能なカード登録がありません。クレジットカードを追加してください。</string>
+    <string name="stripe_processing_error">カード情報処理中にエラーが発生しました。再度行うか、詳細についてカード発行会社にお問い合わせください。</string>
+    <string name="your_card_declined_contact_bank">ご使用のカードは拒否されました。詳細については、カード発行会社にお問い合わせください。</string>
+
+    <!--product error-->
+    <string name="product_not_found">商品が見つかりません。</string>
+    <string name="search_product_qrcode">PRIMOタグから商品が検索できません。</string>
+    <string name="search_product_keyword">キーワードから商品が検索できません。</string>
+    <string name="product_out_of_stock">商品は在庫切れです。</string>
+    <string name="product_not_approved">商品はまだ利用できません。</string>
+    <string name="product_not_active">この商品はもう利用できません。</string>
+    <string name="international_shipping_not_available">この商品は国際配送できません。</string>
+    <string name="lesser_min_order_quantity">最低個数を満たしていません。</string>
+    <string name="greater_max_order_quantity">全ての商品を一度に注文することはできません。</string>
+    <string name="stock_updated_by_merchant">商品の在庫状況は、マーチャントによって更新されます。</string>
+
+    <!--merchant error-->
+    <string name="product_not_available">商品は利用できません。</string>
+
+    <!--payment gateway error-->
+    <string name="something_went_wrong_fixing_error">不具合が生じています。現在修復作業中です。</string>
+    <string name="something_went_wrong_try_again">不具合が生じています。再試行してください。</string>
+
+    <string name="user_not_found">ユーザーが見つかりません。</string>
+    <string name="no_shipping_address">あなたのプロフィール欄には、配送先住所が登録されていません。</string>
+    <string name="register_max_5_shipping_address">配送先住所の登録は、５か所まで可能です。</string>
+    <string name="no_cart_in_profile">あなたのプロフィール欄に、クレジットカード情報の記載がありません。</string>
+    <string name="wishlist_not_found">欲しい物リストが見つかりません。</string>
+    <string name="access_not_granted">アクセスできません。</string>
+    <string name="_0">0</string>
+    <string name="default_text">デフォルト</string>
+    <string name="set_your_country">あなたの国を設定して下さい</string>
 </resources>

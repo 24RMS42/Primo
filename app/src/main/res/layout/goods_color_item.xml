@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:background="@color/color_white">
 
     <TextView
         android:id="@+id/color_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/color_code"
         android:layout_toStartOf="@+id/color_code"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"/>
@@ -20,7 +19,6 @@
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:background="@color/color_red"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="5dp"

@@ -8,5 +8,10 @@
 
     <color name="color_grey">#FF888888</color>
     <color name="color_blue">#2962FF</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_black">#000000</color>
+    <color name="color_error_text">#FF6666</color>
+    <color name="color_gray">#FFF7F7F7</color>
+    <color name="color_transparent">#00FFFFFF</color>
 
 </resources>

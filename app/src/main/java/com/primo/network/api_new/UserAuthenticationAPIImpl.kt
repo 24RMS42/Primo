@@ -1,5 +1,6 @@
 package com.primo.network.api_new
 
+import android.util.Log
 import com.primo.network.new_models.Auth
 import com.primo.network.parsers.PrimoParsers
 import com.primo.network.requests.APIPrimo
@@ -28,7 +29,7 @@ class SignInImpl(result: ApiResult<Auth?>): SignIn {
                 val code = response?.code() ?: -1
                 if (!(response?.isSuccessful ?: false)) {
                     val error = PrimoParsers.errorParser(body)
-                    sub.onError(if (error.code > -1) error else NetworkException(body, code))
+                    sub.onError(/*if (error.code > -1) error else */NetworkException(body, code))
                 } else
                     sub.onNext(PrimoParsers.authParser(PrimoParsers.dataParser(body)))
                 sub.onCompleted()

@@ -6,7 +6,10 @@ open class Country(open var name: String = "",
                    open var value: Int = -1,
                    open var code: String = "",
                    open var continent: String = "",
-                   open var fileName: String = "") : RealmObject() {
+                   open var fileName: String = "",
+                   open var name_ja: String = "",
+                   open var name_ch: String = "",
+                   open var name_cht: String = "") : RealmObject() {
 
     override fun toString(): String {
         return name

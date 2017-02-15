@@ -1,15 +1,24 @@
+/**
+ * Changes:
+ *
+ * - Parse Japanese country name
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.splash
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.primo.R
 import com.primo.main.MainActivity
 import com.primo.network.models.Country
 import com.primo.network.models.State
-import com.primo.utils.consts.COUNTRIES
+import com.primo.utils.consts.*
 import com.primo.utils.loadJsonFromAssets
 import com.primo.utils.other.AssetsParser
 import io.realm.Realm
@@ -48,8 +57,16 @@ class SplashActivity : AppCompatActivity() {
 
     private fun parseCountries() {
 
-        val obj = JSONObject(loadJsonFromAssets(this, COUNTRIES))
+        val obj = JSONObject(loadJsonFromAssets(this, COUNTRIES_EN))
+        val obj_ja = JSONObject(loadJsonFromAssets(this, COUNTRIES_JA))
+        val obj_ch = JSONObject(loadJsonFromAssets(this, COUNTRIES_CH))
+        val obj_cht = JSONObject(loadJsonFromAssets(this, COUNTRIES_CHT))
+
         val array = obj.getJSONArray("others")
+        val array_ja = obj_ja.getJSONArray("others")
+        val array_ch = obj_ch.getJSONArray("others")
+        val array_cht = obj_cht.getJSONArray("others")
+
         val size = array.length()
 
         val countries = mutableListOf<Country>()
@@ -57,9 +74,9 @@ class SplashActivity : AppCompatActivity() {
 
         for (i in 0..size - 1) {
 
-            val country: Country? = AssetsParser.parseCountry(array.getString(i))
+            val country: Country? = AssetsParser.parseCountry(array.getString(i), array_ja.getString(i), array_ch.getString(i), array_cht.getString(i))
 
-            if (country != null && !country.name.isEmpty()) {
+            if (country != null && !country.name.isEmpty() && !country.name_ja.isEmpty() && !country.name_ch.isEmpty() && !country.name_cht.isEmpty()) {
                 countries.add(country)
 
                 if (!country.fileName.isEmpty()) {
@@ -77,8 +94,8 @@ class SplashActivity : AppCompatActivity() {
             }
         }
 
-        Crashlytics.logException(Throwable("countries size (parsing) = ${countries.size}"))
-        Crashlytics.logException(Throwable("states size (parsing) = ${states.size}"))
+        //Crashlytics.logException(Throwable("countries size (parsing) = ${countries.size}"))
+        //Crashlytics.logException(Throwable("states size (parsing) = ${states.size}"))
 
         if (countries.size > 0) {
 

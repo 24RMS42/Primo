@@ -63,7 +63,7 @@ class SearchProductByQrImpl(result: ApiResult<Product?>): SearchProductByQr {
     }
 }
 
-class RetrieveProductImpl(result: ApiResult<String>): RetrieveProduct {
+class RetrieveProductImpl(result: ApiResult<Product>): RetrieveProduct {
 
     private val result = result
 
@@ -71,13 +71,14 @@ class RetrieveProductImpl(result: ApiResult<String>): RetrieveProduct {
 
         result.onStart()
 
-        Observable.create(Observable.OnSubscribe<String> { sub ->
+        Observable.create(Observable.OnSubscribe<Product> { sub ->
             try {
                 val response = APIPrimo.getClient().newCall(ProductRequests.retrieveProduct(productId))?.execute()
                 val body = response?.body()?.string() ?: ""
                 val code = response?.code() ?: -1
                 if (!(response?.isSuccessful ?: false)) sub.onError(NetworkException(body, code))
-                sub.onNext(body)
+                else
+                    sub.onNext(PrimoParsers.productParser(PrimoParsers.dataParser(body)))
                 sub.onCompleted()
             } catch (e: IOException) {
                 sub.onError(e)
@@ -85,7 +86,7 @@ class RetrieveProductImpl(result: ApiResult<String>): RetrieveProduct {
         })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Subscriber<String>() {
+                .subscribe(object : Subscriber<Product>() {
 
                     override fun onCompleted() {
                         result.onComplete()
@@ -100,7 +101,7 @@ class RetrieveProductImpl(result: ApiResult<String>): RetrieveProduct {
                         result.onComplete()
                     }
 
-                    override fun onNext(response: String) {
+                    override fun onNext(response: Product) {
                         result.onResult(response)
                     }
                 })

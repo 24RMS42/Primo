@@ -29,7 +29,7 @@ class GetListOfWishesImpl(result: ApiResult<MutableList<WishItem>>): GetListOfWi
                 val code = response?.code() ?: -1
                 if (!(response?.isSuccessful ?: false)) {
                     val error = PrimoParsers.errorParser(body)
-                    sub.onError(if (error.code > -1) error else NetworkException(body, code))
+                    sub.onError(/*if (error.code > -1) error else */NetworkException(body, code))
                 } else
                     sub.onNext(PrimoParsers.wishesParser(PrimoParsers.dataParser(PrimoParsers.dataParser(body))))
                 sub.onCompleted()
@@ -78,7 +78,7 @@ class AddWishlistItemImpl(result: ApiResult<String>): AddWishlistItem {
                 val code = response?.code() ?: -1
                 if (!(response?.isSuccessful ?: false)) {
                     val error = PrimoParsers.errorParser(body)
-                    sub.onError(if (error.code > -1) error else NetworkException(body, code))
+                    sub.onError(/*if (error.code > -1) error else */NetworkException(body, code))
                 } else
                     sub.onNext(body)
                 sub.onCompleted()
@@ -132,7 +132,7 @@ class DeleteWishlistItemImpl(result: ApiResult<String>): DeleteWishlistItem {
                 val code = response?.code() ?: -1
                 if (!(response?.isSuccessful ?: false)) {
                     val error = PrimoParsers.errorParser(body)
-                    sub.onError(if (error.code > -1) error else NetworkException(body, code))
+                    sub.onError(/*if (error.code > -1) error else */NetworkException(body, code))
                 } else
                     sub.onNext(body)
                 sub.onCompleted()

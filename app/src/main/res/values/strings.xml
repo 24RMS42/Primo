@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Primo</string>
     <string name="open_primo_tag_from_photos">Open Primo Tag from Photos</string>
-    <string name="total">total</string>
+    <string name="total">Total</string>
     <string name="check_out">Check out</string>
     <string name="send_seller_a_message">Send seller a message</string>
     <string name="take_a_photo_of_a_primo_tag_to_nbuy_something">Take a photo of a Primo Tag to\nbuy something</string>
@@ -13,6 +13,7 @@
     <string name="phone_number">Phone Number</string>
     <string name="email">Email</string>
     <string name="address">Address</string>
+    <string name="address2">Address 2</string>
     <string name="city">City</string>
     <string name="country">Country</string>
     <string name="state_province">State/Province</string>
@@ -38,7 +39,7 @@
     <string name="cancel">Cancel</string>
     <string name="swipte_up_to_see">Swipe up to see your shopping cart</string>
     <string name="restore_my_password">Restore my password</string>
-    <string name="sign_in">Sign in</string>
+    <string name="sign_in">Login</string>
     <string name="enter_your_card_number">Enter your card number</string>
     <string name="enter_your_card_name">Enter your card name</string>
     <string name="infromation">Information</string>
@@ -105,4 +106,100 @@
     <string name="problem_with_order">Unfortunately there was a problem with your order</string>
     <string name="card_holder">Card Holder</string>
     <string name="check_out_giggle">Please giggle your phone to complete checkout</string>
+    <string name="maintenance">Maintenance</string>
+
+    <string name="japan" translatable="false">Japan</string>
+
+    <string name="performing_system_maintenance">If you are able to read this message, you are normal and we are not. Will be back soon!</string>
+    <string name="turn_camera_permission">Please turn the camera permission back on for Primo</string>
+    <string name="tap_here">Tap here</string>
+    <string name="product_is_out_of_stock_add_to_wishlist">Product is out of stock and added to wishlist</string>
+    <string name="no_stock">NO\nSTOCK</string>
+    <string name="server_is_having_some_issue">Sorry, the server is having some issues. Please check back shortly</string>
+    <string name="profile">Profile</string>
+    <string name="payment">Payment</string>
+    <string name="add">Add</string>
+    <string name="secure_with">Secure with</string>
+    <string name="are_you_sure_change_default_shipping">Are you sure you want to make this the default address?</string>
+    <string name="are_you_sure_delete_shipping">Are you sure you want to delete this address?</string>
+    <string name="are_you_sure_change_default_card">Are you sure you want to make this the default credit card?</string>
+    <string name="are_you_sure_delete_card">Are you sure you want to delete this credit card?</string>
+    <string name="are_you_sure_update_address">Are you sure to update this address info?</string>
+    <string name="are_you_sure_update_card">Are you sure to update this card info?</string>
+    <string name="enter_card_expiration">Enter card expiration date</string>
+    <string name="enter_card_cvc">Enter card cvc</string>
+    <string name="please_add_shipping_address">Please add at least one shipping address from settings</string>
+    <string name="please_add_credit_card">Please add at least one payment information from settings</string>
+    <string name="add_address">Add Address</string>
+    <string name="add_payment">Add Payment</string>
+    <string name="successfully_update">Successfully updated!</string>
+    <string name="set_as_default">Set as default</string>
+    <string name="cannot_delete_default_card">You can not delete this default credit card</string>
+    <string name="cannot_delete_default_address">You can not delete this default address</string>
+    <string name="must_have_default_card">You must have a default credit card. Please add another one to be able to set this as not default</string>
+    <string name="must_have_default_address">You must have a default address. Please add another one to be able to set this as not default</string>
+    <string name="set_your_country">Please set your country</string>
+    <string name="default_text">Default</string>
+
+    <!--payment error-->
+    <string name="stripe_not_found">Your credit card data not found. Please update it first</string>
+    <string name="stripe_approve_with_id">The payment cannot be authorized. Please try again or contact your bank for more info</string>
+    <string name="stripe_card_not_supported">Your card does not support this type of purchase. Please contact your bank for more info</string>
+    <string name="stripe_card_velocity_exceeded">You have exceeded your credit limit. Please contact your bank for more info</string>
+    <string name="stripe_currency_not_supported">Your card does not support the specified currency. Please contact your bank for more info</string>
+    <string name="stripe_fraudulent">Your payment has been declined. Please contact your bank for more info</string>
+    <string name="stripe_insufficient_funds">Your card has insufficient funds. Please use another card or payment method</string>
+    <string name="stripe_invalid_account">Your card"'"s account is invalid. Please contact your bank for more info</string>
+    <string name="stripe_invalid_amount">The payment amount is invalid, or exceeds the amount that is allowed. Please contact your bank for more info</string>
+    <string name="stripe_invalid_pin">The card PIN entered is incorrect. Please rescan on the card reader</string>
+    <string name="stripe_issuer_not_available">Payment not authorized. The card issuer could not be reached. Please contact your bank for more info</string>
+    <string name="stripe_lost_card">The payment has been declined. Please contact your bank for more info</string>
+    <string name="stripe_new_account_info_available">Your card or account needs to be updated. Please contact your bank for more info</string>
+    <string name="stripe_not_permitted">The payment is not permitted. Please contact your bank for more info</string>
+    <string name="stripe_reenter_transaction">Your payment cannot be processed. Please try again</string>
+    <string name="stripe_testmode_decline">Test cards are not allowed to make this transaction. Please add a real card and try again</string>
+    <string name="stripe_try_again_later">Your card has been declined. Please try again or contact your bank for more info</string>
+    <string name="stripe_withdrawal_count_limit_exceeded">You have exceeded your credit limit. Please use another card or payment method</string>
+    <string name="stripe_invalid_number">Your card number is not a valid one. Please update your credit card</string>
+    <string name="stripe_invalid_expiry_month">Your card"'"s expiration month is invalid. Please update your credit card</string>
+    <string name="stripe_invalid_expiry_year">Your card"'"s expiration year is invalid. Please update your credit card</string>
+    <string name="stripe_invalid_cvc">Your card"'"s security code is invalid. Please update your credit card</string>
+    <string name="stripe_invalid_swipe_data">Your card"'"s swipe data is invalid. Please contact your bank for more info</string>
+    <string name="stripe_incorrect_number">Your card"'"s number is not a valid one. Please update your credit card</string>
+    <string name="stripe_expired_card">Your card has expired. Please update your credit card</string>
+    <string name="stripe_incorrect_cvc">Your card"'"s security code is incorrect. Please update your credit card</string>
+    <string name="stripe_incorrect_zip">Your card"'"s zip code failed validation. Please contact your bank for more info</string>
+    <string name="stripe_missing">You have no card in your account that is being charged. Please add a credit card</string>
+    <string name="stripe_processing_error">An error occurred while processing the card. Please try again or contact your bank for more info</string>
+    <string name="your_card_declined_contact_bank">Your card has been declined. Please contact your bank for more info</string>
+
+    <!--product error-->
+    <string name="product_not_found">Product not found</string>
+    <string name="search_product_qrcode">Could not find product by PRIMO tag</string>
+    <string name="search_product_keyword">Could not find product by keyword</string>
+    <string name="product_out_of_stock">Product is out of stock</string>
+    <string name="product_not_approved">Product is not available yet</string>
+    <string name="product_not_active">This product is no longer available</string>
+    <string name="international_shipping_not_available">International shipping not available for this product</string>
+    <string name="lesser_min_order_quantity">You ordered less than the minimum quantity</string>
+    <string name="greater_max_order_quantity">You can"'"t order all products at once</string>
+    <string name="stock_updated_by_merchant">Product stock is updated by merchant</string>
+
+    <!--merchant error-->
+    <string name="product_not_available">Product is not available</string>
+
+    <!--payment gateway error-->
+    <string name="something_went_wrong_fixing_error">Something went wrong! We are working on fixing this error</string>
+    <string name="something_went_wrong_try_again">Something went wrong! Please try again</string>
+
+    <!--other error-->
+    <string name="user_not_found">User not found</string>
+    <string name="no_shipping_address">There is no shipping address in your profile</string>
+    <string name="register_max_5_shipping_address">You could only register a maximum of 5 shipping addresses</string>
+    <string name="no_cart_in_profile">There is no credit card in your profile</string>
+    <string name="wishlist_not_found">Wishlist not found</string>
+    <string name="access_not_granted">Access not granted</string>
+
+    <string name="try_another_email">Please try another email</string>
+    <string name="hit_api_limit">You access too much of our pages in a short time, please wait a moment and try again</string>
 </resources>

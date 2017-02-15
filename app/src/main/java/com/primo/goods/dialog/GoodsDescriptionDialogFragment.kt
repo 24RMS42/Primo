@@ -1,15 +1,28 @@
+/**
+ * Changes:
+ *
+ * - Show merchant info
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.goods.dialog
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AppCompatDialogFragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import com.primo.R
+import com.primo.database.OrderDB
+import com.primo.database.OrderDBImpl
 import com.primo.goods.adapter.GoodsDescriptionAdapter
+import com.primo.network.models.Country
 import com.primo.network.new_models.CartItem
 import com.primo.network.new_models.Option
 import com.primo.network.new_models.Stock
@@ -47,6 +60,8 @@ class GoodsDescriptionDialogFragment : AppCompatDialogFragment() {
     private var selectedSize = ""
     private var selectedColor = ""
 
+    private var orderDB: OrderDB? = null
+
     companion object {
 
         private val CART_ITEM = "cart_item"
@@ -80,6 +95,9 @@ class GoodsDescriptionDialogFragment : AppCompatDialogFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        orderDB = OrderDBImpl()
+        val countryList: MutableList<Country> = getCountries().orEmpty().toMutableList()
 
         cartItem = arguments.getParcelable<CartItem>(CART_ITEM)
         val wishItem = arguments.getParcelable<WishItem>(WISH_ITEM)
@@ -175,6 +193,17 @@ class GoodsDescriptionDialogFragment : AppCompatDialogFragment() {
 
         productImage.setImageURI(Uri.parse(item.getBaseImage()))
 
+        //Show merchant info
+        val countryModel = countryList[Integer.parseInt(item.getMerchantCountry()) - 1]
+
+        merchantName.text = item.getMerchantName()
+        merchantCountry.text = countryModel.name
+        merchantUrl.text = item.getMerchantUrl()
+        merchantUrl.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(item.getMerchantUrl()))
+            startActivity(browserIntent)
+        }
+
         if (item is WishItem) add.text = getString(R.string.add_to_cart)
 
         val target = targetFragment
@@ -194,6 +223,10 @@ class GoodsDescriptionDialogFragment : AppCompatDialogFragment() {
             }
 
         }, delete, add)
+    }
+
+    fun getCountries(): List<Country>? {
+        return orderDB?.getAllCountries()?.orEmpty()
     }
 
     private fun changeButtonState() {

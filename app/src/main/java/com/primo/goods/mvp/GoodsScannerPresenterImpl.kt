@@ -1,3 +1,11 @@
+/**
+ * Changes:
+ *
+ * - 503 HTTP status handling
+ *
+ * 2015 © Primo . All rights reserved.
+ */
+
 package com.primo.goods.mvp
 
 import android.graphics.BitmapFactory
@@ -17,9 +25,7 @@ import com.primo.network.api_new.SearchProductByQrImpl
 import com.primo.network.new_models.Product
 import com.primo.utils.LONG_DURATION
 import com.primo.utils.NORMAL_DURATION
-import com.primo.utils.consts.CONNECTION_ERROR
-import com.primo.utils.consts.NOT_FOUND_ERROR
-import com.primo.utils.consts.QR_PREFIX
+import com.primo.utils.consts.*
 import com.primo.utils.other.Events
 import com.primo.utils.other.RxEvent
 import java.io.FileNotFoundException
@@ -80,6 +86,9 @@ class GoodsScannerPresenterImpl(view: GoodsScannerView, barcodeView: CompoundBar
             {
                 e.printStackTrace()
             }
+            catch (e: OutOfMemoryError){
+                e.printStackTrace()
+            }
         } catch (e : FileNotFoundException) {
             e.printStackTrace()
         }
@@ -128,8 +137,8 @@ class GoodsScannerPresenterImpl(view: GoodsScannerView, barcodeView: CompoundBar
             }
 
             override fun onError(message: String, code: Int) {
-                Log.d("Test", message)
-                Log.d("Test", code.toString())
+                Log.d("Test", "search product error:" + message)
+                Log.d("Test", "http code:" + code.toString())
                 view?.hideProgress()
                 view?.showErrorMessage(message)
                 when(code) {
@@ -138,6 +147,12 @@ class GoodsScannerPresenterImpl(view: GoodsScannerView, barcodeView: CompoundBar
                             RxEvent(key = Events.QR_NOT_FOUND_DIALOG_CLOSE))
 
                     CONNECTION_ERROR -> view?.showMessage(MainClass.context.getString(R.string.please_check_your_internet_connection),
+                            RxEvent(key = Events.QR_NOT_FOUND_DIALOG_CLOSE))
+
+                    UNAVAILABLE_ERROR -> view?.showMessage(MainClass.context.getString(R.string.performing_system_maintenance),
+                            RxEvent(key = Events.QR_NOT_FOUND_DIALOG_CLOSE))
+
+                    INTERNAL_ERROR -> view?.showMessage(MainClass.context.getString(R.string.something_went_wrong_try_again),
                             RxEvent(key = Events.QR_NOT_FOUND_DIALOG_CLOSE))
 
                     else -> onResumeScanning()
