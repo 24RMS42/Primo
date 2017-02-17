@@ -22,6 +22,7 @@ import com.primo.R
 import com.primo.database.OrderDB
 import com.primo.database.OrderDBImpl
 import com.primo.goods.adapter.GoodsDescriptionAdapter
+import com.primo.main.MainClass
 import com.primo.network.models.Country
 import com.primo.network.new_models.CartItem
 import com.primo.network.new_models.Option
@@ -214,6 +215,8 @@ class GoodsDescriptionDialogFragment : AppCompatDialogFragment() {
 
                 if (v.id == R.id.delete && v.tag == null)
                     target.onDialogClick(DELETE, item)
+                else if (v.id == R.id.delete1 && v.tag == null)
+                    target.onDialogClick(DELETE, item)
                 else if (v.id == R.id.delete)
                     target.onDialogClick(UPDATE, Pair(cartItem, getNewItem()))
                 else
@@ -222,7 +225,14 @@ class GoodsDescriptionDialogFragment : AppCompatDialogFragment() {
                 dismiss()
             }
 
-        }, delete, add)
+        }, delete, add, delete1)
+
+        //remove 'add to wishlist' button before login
+        if (MainClass.getAuth().access_token.isEmpty()) {
+            delete1.visibility = View.VISIBLE
+            delete.visibility = View.INVISIBLE
+            add.visibility = View.INVISIBLE
+        }
     }
 
     fun getCountries(): List<Country>? {

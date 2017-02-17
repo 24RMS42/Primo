@@ -102,7 +102,7 @@
                     android:id="@+id/merchantName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="testetws"/>
+                    />
                 <TextView
                     android:id="@+id/merchantCountry"
                     android:layout_width="match_parent"
@@ -143,6 +143,18 @@
         android:text="@string/add_to_wishlist"
         android:textAllCaps="false"
         style="@style/RedButton"/>
+
+    <Button
+        android:id="@+id/delete1"
+        android:layout_width="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/delete"
+        android:textAllCaps="false"
+        style="@style/RedButton"
+        android:visibility="gone"/>
 
     <Space
         android:id="@+id/center"
