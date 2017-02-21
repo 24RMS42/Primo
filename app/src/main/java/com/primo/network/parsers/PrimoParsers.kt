@@ -11,12 +11,10 @@
 package com.primo.network.parsers
 
 import android.util.Log
+import com.primo.main.MainClass
 import com.primo.network.new_models.*
 import com.primo.utils.*
-import com.primo.utils.consts.ACTIVE
-import com.primo.utils.consts.PARSE_ORDER
-import com.primo.utils.consts.PARSE_ORDER_REJECT
-import com.primo.utils.consts.PARSE_REJECT
+import com.primo.utils.consts.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -261,8 +259,12 @@ object PrimoParsers {
             val merchantName = merchantObject.getString("merchant_name", "")
             val country = merchantObject.getString("country", "")
             val url = merchantObject.getString("url", "")
-            val phone = merchantObject.getString("phone", "")
             //end
+
+            val total_price = jsonObject.getDouble("total_price", 0.0)
+            val total_shipping = jsonObject.getDouble("total_shipping", 0.0)
+            val total_discount = jsonObject.getDouble("total_discount", 0.0)
+            val final_price = jsonObject.getDouble("final_price", 0.0)
 
             val dataSupportObject = jsonObject.getJSONObject("data_support", JSONObject())
             val currency = dataSupportObject.getInt("currency", 0)
@@ -275,7 +277,7 @@ object PrimoParsers {
 
             cartItem = CartItem(productId, cartItemId, status, quantity, productName, imageUrl, thumbnailUrl, stock,
                     price, currency, description, shippingDomOption, shippingDomAmount,
-                    shippingInterOption, shippingInterAmount, merchantName, country, url)
+                    shippingInterOption, shippingInterAmount, merchantName, country, url, total_price, total_shipping, total_discount, final_price)
         } catch (ex: JSONException) {
             ex.printStackTrace()
         }
@@ -327,7 +329,6 @@ object PrimoParsers {
             val merchantName = merchantObject.getString("merchant_name", "")
             val country = merchantObject.getString("country", "")
             val url = merchantObject.getString("url", "")
-            val phone = merchantObject.getString("phone", "")
             //end
 
             val productName = detailObject.getString("product_name", "")
@@ -428,7 +429,7 @@ object PrimoParsers {
             val colorOption = colorParser(stock_id, jsonObj.optString("color", ""))
 
             //CUSTOM
-            val custom = jsonObj.getString("custom", "")
+            //val custom = jsonObj.getString("custom", "")
 
             stock = Stock(variant_type, quantity, stock_id, sizeOption, colorOption, Option())
 
@@ -472,9 +473,13 @@ object PrimoParsers {
         try {
 
             val jsonObj = JSONObject(data)
+            Log.d("Test", " === cart detail:" + jsonObj)
 
             val unique_id = jsonObj.getString("unique_id", "")
             val cart_id = jsonObj.getString("cart_id", "")
+
+            //save updated cartID
+            MainClass.getSharedPreferences().edit().putString(CART_ID, cart_id).apply()
 
             val id = if (unique_id.isEmpty()) cart_id else unique_id
 
@@ -823,24 +828,78 @@ object PrimoParsers {
         return creditCard_items
     }
 
-    fun checkShippingCardParser(data: String): Array<Boolean?> {
+    fun checkShippingCardParser(data: String): Array<String?> {
 
-        val array = arrayOfNulls<Boolean>(2)
-        Arrays.fill(array, true)
+        val array = arrayOfNulls<String>(2)
+        Arrays.fill(array, "")
 
         try {
             Log.d("Test", "check shipping card parser:" + data)
             val dataObj = JSONObject(data)
-            val is_shipping = dataObj.getBoolean("is_shipping")
-            val is_payment = dataObj.getBoolean("is_payment")
+            //val is_shipping = dataObj.getBoolean("is_shipping")
+            //val is_payment = dataObj.getBoolean("is_payment")
+            val shipping_id = dataObj.getString("shipping_id", "")
+            val creditcard_id = dataObj.getString("creditcard_id", "")
 
-            array[0] = is_shipping
-            array[1] = is_payment
+            array[0] = shipping_id
+            array[1] = creditcard_id
 
         } catch (ex: JSONException){
             ex.printStackTrace()
         }
 
         return array
+    }
+
+    fun tempCartCountParser(data: String): Count {
+
+        var counts = Count()
+
+        try {
+
+            val obj = JSONObject(data)
+            Log.d("Test", " === temp count:" + obj)
+            val dataObj = obj.getJSONObject("data")
+            val cartObj = dataObj.getJSONObject("temp_cart")
+
+            val cart_count = cartObj.getInt("count")
+            val total_price = cartObj.getDouble("total_price")
+            val total_final_price = cartObj.getDouble("total_final_price")
+            val currency = cartObj.getInt("currency")
+            val total_discount = cartObj.getDouble("total_discount")
+
+            counts = Count(cart_count = cart_count, total_price = total_price, total_final_price = total_final_price, currency = currency, total_discount = total_discount)
+
+        } catch (ex: JSONException) {
+            ex.printStackTrace()
+        }
+
+        return counts
+    }
+
+    fun liveCartCountParser(data: String): Count {
+
+        var counts = Count()
+
+        try {
+
+            val obj = JSONObject(data)
+            Log.d("Test", " === live count:" + obj)
+            val dataObj = obj.getJSONObject("data")
+            val cartObj = dataObj.getJSONObject("cart")
+
+            val cart_count = cartObj.getInt("count")
+            val total_price = cartObj.getDouble("total_price")
+            val total_final_price = cartObj.getDouble("total_final_price")
+            val currency = cartObj.getInt("currency")
+            val total_discount = cartObj.getDouble("total_discount")
+
+            counts = Count(cart_count = cart_count, total_price = total_price, total_final_price = total_final_price, currency = currency, total_discount = total_discount)
+
+        } catch (ex: JSONException) {
+            ex.printStackTrace()
+        }
+
+        return counts
     }
 }

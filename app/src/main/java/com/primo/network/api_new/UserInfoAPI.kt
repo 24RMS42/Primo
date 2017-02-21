@@ -83,3 +83,13 @@ interface SetCountry {
 
     fun setCountry(country: Int, token: String)
 }
+
+interface UpdateUserLanguage {
+
+    fun updateUserLanguage(language: String, token: String)
+}
+
+interface GetCount {
+
+    fun getCount(token: String)
+}

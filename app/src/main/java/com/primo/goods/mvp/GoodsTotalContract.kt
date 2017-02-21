@@ -1,10 +1,7 @@
 package com.primo.goods.mvp
 
 import com.primo.network.models.ShippingQuote
-import com.primo.network.new_models.Auth
-import com.primo.network.new_models.CartItem
-import com.primo.network.new_models.Product
-import com.primo.network.new_models.Stock
+import com.primo.network.new_models.*
 import com.primo.utils.base.BasePresenter
 import com.primo.utils.base.BaseView
 import java.util.*
@@ -21,7 +18,9 @@ interface GoodsTotalView : BaseView {
 
     fun deleteItem(cartItem: CartItem)
 
-    fun onCheckShippingCardBeforeCheckout(result: Array<Boolean?>)
+    fun onCheckShippingCardBeforeCheckout(result: Array<String?>)
+
+    fun getCountResult(counts: Count)
 }
 
 abstract class GoodsTotalPresenter(view: GoodsTotalView) : BasePresenter<GoodsTotalView>(view) {
@@ -55,5 +54,9 @@ abstract class GoodsTotalPresenter(view: GoodsTotalView) : BasePresenter<GoodsTo
     abstract fun signIn(email: String, password: String)
 
     abstract fun checkShippingCardBeforeCheckout()
+
+    abstract fun getPublicCount()
+
+    abstract fun getLiveCount()
 
 }

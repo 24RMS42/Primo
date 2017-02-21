@@ -5,6 +5,7 @@
  * - 503 HTTP status handling
  * - Add Deeplink feature
  * - Check Shipping address and Credit Card before checkout
+ * - Implement Count api integration
  *
  * 2015 © Primo . All rights reserved.
  */
@@ -175,7 +176,7 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
             val addTempCall: AddItemToTempCart = AddItemToTempCartImpl(object : ApiResult<Cart?> {
 
                 override fun onStart() {
-                    //view?.showProgress()
+                    view?.showProgress()
                 }
 
                 override fun onResult(result: Cart?) {
@@ -208,7 +209,7 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
             val addCall: AddItemToCart = AddItemToCartImpl(object : ApiResult<Cart?> {
 
                 override fun onStart() {
-                    //view?.showProgress()
+                    view?.showProgress()
                 }
 
                 override fun onResult(result: Cart?) {
@@ -311,10 +312,15 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
         val auth = MainClass.getAuth()
         val token = auth.access_token
         val cartId = auth.cart_id
+        Log.d("Test", " == our cart id:" + cartId)
 
-        if (token.isEmpty() || cartId.isEmpty()) {
+        if (token.isEmpty() /*|| cartId.isEmpty()*/) { //cartID maybe empty if logged in without product
 
             val tempRetrieveCall: RetrieveTempCartDetail = RetrieveTempCartDetailImpl(object : ApiResult<Cart?> {
+
+                override fun onStart() {
+                    view?.showProgress()
+                }
 
                 override fun onResult(result: Cart?) {
                     if (result != null)
@@ -327,13 +333,22 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
 
                     displayMessage(message, code)
                 }
+
+                override fun onComplete() {
+                    view?.hideProgress()
+                }
             })
 
+            Log.d("Test", "== retrieving temp cart ===")
             tempRetrieveCall.retrieveTempCartDetail()
         } else {
 
             val retrieveCall: RetrieveCartDetail = RetrieveCartDetailImpl(object : ApiResult<Cart?> {
 
+                override fun onStart() {
+                    view?.showProgress()
+                }
+
                 override fun onResult(result: Cart?) {
                     if (result != null)
                         view?.updateProductList(result.products)
@@ -345,8 +360,13 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
 
                     displayMessage(message, code)
                 }
+
+                override fun onComplete() {
+                    view?.hideProgress()
+                }
             })
 
+            Log.d("Test", "== retrieving live cart ===")
             retrieveCall.retrieveCartDetail(cartId, token)
         }
     }
@@ -454,13 +474,13 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
         val auth = MainClass.getAuth()
         val token = auth.access_token
 
-        val checkShippingCardCall: CheckShippingCard = CheckShippingCardImpl(object : ApiResult<Array<Boolean?>> {
+        val checkShippingCardCall: CheckShippingCard = CheckShippingCardImpl(object : ApiResult<Array<String?>> {
 
             override fun onStart() {
                 view?.showProgress()
             }
 
-            override fun onResult(result: Array<Boolean?>) {
+            override fun onResult(result: Array<String?>) {
 
                 view?.onCheckShippingCardBeforeCheckout(result)
             }
@@ -477,6 +497,56 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
         })
 
         checkShippingCardCall.checkShippingCard(token)
+    }
+
+    override fun getPublicCount() {
+
+        val auth = MainClass.getAuth()
+        val token = auth.access_token
+
+        val getPublicCountCall: GetCount = GetPublicCountImpl(object : ApiResult<Count> {
+
+            override fun onStart() {}
+
+            override fun onResult(result: Count) {
+
+                view?.getCountResult(result)
+            }
+
+            override fun onError(message: String, code: Int) {
+                Log.d("Test", "get public count error:" + message)
+                displayMessage(message, code)
+            }
+
+            override fun onComplete() {}
+        })
+
+        getPublicCountCall.getCount(token)
+    }
+
+    override fun getLiveCount() {
+
+        val auth = MainClass.getAuth()
+        val token = auth.access_token
+
+        val getLiveCountCall: GetCount = GetLiveCountImpl(object : ApiResult<Count> {
+
+            override fun onStart() {}
+
+            override fun onResult(result: Count) {
+
+                view?.getCountResult(result)
+            }
+
+            override fun onError(message: String, code: Int) {
+                Log.d("Test", "get live count error:" + message)
+                displayMessage(message, code)
+            }
+
+            override fun onComplete() {}
+        })
+
+        getLiveCountCall.getCount(token)
     }
 
     override fun onDestroy() {

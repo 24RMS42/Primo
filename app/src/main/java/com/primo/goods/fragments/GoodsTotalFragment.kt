@@ -7,6 +7,7 @@
  * - add Deeplink feature
  * - check Shipping address and Credit Card before checkout
  * - add swipe down effect
+ * - integrate Count api
  *
  * 2015 © Primo . All rights reserved.
  */
@@ -41,13 +42,8 @@ import com.primo.goods.view.GoodsFooterView
 import com.primo.main.MainActivity
 import com.primo.main.MainClass
 import com.primo.network.models.ShippingQuote
-import com.primo.network.new_models.Auth
-import com.primo.network.new_models.CartItem
-import com.primo.network.new_models.Product
-import com.primo.network.new_models.Stock
-import com.primo.profile.fragments.AddAddressFragment
+import com.primo.network.new_models.*
 import com.primo.profile.fragments.PageProfileFragment
-import com.primo.profile.fragments.ProfileFragment
 import com.primo.profile.fragments.SetCountryFragment
 import com.primo.utils.DialogUtils
 import com.primo.utils.base.BasePresenterFragment
@@ -60,7 +56,6 @@ import com.primo.utils.other.RxBus
 import com.primo.utils.other.RxEvent
 import com.primo.utils.tapScaleAnimation
 import com.primo.utils.views.GestureRelativeLayout
-import kotlinx.android.synthetic.main.month_year_picker_view.*
 import rx.subscriptions.CompositeSubscription
 import java.util.*
 
@@ -294,21 +289,24 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
         }
     }
 
-    override fun onCheckShippingCardBeforeCheckout(result: Array<Boolean?>) {
+    override fun onCheckShippingCardBeforeCheckout(result: Array<String?>) {
 
-        if (result[0] == false) {
+        if (result[0] == "") {
             showMessage(MainClass.context.getString(R.string.please_add_shipping_address))
             (activity as MainActivity).changeProfileTabState(MainActivity.ProfileTabStates.PROFILE_PAGE)
             showFragment(PageProfileFragment(), true,
                     R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right, PageProfileFragment::class.java.simpleName)
         }
-        else if (result[1] == false) {
+        else if (result[1] == "") {
             showMessage(MainClass.context.getString(R.string.please_add_credit_card))
             (activity as MainActivity).changeProfileTabState(MainActivity.ProfileTabStates.PROFILE_PAGE)
             showFragment(PageProfileFragment(), true,
                     R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right, PageProfileFragment::class.java.simpleName)
         }
         else {
+            MainClass.getSharedPreferences().edit().putString(SHIPPING_ID, result[0]).apply()
+            MainClass.getSharedPreferences().edit().putString(CREDITCARD_ID, result[1]).apply()
+
             val parent = parentFragment
             if (parent != null && parent is GoodsPagerFragment) {
                 parent.getOrderPlace()
@@ -471,9 +469,23 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
         //update cart badge
         //productList?.size : product count
         //quantity : product total count with quantity
-        (activity as MainActivity).updateBadge(quantity)
+
+        // == replace by calling count api to update cart badge == //
+        //(activity as MainActivity).updateBadge(quantity)
+        val auth = MainClass.getAuth()
+        val token = auth.access_token
+
+        if (token.isEmpty())
+            presenter?.getPublicCount()
+        else
+            presenter?.getLiveCount()
 
         checkProductBeforeSignUp()
+    }
+
+    override fun getCountResult(counts: Count) {
+        (activity as MainActivity).updateBadge(counts.cart_count)
+        _rxBus?.send(RxEvent(Events.CHANGE_COUNT, Triple(counts.currency, counts.total_final_price, counts.cart_count)))
     }
 
     override fun onStop() {
@@ -519,7 +531,7 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
             }
         }
 
-        var wa: Thread = Thread(this)
+        val wa: Thread = Thread(this)
         wa.start()
     }
 
@@ -550,7 +562,7 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
             }
         }
 
-        var wa: Thread = Thread(this)
+        val wa: Thread = Thread(this)
         wa.start()
     }
 
@@ -570,7 +582,7 @@ class GoodsTotalFragment : BasePresenterFragment<GoodsTotalView, GoodsTotalPrese
     }
 
     override fun run() {
-        var timeStop: Long = System.currentTimeMillis() + TIME_WAIT
+        val timeStop: Long = System.currentTimeMillis() + TIME_WAIT
         while (isWait && timeStop > System.currentTimeMillis()){
             if (isPhoneMove()){
                 isWait = false

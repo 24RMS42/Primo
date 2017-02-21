@@ -19,6 +19,7 @@ object APIPrimo {
     const val CLIENT_ID = "client_id"
     const val CLIENT_SECRET = "client_secret"
     const val AUTHORIZATION = "Authorization"
+    const val COUNTRY_ID = "cid"
 
     //DEV
     const val CLIENT_ID_VALUE = "8pdQeisGsr4lDXRncpSYXRA7"
@@ -63,6 +64,10 @@ object APIPrimo {
     const val API_PAYMENT = "payment"
     const val API_BASIC = "basic"
     const val API_COUNTRY = "country"
+    const val API_LANGUAGE = "language"
+    const val API_TEMP = "temp"
+    const val API_LIVE = "live"
+    const val API_COUNT = "count"
 
     val JSON = MediaType.parse("application/json; charset=utf-8")
 

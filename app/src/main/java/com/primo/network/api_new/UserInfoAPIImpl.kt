@@ -1,5 +1,6 @@
 package com.primo.network.api_new
 
+import com.primo.network.new_models.Count
 import com.primo.network.new_models.CreditCard
 import com.primo.network.new_models.CreditCardData
 import com.primo.network.new_models.UserProfile
@@ -679,6 +680,147 @@ class SetCountryImpl(result: ApiResult<String?>): SetCountry {
                     }
 
                     override fun onNext(response: String?) {
+                        result.onResult(response)
+                    }
+                })
+    }
+
+}
+
+class UpdateUserLanguageImpl(result: ApiResult<String>): UpdateUserLanguage {
+
+    private val result = result
+
+    override fun updateUserLanguage(language: String, token: String) {
+
+        result.onStart()
+
+        Observable.create(Observable.OnSubscribe<String> { sub ->
+            try {
+                val response = APIPrimo.getClient().newCall(UserInfoRequest.updateUserLanguage(language, token))?.execute()
+                val body = response?.body()?.string() ?: ""
+                val code = response?.code() ?: -1
+                if (!(response?.isSuccessful ?: false))
+                    sub.onError(NetworkException(body, code))
+                else
+                    sub.onNext(body)
+                sub.onCompleted()
+            } catch (e: IOException) {
+                sub.onError(e)
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Subscriber<String>() {
+
+                    override fun onCompleted() {
+                        result.onComplete()
+                    }
+
+                    override fun onError(e: Throwable) {
+                        if (e is NetworkException) {
+                            result.onError(e.report, e.code)
+                        } else if (e is UnknownHostException) {
+                            result.onError(e.message.orEmpty(), CONNECTION_ERROR)
+                        }
+                        result.onComplete()
+                    }
+
+                    override fun onNext(response: String) {
+                        result.onResult(response)
+                    }
+                })
+    }
+
+}
+
+class GetPublicCountImpl(result: ApiResult<Count>): GetCount {
+
+    private val result = result
+
+    override fun getCount(token: String) {
+
+        result.onStart()
+
+        Observable.create(Observable.OnSubscribe<Count> { sub ->
+            try {
+                val response = APIPrimo.getClient().newCall(UserInfoRequest.getPublicCount(token))?.execute()
+                val body = response?.body()?.string() ?: ""
+                val code = response?.code() ?: -1
+                if (!(response?.isSuccessful ?: false))
+                    sub.onError(NetworkException(body, code))
+                else
+                    sub.onNext(PrimoParsers.tempCartCountParser(body))
+                sub.onCompleted()
+            } catch (e: IOException) {
+                sub.onError(e)
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Subscriber<Count>() {
+
+                    override fun onCompleted() {
+                        result.onComplete()
+                    }
+
+                    override fun onError(e: Throwable) {
+                        if (e is NetworkException) {
+                            result.onError(e.report, e.code)
+                        } else if (e is UnknownHostException) {
+                            result.onError(e.message.orEmpty(), CONNECTION_ERROR)
+                        }
+                        result.onComplete()
+                    }
+
+                    override fun onNext(response: Count) {
+                        result.onResult(response)
+                    }
+                })
+    }
+
+}
+
+class GetLiveCountImpl(result: ApiResult<Count>): GetCount {
+
+    private val result = result
+
+    override fun getCount(token: String) {
+
+        result.onStart()
+
+        Observable.create(Observable.OnSubscribe<Count> { sub ->
+            try {
+                val response = APIPrimo.getClient().newCall(UserInfoRequest.getLiveCount(token))?.execute()
+                val body = response?.body()?.string() ?: ""
+                val code = response?.code() ?: -1
+                if (!(response?.isSuccessful ?: false))
+                    sub.onError(NetworkException(body, code))
+                else
+                    sub.onNext(PrimoParsers.liveCartCountParser(body))
+                sub.onCompleted()
+            } catch (e: IOException) {
+                sub.onError(e)
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Subscriber<Count>() {
+
+                    override fun onCompleted() {
+                        result.onComplete()
+                    }
+
+                    override fun onError(e: Throwable) {
+                        if (e is NetworkException) {
+                            result.onError(e.report, e.code)
+                        } else if (e is UnknownHostException) {
+                            result.onError(e.message.orEmpty(), CONNECTION_ERROR)
+                        }
+                        result.onComplete()
+                    }
+
+                    override fun onNext(response: Count) {
                         result.onResult(response)
                     }
                 })

@@ -31,6 +31,8 @@ const val LOGIN_EMAIL = "email"
 const val LOGIN_PASSWORD = "password"
 const val SIGNUP_TIME = "signUpTime"
 const val AUTOLOGIN_DELAY_TIME = 30 // minutes
+const val USER_LANGUAGE = "user_language"
+const val USER_COUNTRY = "user_country"
 
 const val SHIPPING_ADDRESS_ADD = "shipping_address_add"
 const val SHIPPING_ADDRESS_UPDATE = "shipping_address_update"
@@ -38,6 +40,8 @@ const val CREDIT_CARD_ADD = "credit_card_add"
 const val CREDIT_CARD_UPDATE = "credit_card_update"
 const val TAB_PROFILE_FROM_ERROR = "tab_profile_from_error"
 const val TAB_ADDRESS_FROM_ERROR = "tab_address_from_error"
+const val SHIPPING_ADDRESS_COUNT = "shipping_address_count"
+const val CREDIT_CARD_COUNT = "credit_card_count"
 
 const val COUNTRIES_EXIST : String = "countries_exist"
 
