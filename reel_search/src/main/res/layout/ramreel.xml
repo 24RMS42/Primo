@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/np__ramreel_container"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/np__ramreel_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/default_hint"
+        android:inputType="textNoSuggestions"
+        android:layout_centerVertical="true"/>
+
+    <RelativeLayout
+        android:id="@+id/np__ramreel_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
+        android:paddingRight="0dp"
+        android:paddingEnd="0dp"
+        android:layout_alignTop="@id/np__ramreel_input"
+        android:layout_alignBottom="@id/np__ramreel_input"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/clear_button_description"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_clear"/>
+    </RelativeLayout>
+</RelativeLayout>

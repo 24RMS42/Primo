@@ -1,49 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-            <com.primo.utils.views.GestureRelativeLayout
-                android:id="@+id/gesture_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusableInTouchMode="true">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                <TextView
+                <com.primo.utils.views.GestureRelativeLayout
+                    android:id="@+id/gesture_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/country"
-                    android:text="@string/set_your_country"
-                    android:textColor="@color/color_red"
-                    android:textSize="20sp"
-                    android:gravity="center"/>
+                    android:focusableInTouchMode="true">
 
-                <EditText
-                    android:id="@+id/country"
-                    style="@style/PrefixEditTextTheme"
-                    android:layout_width="250dp"
-                    android:focusable="false"
-                    android:hint="@string/usa"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="100dp"
-                    android:layout_marginBottom="100dp"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center"/>
+                    <TextView
+                        android:id="@+id/text_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/set_your_country"
+                        android:textColor="@color/color_red"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:layout_above="@+id/reel_picker"/>
 
-                <Button
-                    android:id="@+id/updateBtn"
-                    style="@style/RedButton"
-                    android:text="@string/update"
-                    android:layout_below="@id/country"
-                    android:layout_centerHorizontal="true"/>
+                    <RelativeLayout
+                        android:id="@+id/reel_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="100dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_centerVertical="true">
+                        <search.reel.android.RAMReel
+                            android:id="@+id/picker"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            app:hint="@string/usa"/>
+                    </RelativeLayout>
 
-            </com.primo.utils.views.GestureRelativeLayout>
+                    <EditText
+                        android:id="@+id/country"
+                        style="@style/PrefixEditTextTheme"
+                        android:layout_width="250dp"
+                        android:focusable="false"
+                        android:hint="@string/usa"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="100dp"
+                        android:layout_marginBottom="100dp"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:visibility="invisible"/>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+                    <Button
+                        android:id="@+id/updateBtn"
+                        style="@style/RedButton"
+                        android:text="@string/update"
+                        android:layout_below="@id/country"
+                        android:layout_centerHorizontal="true"/>
 
-</RelativeLayout>
+                    <Space
+                        android:id="@+id/center"
+                        android:layout_width="1px"
+                        android:layout_height="1px"
+                        android:layout_centerInParent="true" />
+
+                </com.primo.utils.views.GestureRelativeLayout>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
