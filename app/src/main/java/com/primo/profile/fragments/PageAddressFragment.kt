@@ -56,7 +56,7 @@ import rx.subscriptions.CompositeSubscription
 import java.util.*
 
 class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), OrderView, View.OnClickListener,
-        GestureRelativeLayout.OnSwipeListener, MultipleTextWatcher, PlaceBottomSheet.ListDialogResult, SearchCountryFragment.ListDialogResult {
+        GestureRelativeLayout.OnSwipeListener, MultipleTextWatcher, PlaceBottomSheet.ListDialogResult {
 
     private val MIN_PASSWORD_LENGTH = 6
     private var gestureLayout: GestureRelativeLayout? = null
@@ -95,7 +95,6 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
     private var signUpState = 4 //normal
     private var action_kind = ""
     private var is_default = 0
-    private var shipping_address_count = 1
     private var deviceLanguage = "en"
 
     override fun onStart() {
@@ -232,7 +231,6 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
             deleteBtn?.visibility = View.VISIBLE
 
             is_default = arguments.getInt(IS_DEFAULT)
-            shipping_address_count = arguments.getInt(SHIPPING_ADDRESS_COUNT, 1)
             //load temp data
             loadProfileData()
         }
@@ -271,13 +269,7 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
                 R.id.default_switch -> {
 
                     if (!isChecked && is_default == 1){
-
-                        if (shipping_address_count == 1)
-                            showMessage(MainClass.context.getString(R.string.must_have_default_address))
-                        //== Show message when user unset default, if user has multiple addresses or credit cards, 02/02/2017 ==//
-                        else if (shipping_address_count > 1)
-                            showMessage(MainClass.context.getString(R.string.please_set_another_address_as_default))
-
+                        showMessage(MainClass.context.getString(R.string.must_have_default_address))
                         defaultSwitch?.isChecked = true
                     }
                 }
@@ -316,31 +308,7 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
         showKeyboard(zip)
     }
 
-    override fun countrySelected(country: Country) {
-
-        state?.isEnabled = true
-        this.country?.setText(country.name)
-        this.country?.tag = country.fileName
-        presenter?.saveCountry(country.value)
-
-        (activity as MainActivity).user?.country = country.value
-
-        //this.state?.postDelayed({ this.state?.performClick() }, 700)
-        zip?.isFocusableInTouchMode = true
-        zip?.requestFocus()
-        showKeyboard(zip)
-    }
-
     override fun onStateSelected(state: State) {
-        this.state?.setText(state.name)
-        presenter?.saveState(state.name)
-
-        city?.isFocusableInTouchMode = true
-        city?.requestFocus()
-        showKeyboard(city)
-    }
-
-    override fun stateSelected(state: State) {
         this.state?.setText(state.name)
         presenter?.saveState(state.name)
 
@@ -388,7 +356,7 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
 
     override fun getAddressData(addressData: Address?){
 
-        //country?.setText(MainClass.context.getString(R.string.japan)) // should set English Japan name to find index of Japan in country list
+        country?.setText(MainClass.context.getString(R.string.japan)) // should set English Japan name to find index of Japan in country list
         city?.setText(addressData?.city)
         state?.setText(addressData?.prefecture)
         address?.setText(addressData?.town)
@@ -452,9 +420,6 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
 
     override fun onSignUped() {
         showFragment(AuthFragment(), true, R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right)
-
-        //save user language
-        MainClass.saveUserLanguage()
     }
 
     override fun onCountrySelected() {
@@ -776,16 +741,13 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
 
             R.id.country -> {
                 activity.hideKeyboard()
-                //showPickerDialog()
-                // == new implementation of country search == //
-                showReelPickerDialog()
+                showPickerDialog()
             }
 
             R.id.state -> {
                 activity.hideKeyboard()
-                //showPickerDialog(country?.tag.toString())
-                // == new implementation of state search == //
-                showReelPickerDialog(country?.tag.toString())
+                showPickerDialog(country?.tag.toString())
+
             }
 
             R.id.next_btn -> {
@@ -814,15 +776,6 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
         fragmentTransaction.commitAllowingStateLoss()
     }
 
-    private fun showReelPickerDialog(country: String? = null) {
-
-        val dialogFragment = SearchCountryFragment.newInstance(country)
-        val fragmentTransaction = activity.supportFragmentManager.beginTransaction()
-        dialogFragment.setTargetFragment(this, 0)
-        fragmentTransaction.add(dialogFragment, null)
-        fragmentTransaction.commitAllowingStateLoss()
-    }
-
     override fun onSwipeToLeft() {
         super.onSwipeToLeft()
 
@@ -833,7 +786,7 @@ class PageAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
     override fun onResume() {
         super.onResume()
         if (MainClass.getAuth().access_token.isEmpty())
-            changeToolbarState(MainActivity.ToolbarStates.DEFAULT)
+            changeToolbarState(MainActivity.ToolbarStates.BACK_BTN_WITH_LOGIN)
         else
             changeToolbarState(MainActivity.ToolbarStates.BACK_BTN)
     }

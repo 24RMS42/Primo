@@ -55,7 +55,7 @@ import java.util.*
 
 
 class PageProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), OrderView, View.OnClickListener,
-        GestureRelativeLayout.OnSwipeListener, MultipleTextWatcher, PlaceBottomSheet.ListDialogResult, SearchCountryFragment.ListDialogResult {
+        GestureRelativeLayout.OnSwipeListener, MultipleTextWatcher, PlaceBottomSheet.ListDialogResult {
 
     private var gestureLayout: GestureRelativeLayout? = null
 
@@ -230,17 +230,7 @@ class PageProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
         (activity as MainActivity).user?.country = country.value
     }
 
-    override fun countrySelected(country: Country) {
-        this.country?.setText(country.name)
-        this.country?.tag = country.fileName
-        (activity as MainActivity).user?.country = country.value
-    }
-
     override fun onStateSelected(state: State) {
-
-    }
-
-    override fun stateSelected(state: State) {
 
     }
 
@@ -463,9 +453,6 @@ class PageProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
 
     override fun onSignUped() {
         showFragment(AuthFragment(), true, R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right)
-
-        //save user language
-        MainClass.saveUserLanguage()
     }
 
     override fun onCountrySelected() {
@@ -556,9 +543,7 @@ class PageProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
 
             R.id.country -> {
                 activity.hideKeyboard()
-                //showPickerDialog()
-                // == new implementation of country search == //
-                showReelPickerDialog()
+                showPickerDialog()
             }
         }
     }
@@ -566,15 +551,6 @@ class PageProfileFragment : BasePresenterFragment<OrderView, OrderPresenter>(), 
     private fun showPickerDialog(country: String? = null) {
 
         val dialogFragment = PlaceBottomSheet.newInstance(country)
-        val fragmentTransaction = activity.supportFragmentManager.beginTransaction()
-        dialogFragment.setTargetFragment(this, 0)
-        fragmentTransaction.add(dialogFragment, null)
-        fragmentTransaction.commitAllowingStateLoss()
-    }
-
-    private fun showReelPickerDialog(country: String? = null) {
-
-        val dialogFragment = SearchCountryFragment.newInstance(country)
         val fragmentTransaction = activity.supportFragmentManager.beginTransaction()
         dialogFragment.setTargetFragment(this, 0)
         fragmentTransaction.add(dialogFragment, null)

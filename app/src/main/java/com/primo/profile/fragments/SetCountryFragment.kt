@@ -2,7 +2,6 @@
  * Changes:
  *
  * - Add set country page
- * - New implement of country search
  *
  * 2015 © Primo . All rights reserved.
  */
@@ -10,7 +9,6 @@
 package com.primo.profile.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,15 +28,12 @@ import android.widget.EditText
 import com.primo.goods.fragments.GoodsPagerFragment
 import com.primo.main.MainActivity
 import com.primo.main.MainClass
-import search.reel.android.RAMReel
 
 class SetCountryFragment : BasePresenterFragment<OrderView, OrderPresenter>(), OrderView, View.OnClickListener, PlaceBottomSheet.ListDialogResult{
 
     private var country: EditText? = null
     private var updateBtn: Button? = null
     private var selectedCountry = -1
-    private var language = "en"
-    private var name_key = "name"
 
     override fun onStart() {
         super.onStart()
@@ -66,37 +61,6 @@ class SetCountryFragment : BasePresenterFragment<OrderView, OrderPresenter>(), O
 
         setOnClickListener(this, country, updateBtn)
 
-        //new implementation of country search
-        language = getDeviceLanguage()
-
-        if (language == "en")
-            name_key = "name"
-        else if (language == "ja")
-            name_key = "name_ja"
-        else if (language == "ch")
-            name_key = "name_ch"
-        else if (language == "cht")
-            name_key = "name_cht"
-
-        val realm = io.realm.Realm.getDefaultInstance()
-        val countryList: MutableList<Country> = realm.copyFromRealm(realm.allObjects(Country::class.java)).orEmpty().toMutableList()
-        val picker = rootView?.findViewById(R.id.picker) as RAMReel
-
-        val newCountryList = getNewCountryList(countryList)
-        val size = newCountryList.size
-        val array = arrayOfNulls<String>(size)
-        Arrays.fill(array, "")
-
-        for (i in 0..size - 1) {
-            array[i] = newCountryList[i].name
-        }
-        picker.setValues(array)
-        picker.setOnItemClickListener { text ->
-            val countryCode = realm.allObjects(Country::class.java).where().equalTo(name_key, text).findFirst()?.value ?: -1
-            selectedCountry = countryCode
-            if (selectedCountry != -1)
-                activity.hideKeyboard()
-        }
     }
 
     override fun onCountrySelected(country: Country) {
@@ -206,41 +170,6 @@ class SetCountryFragment : BasePresenterFragment<OrderView, OrderPresenter>(), O
         dialogFragment.setTargetFragment(this, 0)
         fragmentTransaction.add(dialogFragment, null)
         fragmentTransaction.commitAllowingStateLoss()
-    }
-
-    fun getNewCountryList(countryList: List<Country>): MutableList<Country>{
-
-        val newCountryList = mutableListOf<Country>()
-        val size = countryList.size
-
-        for (i in 0..size - 1) {
-
-            val country: Country
-            var name = ""
-            val name_en = countryList[i].name // it is used to sort as it is English name
-
-            if (language == "ja") {
-                name = countryList[i].name_ja
-            }
-            else if (language == "en") {
-                name = countryList[i].name
-            }
-            else if (language == "ch") {
-                name = countryList[i].name_ch
-            }
-            else if (language == "cht")
-                name = countryList[i].name_cht
-
-            val code = countryList[i].code
-            val value = countryList[i].value
-            val continent = countryList[i].continent
-            val fileName = countryList[i].fileName
-
-            country = Country(name, value, code, continent, fileName, name_en, name, name)
-            newCountryList.add(country)
-        }
-
-        return newCountryList
     }
 
     override fun onResume() {

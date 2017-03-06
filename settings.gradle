@@ -1,1 +1,1 @@
-include ':app', ':reel_search'
+include ':app'
