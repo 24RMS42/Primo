@@ -36,11 +36,7 @@ enum class Events {
     CONFIRMED,
     ORDER_REJECT,
     REJECT,
-    PAGER_FIRST_ITEM,
-    TAB_PROFILE,
-    TAB_ADDRESS,
-    TAB_CARD,
-    TAB_ADDRESS_FROM_CARD
+    CHANGE_COUNT
 }
 
 data class RxEvent(var key: Any, var sentObject: Any? = null) {

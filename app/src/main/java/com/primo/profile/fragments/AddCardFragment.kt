@@ -134,6 +134,7 @@ class AddCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Orde
                 bundle.putString("kind", CREDIT_CARD_UPDATE)
                 bundle.putString(CREDITCARD_ID, item?.cardId)
                 bundle.putInt(IS_DEFAULT, item!!.is_default)
+                bundle.putInt(CREDIT_CARD_COUNT, creditCardList!!.size)
 
                 val fragObj = PageCardFragment()
                 fragObj.arguments = bundle

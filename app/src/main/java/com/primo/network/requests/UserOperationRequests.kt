@@ -10,12 +10,15 @@
 
 package com.primo.network.requests
 
+import com.primo.main.MainClass
 import com.primo.utils.getDeviceLanguage
 import okhttp3.Request
 import okhttp3.RequestBody
 import org.json.JSONObject
 
 object UserOperationRequests {
+
+    val country_code = MainClass.getSavedCountry()
 
     fun signUp(email: String, password: String, repassword: String,
                phone: String, firstname: String, lastname: String,
@@ -26,7 +29,7 @@ object UserOperationRequests {
                unique_id: String): Request {
 
         val bodyObject = JSONObject()
-        var language = getDeviceLanguage()
+        val language = getDeviceLanguage()
         bodyObject.put("email", email).put("password", password).put("repassword", repassword)
                 .put("phone", phone).put("firstname", firstname).put("lastname", lastname)
                 .put("address", address).put("city", city).put("state", state).put("country", country)
@@ -43,7 +46,7 @@ object UserOperationRequests {
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_USER)
                         .addPathSegment(APIPrimo.API_SIGNUP)
-                        .build()).post(body).build()
+                        .build()).post(body).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun signUpBasic(email: String, password: String, repassword: String,
@@ -52,7 +55,7 @@ object UserOperationRequests {
                unique_id: String): Request {
 
         val bodyObject = JSONObject()
-        var language = getDeviceLanguage()
+        val language = getDeviceLanguage()
         bodyObject.put("email", email).put("password", password).put("repassword", repassword)
                 .put("phone", phone).put("firstname", firstname).put("lastname", lastname)
                 .put("delivery_preference", delivery_preference).put("is_mail_campaign", is_mail_campaign)
@@ -66,7 +69,7 @@ object UserOperationRequests {
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_USER)
                         .addPathSegment(APIPrimo.API_SIGNUP_BASIC)
-                        .build()).post(body).build()
+                        .build()).post(body).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun signUpNOCC(email: String, password: String, repassword: String,
@@ -77,7 +80,7 @@ object UserOperationRequests {
                unique_id: String): Request {
 
         val bodyObject = JSONObject()
-        var language = getDeviceLanguage()
+        val language = getDeviceLanguage()
         bodyObject.put("email", email).put("password", password).put("repassword", repassword)
                 .put("phone", phone).put("firstname", firstname).put("lastname", lastname)
                 .put("address", address).put("city", city).put("state", state).put("country", country)
@@ -93,7 +96,7 @@ object UserOperationRequests {
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_USER)
                         .addPathSegment(APIPrimo.API_SIGNUP_NOCC)
-                        .build()).post(body).build()
+                        .build()).post(body).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun resendConfirm(email: String): Request {
@@ -109,7 +112,7 @@ object UserOperationRequests {
                         .addPathSegment(APIPrimo.API_RESEND)
                         .addPathSegment(APIPrimo.API_SIGNUP)
                         .addPathSegment(APIPrimo.API_CONFIRM)
-                        .build()).post(body).build()
+                        .build()).post(body).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun forgotPassword(email: String): Request {
@@ -124,7 +127,7 @@ object UserOperationRequests {
                         .addPathSegment(APIPrimo.API_USER)
                         .addPathSegment(APIPrimo.API_FORGOT)
                         .addPathSegment(APIPrimo.API_PSW)
-                        .build()).post(body).build()
+                        .build()).post(body).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun postCode(postcode: String): Request {
@@ -136,7 +139,7 @@ object UserOperationRequests {
                         .addPathSegment(postcode)
                         .addQueryParameter(APIPrimo.CLIENT_ID, APIPrimo.CLIENT_ID_VALUE)
                         .addQueryParameter(APIPrimo.CLIENT_SECRET, APIPrimo.CLIENT_SECRET_VALUE)
-                        .build()).get().build()
+                        .build()).get().header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 }
 

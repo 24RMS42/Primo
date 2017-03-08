@@ -18,7 +18,7 @@ import com.primo.network.models.State
 import com.primo.profile.adapter.PlaceListAdapter
 import com.primo.utils.getDeviceLanguage
 import com.primo.utils.interfaces.OnItemClickListener
-
+import java.util.*
 
 class PlaceBottomSheet : BottomSheetDialogFragment(), OnItemClickListener{
 
@@ -86,13 +86,17 @@ class PlaceBottomSheet : BottomSheetDialogFragment(), OnItemClickListener{
 
             val country: Country
             var name = ""
+            val name_en = countryList[i].name // it is used to sort as it is English name
 
-            if (language == "ja")
+            if (language == "ja") {
                 name = countryList[i].name_ja
-            else if (language == "en")
+            }
+            else if (language == "en") {
                 name = countryList[i].name
-            else if (language == "ch")
+            }
+            else if (language == "ch") {
                 name = countryList[i].name_ch
+            }
             else if (language == "cht")
                 name = countryList[i].name_cht
 
@@ -101,9 +105,17 @@ class PlaceBottomSheet : BottomSheetDialogFragment(), OnItemClickListener{
             val continent = countryList[i].continent
             val fileName = countryList[i].fileName
 
-            country = Country(name, value, code, continent, fileName, name)
+            country = Country(name, value, code, continent, fileName, name_en, name, name)
             newCountryList.add(country)
         }
+
+        // sort by alphabetically //
+        Collections.sort(newCountryList, object : Comparator<Country> {
+            override fun compare(country2: Country, country1: Country): Int {
+
+                return country2.name_ja.compareTo(country1.name_ja) //name_ja is same as name_en
+            }
+        })
 
         return newCountryList
     }
@@ -117,18 +129,26 @@ class PlaceBottomSheet : BottomSheetDialogFragment(), OnItemClickListener{
 
             val state: State
             var name = ""
+            val name_en = stateList[i].name
+            val key = stateList[i].key
+            val code = stateList[i].code
 
-            if (language == "ja")
+            if (language == "ja" && key == "japan")
                 name = stateList[i].name_ja
-            else if (language == "en")
+            else
                 name = stateList[i].name
 
-            val code = stateList[i].code
-            val key = stateList[i].key
-
-            state = State(key, name, code, name)
+            state = State(key, name, code, name_en)
             newStateList.add(state)
         }
+
+        // sort by alphabetically //
+        Collections.sort(newStateList, object : Comparator<State> {
+            override fun compare(state2: State, state1: State): Int {
+
+                return state2.name_ja.compareTo(state1.name_ja) //name_ja is same as name_en
+            }
+        })
 
         return newStateList
     }

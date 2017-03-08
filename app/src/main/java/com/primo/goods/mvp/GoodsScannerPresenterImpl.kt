@@ -2,6 +2,7 @@
  * Changes:
  *
  * - 503 HTTP status handling
+ * - Implement Count api integration
  *
  * 2015 © Primo . All rights reserved.
  */
@@ -19,15 +20,16 @@ import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.CompoundBarcodeView
 import com.primo.R
 import com.primo.main.MainClass
-import com.primo.network.api_new.ApiResult
-import com.primo.network.api_new.SearchProductByQr
-import com.primo.network.api_new.SearchProductByQrImpl
+import com.primo.network.api_new.*
+import com.primo.network.new_models.Count
 import com.primo.network.new_models.Product
 import com.primo.utils.LONG_DURATION
 import com.primo.utils.NORMAL_DURATION
 import com.primo.utils.consts.*
+import com.primo.utils.getInt
 import com.primo.utils.other.Events
 import com.primo.utils.other.RxEvent
+import org.json.JSONObject
 import java.io.FileNotFoundException
 
 
@@ -168,6 +170,117 @@ class GoodsScannerPresenterImpl(view: GoodsScannerView, barcodeView: CompoundBar
             searchCall.searchProductByQr(code)
     }
 
+    override fun updateUserLanguage(language: String) {
+
+        val auth = MainClass.getAuth()
+        val token = auth.access_token
+
+        if (!token.isEmpty()) {
+
+            val updateUserLanguageCall: UpdateUserLanguage = UpdateUserLanguageImpl(object : ApiResult<String> {
+
+                override fun onStart() {
+
+                }
+
+                override fun onResult(result: String) {
+                    Log.d("Test", "language update success:" + result)
+                }
+
+                override fun onError(message: String, code: Int) {
+                    view?.showErrorMessage(message)
+                    Log.d("Test", "language update error:" + message)
+                }
+
+                override fun onComplete() {
+
+                }
+            })
+
+            updateUserLanguageCall.updateUserLanguage(language, token)
+        }
+    }
+
+    override fun checkShippingCardBeforeCheckout() {
+
+        val auth = MainClass.getAuth()
+        val token = auth.access_token
+
+        val checkShippingCardCall: CheckShippingCard = CheckShippingCardImpl(object : ApiResult<Array<String?>> {
+
+            override fun onStart() {
+                view?.showProgress()
+            }
+
+            override fun onResult(result: Array<String?>) {
+
+                view?.onCheckShippingCardBeforeCheckout(result)
+            }
+
+            override fun onError(message: String, code: Int) {
+                view?.showErrorMessage(message)
+
+                displayMessage(message, code)
+            }
+
+            override fun onComplete() {
+                view?.hideProgress()
+            }
+        })
+
+        checkShippingCardCall.checkShippingCard(token)
+    }
+
+    override fun getPublicCount() {
+
+        val auth = MainClass.getAuth()
+        val token = auth.access_token
+
+        val getPublicCountCall: GetCount = GetPublicCountImpl(object : ApiResult<Count> {
+
+            override fun onStart() {}
+
+            override fun onResult(result: Count) {
+
+                view?.getCountResult(result)
+            }
+
+            override fun onError(message: String, code: Int) {
+                Log.d("Test", "get public count error:" + message)
+                displayMessage(message, code)
+            }
+
+            override fun onComplete() {}
+        })
+
+        getPublicCountCall.getCount(token)
+    }
+
+    override fun getLiveCount() {
+
+        val auth = MainClass.getAuth()
+        val token = auth.access_token
+
+        val getLiveCountCall: GetCount = GetLiveCountImpl(object : ApiResult<Count> {
+
+            override fun onStart() {}
+
+            override fun onResult(result: Count) {
+
+                view?.getCountResult(result)
+            }
+
+            override fun onError(message: String, code: Int) {
+                Log.d("Test", "get live count error:" + message)
+                displayMessage(message, code)
+            }
+
+            override fun onComplete() {}
+        })
+
+        getLiveCountCall.getCount(token)
+    }
+
     override fun onResume() {
         super.onResume()
         println("onResume")
@@ -185,6 +298,15 @@ class GoodsScannerPresenterImpl(view: GoodsScannerView, barcodeView: CompoundBar
     override fun onDestroy() {
         super.onDestroy()
         barcodeView = null
+    }
+
+    fun displayMessage(message: String, code: Int){
+
+        var codeError = -1
+        val jsonObject = JSONObject(message)
+        codeError = jsonObject.getInt("error_code", -1)
+
+        view?.displayErrorMessage("", codeError)
     }
 
 }

@@ -28,7 +28,7 @@
                     android:layout_margin="15dp"
                     android:gravity="center"
                     android:text="@string/payment"
-                    android:textSize="19sp"/>
+                    android:textSize="17sp"/>
 
                 <TextView
                     android:id="@+id/default_text"

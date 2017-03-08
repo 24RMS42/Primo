@@ -88,6 +88,7 @@ class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Ord
     private var card_year = ""
     private var card_month = ""
     private var is_default = 0
+    private var credit_card_count = 1
     private var showPassword = false
 
     override fun onStart() {
@@ -183,7 +184,12 @@ class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Ord
                 R.id.default_switch -> {
 
                     if (!isChecked && is_default == 1){
-                        showMessage(MainClass.context.getString(R.string.must_have_default_card))
+
+                        if (credit_card_count == 1)
+                            showMessage(MainClass.context.getString(R.string.must_have_default_card))
+                        else if (credit_card_count > 1)
+                            showMessage(MainClass.context.getString(R.string.please_set_another_card_as_default))
+
                         defaultSwitch?.isChecked = true
                     }
                 }
@@ -249,6 +255,8 @@ class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Ord
             deleteBtn?.visibility = View.VISIBLE
 
             is_default = arguments.getInt(IS_DEFAULT)
+            credit_card_count = arguments.getInt(CREDIT_CARD_COUNT, 1)
+
             //load temp data
             loadCardData()
             showPassword = true
@@ -511,6 +519,9 @@ class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Ord
 
     override fun onSignUped() {
         showFragment(AuthFragment(), true, R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right)
+
+        //save user language
+        MainClass.saveUserLanguage()
     }
 
     override fun onCountrySelected() {
@@ -709,7 +720,7 @@ class PageCardFragment : BasePresenterFragment<OrderView, OrderPresenter>(), Ord
     override fun onResume() {
         super.onResume()
         if (MainClass.getAuth().access_token.isEmpty())
-            changeToolbarState(MainActivity.ToolbarStates.BACK_BTN_WITH_LOGIN)
+            changeToolbarState(MainActivity.ToolbarStates.DEFAULT)
         else
             changeToolbarState(MainActivity.ToolbarStates.BACK_BTN)
     }

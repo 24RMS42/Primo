@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="capitals">
+        <item>Adfd</item>
+        <item>Aвстрия</item>
+        <item>Aербайджан</item>
+        <item>Aкротири</item>
+        <item>Aлбания</item>
+        <item>Алжир</item>
+        <item>Американское Самоа</item>
+        <item>Ангилья</item>
+        <item>Ангола</item>
+        <item>Андорра</item>
+        <item>Антигуа и Барбуда</item>
+        <item>Аргентина</item>
+        <item>Армения</item>
+        <item>Аруба</item>
+        <item>Афганистан</item>
+        <item>Багамские Острова</item>
+        <item>Бангладеш</item>
+        <item>Барбадос</item>
+        <item>Бахрейн</item>
+        <item>Белиз</item>
+        <item>Белоруссия</item>
+        <item>Бельгия</item>
+        <item>Бенин</item>
+        <item>Бермудские Острова</item>
+        <item>Болгария</item>
+        <item>Боливия</item>
+        <item>Босния и Герцеговина</item>
+        <item>Ботсвана</item>
+        <item>Бразилия</item>
+        <item>Британская территория в Индийском океане</item>
+        <item>Британские Виргинские острова</item>
+        <item>Бруней</item>
+        <item>Буркина-Фасо</item>
+        <item>Бурунди</item>
+        <item>Бутан</item>
+        <item>Вануату</item>
+        <item>Ватикан</item>
+        <item>Великобритания</item>
+        <item>Венгрия</item>
+        <item>Венесуэла</item>
+        <item>Виргинские Острова</item>
+        <item>Восточный Тимор</item>
+        <item>Вьетнам</item>
+        <item>Габон</item>
+        <item>Гаити</item>
+        <item>Гайана</item>
+        <item>Гамбия</item>
+        <item>Гана</item>
+        <item>Гваделупа</item>
+        <item>Гватемала</item>
+        <item>Гвинея</item>
+        <item>Гвинея-Бисау</item>
+        <item>Германия</item>
+        <item>Гернси</item>
+        <item>Гибралтар</item>
+        <item>Гондурас</item>
+        <item>Гонконг</item>
+        <item>Гренада</item>
+        <item>Гренландия</item>
+        <item>Греция</item>
+        <item>Грузия</item>
+        <item>Гуам</item>
+        <item>Дания</item>
+        <item>Декелия</item>
+        <item>Демократическая Республика Конго</item>
+        <item>Джерси</item>
+        <item>Джибути</item>
+        <item>Доминика</item>
+        <item>Доминиканская Республика</item>
+        <item>Египет</item>
+        <item>Замбия</item>
+        <item>Западная Сахара</item>
+        <item>Зимбабве</item>
+        <item>Израиль</item>
+        <item>Индия</item>
+        <item>Индонезия</item>
+        <item>Иордания</item>
+        <item>Ирак</item>
+        <item>Иран</item>
+        <item>Ирландия</item>
+        <item>Исландия</item>
+        <item>Испания</item>
+        <item>Италия</item>
+        <item>Йемен</item>
+        <item>Кабо-Верде</item>
+        <item>Казахстан</item>
+        <item>Каймановы острова</item>
+        <item>Камбоджа</item>
+        <item>Камерун</item>
+        <item>Канада</item>
+        <item>Катар</item>
+        <item>Кения</item>
+        <item>Кипр</item>
+        <item>Киргизия</item>
+        <item>Кирибати</item>
+        <item>Китай</item>
+        <item>Кокосовые острова</item>
+        <item>Колумбия</item>
+        <item>Коморы</item>
+        <item>Косово</item>
+        <item>Коста-Рика</item>
+        <item>Кот-д-Ивуар</item>
+        <item>Куба</item>
+        <item>Кувейт</item>
+        <item>Кюрасао</item>
+        <item>Лаос</item>
+        <item>Латвия</item>
+        <item>Лесото</item>
+        <item>Либерия</item>
+        <item>Ливан</item>
+        <item>Ливия</item>
+        <item>Литва</item>
+        <item>Лихтенштейн</item>
+        <item>Люксембург</item>
+        <item>Маврикий</item>
+        <item>Мавритания</item>
+        <item>Мадагаскар</item>
+        <item>Майотта</item>
+        <item>Макао</item>
+        <item>Македония</item>
+        <item>Малави</item>
+        <item>Малайзия</item>
+        <item>Мали</item>
+        <item>Мальдивы</item>
+        <item>Мальта</item>
+        <item>Марокко</item>
+        <item>Мартиника</item>
+        <item>Маршалловы Острова</item>
+        <item>Мексика</item>
+        <item>Микронезия</item>
+        <item>Мозамбик</item>
+        <item>Молдова</item>
+        <item>Монако</item>
+        <item>Монголия</item>
+        <item>Монтсератт</item>
+        <item>Мьянма</item>
+        <item>Намибия</item>
+        <item>Науру</item>
+        <item>Непал</item>
+        <item>Нигер</item>
+        <item>Нигерия</item>
+        <item>Нидерланды</item>
+        <item>Нидерланские Антильские острова</item>
+        <item>Никарагуа</item>
+        <item>Ниуэ</item>
+        <item>Новая Зеландия</item>
+        <item>Новая Каледония</item>
+        <item>Норвегия</item>
+        <item>Объединенные Арабские Эмираты</item>
+        <item>Оман</item>
+        <item>Остров Буве</item>
+        <item>Остров Клиппертон</item>
+        <item>Остров Мэн</item>
+        <item>Остров Навасса</item>
+        <item>Остров Норфолк</item>
+        <item>Остров Рождества</item>
+        <item>Остров Святой Елены, Остров Вознесения, и Тристан-да-Кунья</item>
+        <item>Остров Уэйк</item>
+        <item>Остров Херд и острова Макдональд</item>
+        <item>Острова Ашмор и Картье</item>
+        <item>Острова Кораллового моря</item>
+        <item>Острова Кука</item>
+        <item>Острова Питкэрн</item>
+        <item>Пакистан</item>
+        <item>Палау</item>
+        <item>Панама</item>
+        <item>Папуа - Новая Гвинея</item>
+        <item>Парагвай</item>
+        <item>Перу</item>
+        <item>Польша</item>
+        <item>Португалия</item>
+        <item>Пуэрто-Рико</item>
+        <item>Республика Конго</item>
+        <item>Реюньон</item>
+        <item>Россия</item>
+        <item>Руанда</item>
+        <item>Румыния</item>
+        <item>Самоа</item>
+        <item>Сан-Марино</item>
+        <item>Сан-Томе и Принсипи</item>
+        <item>Саудовская Аравия</item>
+        <item>Свазиленд</item>
+        <item>Северная Корея</item>
+        <item>Северные Марианские острова</item>
+        <item>Сейшельские Острова</item>
+        <item>Сен-Бартелеми</item>
+        <item>Сен-Мартен</item>
+        <item>Сен-Пьер и Микелон</item>
+        <item>Сенегал</item>
+        <item>Сент-Винсент и Гренадины</item>
+        <item>Сент-Китс и Невис</item>
+        <item>Сент-Люсия</item>
+        <item>Сербия</item>
+        <item>Сингапур</item>
+        <item>Синт-Мартен</item>
+        <item>Сирия</item>
+        <item>Словакия</item>
+        <item>Словения</item>
+        <item>Соединенные Штаты Америки</item>
+        <item>Соломоновы Острова</item>
+        <item>Сомали</item>
+        <item>Судан</item>
+        <item>Суринам</item>
+        <item>Сьерра-Леоне</item>
+        <item>Таджикистан</item>
+        <item>Таиланд</item>
+        <item>Тайвань</item>
+        <item>Танзания</item>
+        <item>Теркс и Кайкос</item>
+        <item>Того</item>
+        <item>Токелау</item>
+        <item>Тонга</item>
+        <item>Тринидад и Тобаго</item>
+        <item>Тувалу</item>
+        <item>Тунис</item>
+        <item>Туркменистан</item>
+        <item>Турция</item>
+        <item>Уганда</item>
+        <item>Узбекистан</item>
+        <item>Украина</item>
+        <item>Уоллис и Футуна</item>
+        <item>Уругвай</item>
+        <item>Фарерские острова</item>
+        <item>Фиджи</item>
+        <item>Филиппины</item>
+        <item>Финляндия</item>
+        <item>Фолклендские острова</item>
+        <item>Франция</item>
+        <item>Французская Гвиана</item>
+        <item>Французская Полинезия</item>
+        <item>Французские Южные и Антарктические территории</item>
+        <item>Хорватия</item>
+        <item>Центральноафриканская Республика</item>
+        <item>Чад</item>
+        <item>Черногория</item>
+        <item>Чехия</item>
+        <item>Чили</item>
+        <item>Швейцария</item>
+        <item>Швеция</item>
+        <item>Шпицберген</item>
+        <item>Шри-Ланка</item>
+        <item>Эквадор</item>
+        <item>Экваториальная Гвинея</item>
+        <item>Эль-Сальвадор</item>
+        <item>Эритрея</item>
+        <item>Эстония</item>
+        <item>Эфиопия</item>
+        <item>Южная Африка</item>
+        <item>Южная Георгия и Южные Сандвичевы острова</item>
+        <item>Южная Корея</item>
+        <item>Южный Судан</item>
+        <item>Ямайка</item>
+        <item>Ян-Майен</item>
+        <item>Япония</item>
+
+    </string-array>
+</resources>

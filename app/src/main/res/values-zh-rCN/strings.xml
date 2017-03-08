@@ -194,4 +194,6 @@
     <string name="_919_cheltenham_avenue">朝阳区东花市街8号Primo大厦6单元501室</string>
     <string name="default_text">默认</string>
     <string name="set_your_country">请设置您的国家</string>
+    <string name="please_set_another_address_as_default">请从地址列表中设置另一个默认地址</string>
+    <string name="please_set_another_card_as_default">请从付款清单中设置另一张信用卡作为默认卡</string>
 </resources>

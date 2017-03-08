@@ -106,6 +106,7 @@ class GoodsFooterView : RelativeLayout, View.OnClickListener {
 
     private fun selectShipping(id: Int) {
 
+        Log.d("Test", "select shipping")
         var shippingObj: ShippingQuote? = null
 
         val index = shippings.orEmpty().indexOf(ShippingQuote(shippingId = id))
@@ -161,8 +162,10 @@ class GoodsFooterView : RelativeLayout, View.OnClickListener {
 
                 if (product.status != ADD_TO_WISHLIST) {
                     Log.d("Test", "=== product:" + product)
-                    shippingCost += product.shippingDomesticAmount
-                    cost += product.price * product.quantity
+                    Log.d("Test", "=== total shipping:" + product.total_shipping + ", total price:" + product.total_price + ", total discount:" + product.total_discount)
+                    //because added new attribute: total_price, total_shipping, total_discount
+                    shippingCost += product.total_shipping
+                    cost += ( product.total_price - product.total_discount)
                     currency = getCurrency(product.currency)
                 }
                 quantity += product.quantity

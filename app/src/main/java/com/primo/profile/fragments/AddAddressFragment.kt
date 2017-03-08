@@ -30,10 +30,7 @@ import com.primo.profile.mvp.OrderPresenter
 import com.primo.profile.mvp.OrderView
 import com.primo.profile.mvp.ProfilePresenterImpl
 import com.primo.utils.base.BasePresenterFragment
-import com.primo.utils.consts.IS_DEFAULT
-import com.primo.utils.consts.SHIPPING_ADDRESS_ADD
-import com.primo.utils.consts.SHIPPING_ADDRESS_UPDATE
-import com.primo.utils.consts.SHIPPING_ID
+import com.primo.utils.consts.*
 import com.primo.utils.interfaces.OnItemClickListener
 import com.primo.utils.other.Events
 import com.primo.utils.other.RxBus
@@ -135,6 +132,7 @@ class AddAddressFragment : BasePresenterFragment<OrderView, OrderPresenter>(), O
                 bundle.putString("kind", SHIPPING_ADDRESS_UPDATE)
                 bundle.putString(SHIPPING_ID, item?.shipping_id)
                 bundle.putInt(IS_DEFAULT, item!!.is_default)
+                bundle.putInt(SHIPPING_ADDRESS_COUNT, shippingAddressList!!.size)
 
                 val fragObj = PageAddressFragment()
                 fragObj.arguments = bundle

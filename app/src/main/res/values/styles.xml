@@ -25,6 +25,7 @@
         <item name="android:textColor">@drawable/red_button_txt_selector</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
     </style>
@@ -51,6 +52,7 @@
         <item name="prefix_space">10dp</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/color_black</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:background">@drawable/edit_text_bottom_line</item>
     </style>
 
@@ -58,6 +60,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:layout_marginLeft">25dp</item>
         <item name="android:clickable">true</item>
     </style>

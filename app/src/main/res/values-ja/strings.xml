@@ -21,7 +21,7 @@
     <string name="card_n">カード番号</string>
     <string name="confirm_password">パスワード（確認）</string>
     <string name="email">メールアドレス</string>
-    <string name="enter_your_card_number">クレジットカード番号を入力して下さい</string>
+    <string name="enter_your_card_number">クレジットカード番号を入力</string>
     <string name="enter_your_email">メールアドレスを入力して下さい</string>
     <string name="enter_your_password">パスワードを入力して下さい</string>
     <string name="evening">夜</string>
@@ -91,12 +91,12 @@
     <string name="wishlist">お気に入り</string>
     <string name="size">サイズ:</string>
     <string name="problem_with_order">注文処理中にエラーが発生しました</string>
-    <string name="card_holder">クレジットカード名義人</string>
+    <string name="card_holder">カード名義人</string>
     <string name="_919_cheltenham_avenue">神宮前6-16-13</string>
     <string name="melrose_park">渋谷区</string>
     <string name="usa">日本</string>
     <string name="pa">東京都</string>
-    <string name="_19027">150-0001</string>
+    <string name="_19027">1500001</string>
     <string name="user_domain_com">user@domain.com</string>
     <string name="check_out_giggle">精算を完了するには、携帯電話を軽く振ってください</string>
     <string name="maintenance">メンテナンス</string>
@@ -119,7 +119,7 @@
     <string name="are_you_sure_update_address">この住所情報を更新してよろしいですか？</string>
     <string name="are_you_sure_update_card">このカード情報を更新してよろしいですか？</string>
     <string name="enter_card_expiration">有効期限を入力</string>
-    <string name="enter_card_cvc">クレジットカードのセキュリティコード(cvc)を入力</string>
+    <string name="enter_card_cvc">カードのセキュリティコード</string>
     <string name="please_add_shipping_address">設定画面から、送付先住所を最低１つ追加してください</string>
     <string name="please_add_credit_card">設定画面から、支払情報を最低１つ追加してください</string>
     <string name="add_address">住所を追加</string>
@@ -193,4 +193,6 @@
     <string name="_0">0</string>
     <string name="default_text">デフォルト</string>
     <string name="set_your_country">あなたの国を設定して下さい</string>
+    <string name="please_set_another_address_as_default">住所録から、デフォルト用にもう１つアドレスを設定してください</string>
+    <string name="please_set_another_card_as_default">支払いリストから、デフォルト用にもう１つクレジットカードを設定してください</string>
 </resources>

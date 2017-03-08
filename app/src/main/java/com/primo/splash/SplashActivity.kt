@@ -24,6 +24,7 @@ import com.primo.utils.other.AssetsParser
 import io.realm.Realm
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.*
 import kotlin.properties.Delegates
 
 class SplashActivity : AppCompatActivity() {
@@ -98,6 +99,14 @@ class SplashActivity : AppCompatActivity() {
         //Crashlytics.logException(Throwable("states size (parsing) = ${states.size}"))
 
         if (countries.size > 0) {
+
+            // sort by alphabetically //
+            Collections.sort(countries, object : Comparator<Country> {
+                override fun compare(country2: Country, country1: Country): Int {
+
+                    return country2.name.compareTo(country1.name)
+                }
+            })
 
             realm.beginTransaction()
             realm.copyToRealm(countries)

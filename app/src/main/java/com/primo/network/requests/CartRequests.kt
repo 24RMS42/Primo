@@ -1,5 +1,6 @@
 package com.primo.network.requests
 
+import com.primo.main.MainClass
 import com.primo.utils.getAndroidId
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -8,6 +9,8 @@ import org.json.JSONObject
 
 
 object CartRequests {
+
+    val country_code = MainClass.getSavedCountry()
 
     fun addItemToTempCart(stock_id: String, quantity: String): Request {
 
@@ -21,7 +24,7 @@ object CartRequests {
         return Request.Builder()
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_TCART)
-                        .build()).post(body).build()
+                        .build()).post(body).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun removeItemFromTempCart(cart_item_id: String): Request {
@@ -37,7 +40,7 @@ object CartRequests {
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_TCART)
                         .addPathSegment(getAndroidId())
-                        .build()).delete(body).build()
+                        .build()).delete(body).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun retrieveTempCartDetail(): Request {
@@ -48,7 +51,7 @@ object CartRequests {
                         .addPathSegment(getAndroidId())
                         .addQueryParameter(APIPrimo.CLIENT_ID, APIPrimo.CLIENT_ID_VALUE)
                         .addQueryParameter(APIPrimo.CLIENT_SECRET, APIPrimo.CLIENT_SECRET_VALUE)
-                        .build()).get().build()
+                        .build()).get().header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun updateTempCartItem(stock_id: String, cart_item_id: String, quantity: String): Request {
@@ -74,7 +77,7 @@ object CartRequests {
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_TCART)
                         .addPathSegment(getAndroidId())
-                        .build()).put(body).build()
+                        .build()).put(body).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun addItemToCart(stock_id: String, quantity: String, token: String): Request {
@@ -88,7 +91,7 @@ object CartRequests {
         return Request.Builder()
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_CART)
-                        .build()).post(body).header(APIPrimo.AUTHORIZATION, token).build()
+                        .build()).post(body).header(APIPrimo.AUTHORIZATION, token).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun removeItemFromCart(cart_item_id: String, token: String, cart_id: String): Request {
@@ -102,7 +105,7 @@ object CartRequests {
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_CART)
                         .addPathSegment(cart_id)
-                        .build()).delete(body).header(APIPrimo.AUTHORIZATION, token).build()
+                        .build()).delete(body).header(APIPrimo.AUTHORIZATION, token).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun retrieveCartDetail(cart_id: String, token: String): Request {
@@ -110,8 +113,8 @@ object CartRequests {
         return Request.Builder()
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_CART)
-                        .addPathSegment(cart_id)
-                        .build()).get().header(APIPrimo.AUTHORIZATION, token).build()
+                        //.addPathSegment(cart_id) // because can't get updated cardID from other device, so need to call all cart
+                        .build()).get().header(APIPrimo.AUTHORIZATION, token).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun updateCartItem(stock_id: String, cart_item_id: String, quantity: String, token: String, cart_id: String): Request {
@@ -137,7 +140,7 @@ object CartRequests {
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_CART)
                         .addPathSegment(cart_id)
-                        .build()).put(body).header(APIPrimo.AUTHORIZATION, token).build()
+                        .build()).put(body).header(APIPrimo.AUTHORIZATION, token).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
 }

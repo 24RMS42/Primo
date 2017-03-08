@@ -14,6 +14,7 @@ import android.util.Log
 import com.primo.network.new_models.Auth
 import com.primo.utils.SecurePreferences
 import com.primo.utils.consts.*
+import com.primo.utils.getDeviceLanguage
 import com.primo.utils.other.RxBus
 import java.util.*
 
@@ -76,6 +77,9 @@ object MainClass {
         }
         getSecurePreferences().put(ACCESS_TOKEN, auth?.access_token)
         Log.d("Test", "save token:" + auth?.access_token)
+        Log.d("Test", "save cartID:" + auth?.cart_id)
+        Log.d("Test", "save shippingID:" + auth?.shipping_id)
+        Log.d("Test", "save creditcardID:" + auth?.creditcard_id)
     }
 
     fun getAuth(): Auth {
@@ -110,5 +114,21 @@ object MainClass {
     fun getSignUpTime(): Long{
         val s = getSharedPreferences().getLong(SIGNUP_TIME,0)
         return s
+    }
+
+    fun saveUserLanguage(){
+        getSharedPreferences().edit().putString(USER_LANGUAGE, getDeviceLanguage()).apply()
+    }
+
+    fun getSavedLanguage(): String{
+        return getSharedPreferences().getString(USER_LANGUAGE, "")
+    }
+
+    fun saveUserCountry(countryCode: String){
+        getSharedPreferences().edit().putString(USER_COUNTRY, countryCode).apply()
+    }
+
+    fun getSavedCountry(): String{
+        return getSharedPreferences().getString(USER_COUNTRY, "")
     }
 }

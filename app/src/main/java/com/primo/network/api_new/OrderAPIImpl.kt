@@ -142,7 +142,7 @@ class GetOrderHistoryImpl(result: ApiResult<ArrayList<CartItem>>) : GetOrderHist
 
 }
 
-class CheckShippingCardImpl(result: ApiResult<Array<Boolean?>>) : CheckShippingCard {
+class CheckShippingCardImpl(result: ApiResult<Array<String?>>) : CheckShippingCard {
 
     val result = result
 
@@ -150,7 +150,7 @@ class CheckShippingCardImpl(result: ApiResult<Array<Boolean?>>) : CheckShippingC
 
         result.onStart()
 
-        Observable.create(Observable.OnSubscribe<Array<Boolean?>> { sub ->
+        Observable.create(Observable.OnSubscribe<Array<String?>> { sub ->
             try {
                 val response = APIPrimo.getClient().newCall(OrderRequests.checkShippingCard(token))?.execute()
                 val body = response?.body()?.string() ?: ""
@@ -166,7 +166,7 @@ class CheckShippingCardImpl(result: ApiResult<Array<Boolean?>>) : CheckShippingC
         })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Subscriber<Array<Boolean?>>() {
+                .subscribe(object : Subscriber<Array<String?>>() {
 
                     override fun onCompleted() {
                         result.onComplete()
@@ -181,7 +181,7 @@ class CheckShippingCardImpl(result: ApiResult<Array<Boolean?>>) : CheckShippingC
                         result.onComplete()
                     }
 
-                    override fun onNext(response: Array<Boolean?>) {
+                    override fun onNext(response: Array<String?>) {
                         result.onResult(response)
                     }
                 })

@@ -27,7 +27,7 @@
                     android:layout_margin="15dp"
                     android:gravity="center"
                     android:text="@string/payment"
-                    android:textSize="19sp"/>
+                    android:textSize="17sp"/>
 
                 <com.primo.utils.views.PrefixedEditText
                     android:id="@+id/card_holder"
@@ -109,8 +109,7 @@
                         android:layout_width="12dp"
                         android:layout_height="22dp"
                         android:background="@drawable/questionmark"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="12dp"
+                        android:layout_gravity="center_vertical|end"
                         android:layout_marginEnd="25dp"/>
 
                     <TextView
@@ -175,11 +174,11 @@
                         android:layout_height="wrap_content"
                         android:text="@string/secure_with"
                         android:layout_marginStart="25dp"
-                        android:textSize="17sp"
+                        android:textSize="@dimen/form_font_size"
                         android:textColor="@color/color_black"/>
                     <ImageView
-                        android:layout_width="125dp"
-                        android:layout_height="40dp"
+                        android:layout_width="115dp"
+                        android:layout_height="35dp"
                         android:background="@drawable/comodossl"
                         android:layout_marginStart="20dp"/>
                 </LinearLayout>
@@ -215,7 +214,7 @@
                 <Button
                     android:id="@+id/checkout_btn"
                     style="@style/RedButton"
-                    android:layout_width="@dimen/action_button_width"
+                    android:layout_width="120dp"
                     android:layout_marginBottom="15dp"
                     android:layout_below="@id/email_txt_container"
                     android:layout_centerHorizontal="true"
@@ -228,7 +227,7 @@
                     android:layout_width="@dimen/action_button_width"
                     android:layout_below="@id/email_txt_container"
                     android:layout_toStartOf="@+id/delete_btn"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="10dp"
                     android:text="@string/update"/>
 
@@ -249,6 +248,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="@string/set_as_default"
+                        android:textSize="13sp"
                         android:textColor="@android:color/black" />
 
                     <android.support.v7.widget.SwitchCompat
@@ -264,7 +264,7 @@
                     android:layout_width="@dimen/action_button_width"
                     android:layout_below="@id/email_txt_container"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="20dp"
                     android:text="@string/delete"
                     android:visibility="invisible"/>

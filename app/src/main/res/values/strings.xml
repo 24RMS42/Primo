@@ -140,6 +140,8 @@
     <string name="must_have_default_address">You must have a default address. Please add another one to be able to set this as not default</string>
     <string name="set_your_country">Please set your country</string>
     <string name="default_text">Default</string>
+    <string name="please_set_another_address_as_default">Please set another address as default from the address list</string>
+    <string name="please_set_another_card_as_default">Please set another credit card as default from the payment list</string>
 
     <!--payment error-->
     <string name="stripe_not_found">Your credit card data not found. Please update it first</string>

@@ -3,6 +3,7 @@
  *
  * - distinguish Simplified or Traditional Chinese
  * - get timezone
+ * - get country code
  *
  * 2015 © Primo . All rights reserved.
  */
@@ -12,6 +13,8 @@ package com.primo.utils
 import android.app.Activity
 import android.content.Context
 import android.graphics.Point
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.provider.Settings
@@ -19,17 +22,19 @@ import android.text.TextUtils
 import android.util.Log
 import android.util.TypedValue
 import com.primo.R
+import com.primo.database.OrderDB
+import com.primo.database.OrderDBImpl
 import com.primo.main.MainClass
 import com.primo.utils.interfaces.OnReceiveLocationListener
 import ru.solodovnikov.rxlocationmanager.kotlin.LocationTime
 import ru.solodovnikov.rxlocationmanager.kotlin.RxLocationManager
 import rx.Subscriber
+import java.io.IOException
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
 import java.security.MessageDigest
 import java.text.DecimalFormat
-import java.text.NumberFormat
 import java.util.*
 
 fun Double.round(places: Int): Double {
@@ -187,7 +192,7 @@ fun getDeviceLanguage(): String {
 
     var language = Locale.ENGLISH.language
     val deviceLanguage = Locale.getDefault().language
-    var str_device_language = Locale.getDefault().toString()
+    val str_device_language = Locale.getDefault().toString()
 
     when (deviceLanguage) {
 
@@ -211,6 +216,11 @@ fun getCurrency(value: Int): String {
         1 -> return "USD"
         2 -> return "¥"
         3 -> return "CNY"
+        4 -> return "GBP"
+        5 -> return "EUR"
+        6 -> return "AUD"
+        7 -> return "CAD"
+        8 -> return "HKD"
         else -> return ""
     }
 }
@@ -236,9 +246,33 @@ fun getLocation(context: Context, listener: OnReceiveLocationListener) {
         }
 
         override fun onNext(location: Location?) {
+            Log.d("Test", " ===== location:" + location)
+
             if (location != null && location.latitude != 0.0 && location.longitude != 0.0) {
+
                 lat = location.latitude.toFloat()
                 lng = location.longitude.toFloat()
+
+                // == get user's country code == //
+                var countryName = ""
+                val gcd = Geocoder(context, Locale.getDefault())
+                val addresses: List<Address>
+                try {
+                    addresses = gcd.getFromLocation(lat.toDouble(), lng.toDouble(), 1)
+
+                    if (!addresses.isEmpty()) {
+                        countryName = addresses[0].countryName
+
+                        val orderDB: OrderDB? = OrderDBImpl()
+                        val countryCode = orderDB?.getCountryByName(countryName)?.value ?: -1
+                        Log.d("Test", " === country name: " + countryName + "" + countryCode)
+                        MainClass.saveUserCountry(countryCode.toString())
+                    }
+
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+                // == end == //
             }
         }
 

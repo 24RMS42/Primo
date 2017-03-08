@@ -103,12 +103,13 @@ class GoodsPagerFragment : BasePresenterFragment<GoodsPagerView, GoodsPagerPrese
                         }
                         Events.LOCATION_PERMISSION -> {
 
-                            Log.d("TEST", "LOCATION_PERMISSION")
+                            Log.d("Test", "LOCATION_PERMISSION")
 
+                            getLocation(context.applicationContext, this)
                             if (it.sentObject is Int && it.sentObject == 0) {
-                                getOrderPlace()
+                                //getOrderPlace()
                             } else {
-                                getOrderPlace(false)
+                                //getOrderPlace(false)
                             }
                         }
                     }
@@ -146,18 +147,16 @@ class GoodsPagerFragment : BasePresenterFragment<GoodsPagerView, GoodsPagerPrese
                     && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
 
-                ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION), PERMISSION_LOCATION_REQUEST)
+                presenter?.placeAnOrder()
+
             } else {
-                getLocation(context.applicationContext, this)
+                presenter?.placeAnOrder()
             }
-        } else {
-            presenter?.placeAnOrder()
         }
     }
 
     override fun onReceiveLocation(location: Pair<Float, Float>) {
-        presenter?.placeAnOrder(location)
+
     }
 
     override fun onBought(isSuccess: Boolean) {

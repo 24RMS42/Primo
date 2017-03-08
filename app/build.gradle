@@ -38,8 +38,8 @@ android {
         applicationId "com.primo"
         minSdkVersion 17
         targetSdkVersion 24
-        versionCode 10
-        versionName "1.5.6"
+        versionCode 0
+        versionName "1.5.9.3"
 
         project.ext.set("archivesBaseName", "primo_v" + defaultConfig.versionName);
     }
@@ -67,6 +67,7 @@ repositories {
 }
 
 dependencies {
+    compile project(":reel_search")
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {

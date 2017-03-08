@@ -29,9 +29,14 @@ data class CartItem(var productId: String = "",
                     var shippingInternationalAmount: Double = 0.0,
                     var merchant_name: String = "",
                     var merchant_country: String = "",
-                    var merchant_url: String = "") : BaseItem, Parcelable {
+                    var merchant_url: String = "",
+                    var total_price: Double = 0.0,
+                    var total_shipping: Double = 0.0,
+                    var total_discount: Double = 0.0,
+                    var final_price: Double = 0.0) : BaseItem, Parcelable {
 
-    constructor(source: Parcel): this(source.readString(), source.readString(), source.readInt(), source.readInt(), source.readString(), source.readString(), source.readString(), source.readParcelable<Stock>(Stock::class.java.classLoader), source.readDouble(), source.readInt(), source.readString(), source.readInt(), source.readDouble(), source.readInt(), source.readDouble(), source.readString(), source.readString(), source.readString())
+    constructor(source: Parcel): this(source.readString(), source.readString(), source.readInt(), source.readInt(), source.readString(), source.readString(), source.readString(), source.readParcelable<Stock>(Stock::class.java.classLoader), source.readDouble(), source.readInt(), source.readString(), source.readInt(), source.readDouble(), source.readInt(), source.readDouble(), source.readString(), source.readString(), source.readString(),
+                                      source.readDouble(), source.readDouble(), source.readDouble(), source.readDouble())
 
     override fun getBaseImage() = imageUrl
 
@@ -39,7 +44,7 @@ data class CartItem(var productId: String = "",
 
     override fun getBaseDescription() = description
 
-    override fun getBasePrice() = price
+    override fun getBasePrice() = total_price - total_discount
 
     override fun getBaseCurrency() = currency
 

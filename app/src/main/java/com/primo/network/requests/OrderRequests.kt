@@ -10,12 +10,15 @@
 
 package com.primo.network.requests
 
+import com.primo.main.MainClass
 import okhttp3.Request
 import okhttp3.RequestBody
 import org.json.JSONObject
 
 
 object OrderRequests {
+
+    val country_code = MainClass.getSavedCountry()
 
     fun placeAnOrder(creditcardId: String, shippingId: String, cartId: String, token: String,
                      lat: Float?, lng: Float?): Request {
@@ -51,7 +54,7 @@ object OrderRequests {
         return Request.Builder()
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_ORDER)
-                        .build()).post(body).header(APIPrimo.AUTHORIZATION, token).build()
+                        .build()).post(body).header(APIPrimo.AUTHORIZATION, token).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun reprocessAFailedOrder(orderId: String, creditcardId: String, token: String): Request {
@@ -66,7 +69,7 @@ object OrderRequests {
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_ORDER)
                         .addPathSegment(APIPrimo.API_REPROCESS)
-                        .build()).post(body).header(APIPrimo.AUTHORIZATION, token).build()
+                        .build()).post(body).header(APIPrimo.AUTHORIZATION, token).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun getOrderHistory(page: Int, token: String): Request {
@@ -76,7 +79,7 @@ object OrderRequests {
                         .addPathSegment(APIPrimo.API_ORDER)
                         .addPathSegment(APIPrimo.API_HISTORY)
                         .addQueryParameter("page", page.toString())
-                        .build()).get().header(APIPrimo.AUTHORIZATION, token).build()
+                        .build()).get().header(APIPrimo.AUTHORIZATION, token).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun checkShippingCard(token: String): Request {
@@ -90,6 +93,7 @@ object OrderRequests {
                         .build())
                 .get()
                 .header(APIPrimo.AUTHORIZATION, token)
+                .header(APIPrimo.COUNTRY_ID, country_code)
                 .build()
     }
 }

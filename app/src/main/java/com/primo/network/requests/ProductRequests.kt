@@ -1,11 +1,14 @@
 package com.primo.network.requests
 
+import com.primo.main.MainClass
 import okhttp3.Request
 import okhttp3.RequestBody
 import org.json.JSONArray
 import org.json.JSONObject
 
 object ProductRequests {
+
+    val country_code = MainClass.getSavedCountry()
 
     fun searchProductByQr(qrcode: String): Request {
 
@@ -21,7 +24,7 @@ object ProductRequests {
                         .addPathSegment(APIPrimo.API_PRODUCT)
                         .addPathSegment(APIPrimo.API_SEARCH)
                         .addPathSegment(APIPrimo.API_QR)
-                        .build()).post(body).build()
+                        .build()).post(body).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun retrieveProduct(productId: String): Request {
@@ -32,7 +35,7 @@ object ProductRequests {
                         .addPathSegment(productId)
                         .addQueryParameter(APIPrimo.CLIENT_ID, APIPrimo.CLIENT_ID_VALUE)
                         .addQueryParameter(APIPrimo.CLIENT_SECRET, APIPrimo.CLIENT_SECRET_VALUE)
-                        .build()).get().build()
+                        .build()).get().header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun searchProductByKeyword(keyword: String): Request {
@@ -49,7 +52,7 @@ object ProductRequests {
                         .addPathSegment(APIPrimo.API_PRODUCT)
                         .addPathSegment(APIPrimo.API_SEARCH)
                         .addPathSegment(APIPrimo.API_KEYWORD)
-                        .build()).post(body).build()
+                        .build()).post(body).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun retrieveProductStock(productId: String): Request {
@@ -69,7 +72,7 @@ object ProductRequests {
                 .url(APIPrimo.getDefaultHttpBuilder()
                         .addPathSegment(APIPrimo.API_PRODUCT)
                         .addPathSegment(APIPrimo.API_STOCKS)
-                        .build()).post(body).build()
+                        .build()).post(body).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 }
 

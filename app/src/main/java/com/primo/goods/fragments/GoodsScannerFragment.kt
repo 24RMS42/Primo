@@ -5,6 +5,9 @@
  * - add turn on camera button
  * - control toolbar
  * - fix price for 0 stock item on camera page
+ * - update user language
+ * - check product and setting before checkout
+ * - integrate Count api
  *
  * 2015 © Primo . All rights reserved.
  */
@@ -28,8 +31,6 @@ import android.os.Handler
 import android.os.Message
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AlertDialog
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -38,7 +39,6 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.facebook.drawee.view.SimpleDraweeView
-import com.jakewharton.rxbinding.view.visibility
 import com.journeyapps.barcodescanner.CompoundBarcodeView
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.primo.R
@@ -47,20 +47,20 @@ import com.primo.goods.mvp.GoodsScannerView
 import com.primo.goods.mvp.GoodsScannerPresenterImpl
 import com.primo.main.MainActivity
 import com.primo.main.MainClass
+import com.primo.network.new_models.Count
 import com.primo.network.new_models.Product
 import com.primo.profile.fragments.PageProfileFragment
-import com.primo.profile.fragments.ProfileFragment
 import com.primo.utils.*
 import com.primo.utils.base.BasePresenterFragment
 import com.primo.utils.consts.*
+import com.primo.utils.interfaces.OnReceiveLocationListener
 import com.primo.utils.other.Events
 import com.primo.utils.other.RxBus
 import com.primo.utils.other.RxEvent
-import kotlinx.android.synthetic.main.auth_fragment.*
 import rx.subscriptions.CompositeSubscription
 
 
-class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScannerPresenter>(), GoodsScannerView, View.OnClickListener, SensorEventListener, Runnable {
+class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScannerPresenter>(), GoodsScannerView, View.OnClickListener, SensorEventListener, Runnable, OnReceiveLocationListener {
 
     //=====
     private var sensorManager: SensorManager? = null
@@ -187,7 +187,17 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
             }
         } else {
             presenter?.setPermission(true)
+
+            val country_code = MainClass.getSavedCountry()
+            if (country_code.isEmpty())
+                getUserCountry()
         }
+    }
+
+    private fun changeTotalStateFromCountAPI(amount: Triple<Int, Double, Int>) {
+
+        val total = getCurrency(amount.first) + " " + amount.second.toString()
+        totalPrice?.text = total
     }
 
     private fun changeTotalState(amount: Triple<Int, Double, String>) {
@@ -195,15 +205,42 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
         isProductExist = amount.first > 0 // determine product exist by quantity, not price
         infoTxt?.visibility = if (isProductExist) View.INVISIBLE else View.VISIBLE
         totalContainer?.visibility = if (isProductExist) View.VISIBLE else View.INVISIBLE
-        totalPrice?.post({ totalPrice?.text = "${amount.third} ${amount.second.round(2).toStringWithoutZeros()}" })
+
+        // == replace by calling count api to update total price == //
+        //totalPrice?.post({ totalPrice?.text = "${amount.third} ${amount.second.round(2).toStringWithoutZeros()}" })
 
         if (!isProductExist)
             count?.visibility = View.INVISIBLE
         else
             count?.visibility = View.VISIBLE
 
-        count?.text = amount.first.toString()
+        // == replace by calling count api to update cart badge == //
+        //count?.text = amount.first.toString()
+        val auth = MainClass.getAuth()
+        val token = auth.access_token
+
+        if (token.isEmpty())
+            presenter?.getPublicCount()
+        else
+            presenter?.getLiveCount()
+
         count?.bouncingAnimation()
+
+        // check Product Before SignUp as Cart fragment
+        (activity as MainActivity).changeProfileTabState(MainActivity.ProfileTabStates.INVISIBLE)
+
+        if (isProductExist && amount.second > 0) //normal
+            (activity as MainActivity).changeProfileTabState(MainActivity.SignUpStates.NORMAL)
+        else if (isProductExist && amount.second == 0.0) //0 stock item
+            (activity as MainActivity).changeProfileTabState(MainActivity.SignUpStates.NOCC)
+        else //no product
+            (activity as MainActivity).changeProfileTabState(MainActivity.SignUpStates.BASIC)
+    }
+
+    override fun getCountResult(counts: Count) {
+        count?.text = counts.cart_count.toString()
+        val total = getCurrency(counts.currency) + " " + counts.total_final_price.toString()
+        totalPrice?.text = total
     }
 
     override fun showProgress() {
@@ -245,6 +282,7 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
 
                 if (isProductExist && token.isEmpty()) {
 
+                    (activity as MainActivity).showMainTabbar(true)
                     showFragment(PageProfileFragment(), true,
                             R.anim.left_center, R.anim.center_right, R.anim.right_center, R.anim.center_left, PageProfileFragment::class.java.simpleName)
 
@@ -322,6 +360,8 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
 
                         Events.CHANGE_COST -> changeTotalState(it.sentObject as Triple<Int, Double, String>)
 
+                        Events.CHANGE_COUNT -> changeTotalStateFromCountAPI(it.sentObject as Triple<Int, Double, Int>)
+
                         Events.CAMERA_PERMISSION -> {
 
                             if (it.sentObject is Int && it.sentObject == 0) {
@@ -335,9 +375,17 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
                                 turnCameraLayout?.setVisibility(View.VISIBLE)
                                 Log.d(TAG, "========== camera permission false===========")
                             }
+
+                            //call location permission after camera permission
+                            getUserCountry()
                         }
                     }
                 }));
+
+        //update user language
+        val current_language = getDeviceLanguage()
+        if (MainClass.getSavedLanguage() != current_language)
+            presenter?.updateUserLanguage(current_language)
     }
 
     override fun onStop() {
@@ -349,6 +397,25 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
         super.onPause()
 
         sensorManager?.unregisterListener(this)
+    }
+
+    fun getUserCountry(){
+
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION), PERMISSION_LOCATION_REQUEST)
+        } else {
+            Log.d("Test", " == getting location from Scan fragment")
+            getLocation(context.applicationContext, this)
+        }
+    }
+
+    override fun onReceiveLocation(location: Pair<Float, Float>) {
+
     }
 
     fun isPhoneMove(): Boolean {
@@ -389,7 +456,7 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
             }
         }
 
-        var wa: Thread = Thread(this)
+        val wa: Thread = Thread(this)
         wa.start()
     }
 
@@ -420,7 +487,7 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
             }
         }
 
-        var wa: Thread = Thread(this)
+        val wa: Thread = Thread(this)
         wa.start()
     }
 
@@ -440,7 +507,7 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
     }
 
     override fun run() {
-        var timeStop: Long = System.currentTimeMillis() + TIME_WAIT
+        val timeStop: Long = System.currentTimeMillis() + TIME_WAIT
         while (isWait && timeStop > System.currentTimeMillis()){
             if (isPhoneMove()){
                 isWait = false
@@ -453,10 +520,34 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
         }
     }
 
-    private fun orderPlace() {
-        val parent = parentFragment
-        if (parent != null && parent is GoodsPagerFragment) {
-            parent.getOrderPlace()
+    override fun onCheckShippingCardBeforeCheckout(result: Array<String?>) {
+
+        if (result[0] == "") {
+            showMessage(MainClass.context.getString(R.string.please_add_shipping_address))
+            (activity as MainActivity).changeProfileTabState(MainActivity.ProfileTabStates.PROFILE_PAGE)
+            (activity as MainActivity).showMainTabbar(true)
+            showFragment(PageProfileFragment(), true,
+                    R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right, PageProfileFragment::class.java.simpleName)
         }
+        else if (result[1] == "") {
+            showMessage(MainClass.context.getString(R.string.please_add_credit_card))
+            (activity as MainActivity).changeProfileTabState(MainActivity.ProfileTabStates.PROFILE_PAGE)
+            (activity as MainActivity).showMainTabbar(true)
+            showFragment(PageProfileFragment(), true,
+                    R.anim.right_center, R.anim.center_left, R.anim.left_center, R.anim.center_right, PageProfileFragment::class.java.simpleName)
+        }
+        else {
+            MainClass.getSharedPreferences().edit().putString(SHIPPING_ID, result[0]).apply()
+            MainClass.getSharedPreferences().edit().putString(CREDITCARD_ID, result[1]).apply()
+
+            val parent = parentFragment
+            if (parent != null && parent is GoodsPagerFragment) {
+                parent.getOrderPlace()
+            }
+        }
+    }
+
+    private fun orderPlace() {
+        presenter?.checkShippingCardBeforeCheckout()
     }
 }

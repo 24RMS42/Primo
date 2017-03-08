@@ -1,10 +1,13 @@
 package com.primo.network.requests
 
+import com.primo.main.MainClass
 import okhttp3.Request
 import okhttp3.RequestBody
 import org.json.JSONObject
 
 object UserAuthenticationRequests {
+
+    val country_code = MainClass.getSavedCountry()
 
     fun signIn(email: String, password: String, unique_id: String): Request {
 
@@ -20,7 +23,7 @@ object UserAuthenticationRequests {
                         .addPathSegment(APIPrimo.API_USER)
                         .addPathSegment(APIPrimo.API_ACCESS)
                         .addPathSegment(APIPrimo.API_TOKEN)
-                        .build()).post(body).build()
+                        .build()).post(body).header(APIPrimo.COUNTRY_ID, country_code).build()
     }
 
     fun changePassword(current_password: String, new_password: String, renew_password: String): Request {
@@ -35,7 +38,7 @@ object UserAuthenticationRequests {
                         .addPathSegment(APIPrimo.API_USER)
                         .addPathSegment(APIPrimo.API_CHANGE)
                         .addPathSegment(APIPrimo.API_PASSWORD)
-                        .build()).put(body).build()
+                        .build()).put(body).header(APIPrimo.COUNTRY_ID, country_code).build()
         //TODO ADD BEARER HEADER
     }
 }

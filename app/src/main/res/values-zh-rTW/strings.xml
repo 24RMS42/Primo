@@ -194,4 +194,6 @@
     <string name="_919_cheltenham_avenue">大安區羅斯福路18号Primo大樓101室</string>
     <string name="default_text">默認</string>
     <string name="set_your_country">請設置你的國家</string>
+    <string name="please_set_another_address_as_default">請從地址清單中設置另一個默認位址</string>
+    <string name="please_set_another_card_as_default">請從付款清單中設置另一張信用卡作為默認卡</string>
 </resources>
