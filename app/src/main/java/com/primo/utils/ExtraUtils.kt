@@ -213,14 +213,14 @@ fun getDeviceLanguage(): String {
 fun getCurrency(value: Int): String {
 
     when (value) {
-        1 -> return "USD"
+        1 -> return "$"
         2 -> return "¥"
-        3 -> return "CNY"
-        4 -> return "GBP"
-        5 -> return "EUR"
-        6 -> return "AUD"
-        7 -> return "CAD"
-        8 -> return "HKD"
+        3 -> return "¥"
+        4 -> return "£"
+        5 -> return "€"
+        6 -> return "$"
+        7 -> return "$"
+        8 -> return "$"
         else -> return ""
     }
 }
@@ -262,6 +262,7 @@ fun getLocation(context: Context, listener: OnReceiveLocationListener) {
 
                     if (!addresses.isEmpty()) {
                         countryName = addresses[0].countryName
+                        countryName = "Japan"
 
                         val orderDB: OrderDB? = OrderDBImpl()
                         val countryCode = orderDB?.getCountryByName(countryName)?.value ?: -1

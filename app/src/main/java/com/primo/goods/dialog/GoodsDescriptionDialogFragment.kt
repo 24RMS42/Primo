@@ -195,14 +195,18 @@ class GoodsDescriptionDialogFragment : AppCompatDialogFragment() {
         productImage.setImageURI(Uri.parse(item.getBaseImage()))
 
         //Show merchant info
-        val countryModel = countryList[Integer.parseInt(item.getMerchantCountry()) - 1]
+        val countryIndex = countryList.indexOf(Country(value = Integer.parseInt(item.getMerchantCountry())))
+        if (countryIndex > -1) {
 
-        merchantName.text = item.getMerchantName()
-        merchantCountry.text = countryModel.name
-        merchantUrl.text = item.getMerchantUrl()
-        merchantUrl.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(item.getMerchantUrl()))
-            startActivity(browserIntent)
+            val countryModel = countryList[countryIndex]
+
+            merchantName.text = item.getMerchantName()
+            merchantCountry.text = countryModel.name
+            merchantUrl.text = item.getMerchantUrl()
+            merchantUrl.setOnClickListener {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(item.getMerchantUrl()))
+                startActivity(browserIntent)
+            }
         }
 
         if (item is WishItem) add.text = getString(R.string.add_to_cart)
@@ -218,6 +222,8 @@ class GoodsDescriptionDialogFragment : AppCompatDialogFragment() {
                 else if (v.id == R.id.delete1 && v.tag == null)
                     target.onDialogClick(DELETE, item)
                 else if (v.id == R.id.delete)
+                    target.onDialogClick(UPDATE, Pair(cartItem, getNewItem()))
+                else if (v.id == R.id.delete1)
                     target.onDialogClick(UPDATE, Pair(cartItem, getNewItem()))
                 else
                     target.onDialogClick(ADD, item)
@@ -241,7 +247,9 @@ class GoodsDescriptionDialogFragment : AppCompatDialogFragment() {
 
     private fun changeButtonState() {
         delete.text = getString(R.string.update)
+        delete1.text = getString(R.string.update)
         delete.tag = ""
+        delete1.tag = ""
     }
 
     private fun filterColor(sizeName: String) {

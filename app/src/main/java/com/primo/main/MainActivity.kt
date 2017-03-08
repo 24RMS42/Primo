@@ -38,6 +38,14 @@ import com.primo.utils.other.RxEvent
 import android.widget.RelativeLayout
 import com.primo.profile.fragments.*
 import com.primo.utils.*
+import android.app.AlertDialog
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
+import android.content.Intent.ACTION_VIEW
+import android.net.Uri
+import android.os.AsyncTask
+import org.json.JSONObject
+import org.jsoup.Jsoup
 
 
 class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCallback, View.OnClickListener {
@@ -103,6 +111,11 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
     private var pageState = 0 // 0:ScanFragment  1:TotalFragment
     private var profilePageState = ProfileTabStates.PROFILE_PAGE
 
+    //********** auto update **********//
+    var currentVersion: String? = null
+    var latestVersion:String? = null
+    val urlOfAppFromPlayStore = "https://play.google.com/store/apps/details?id=com.primo"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -151,6 +164,9 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 
         // it is invisible in out of profile fragment
         changeProfileTabState(ProfileTabStates.INVISIBLE)
+
+        //********** auto update **********//
+        getCurrentVersion()
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -220,6 +236,77 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 
     fun getProfilePageState():Int{
         return profilePageState
+    }
+
+    private fun getCurrentVersion() {
+        val pm = this.packageManager
+        var pInfo: PackageInfo? = null
+
+        try {
+            pInfo = pm.getPackageInfo(this.packageName, 0)
+
+        } catch (e1: PackageManager.NameNotFoundException) {
+            e1.printStackTrace()
+        }
+
+        currentVersion = pInfo!!.versionName
+        Log.d("Test", "=== current version:" + currentVersion)
+
+        GetLatestVersion().execute()
+    }
+
+    private inner class GetLatestVersion : AsyncTask<String, String, JSONObject>() {
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+        }
+
+        override fun doInBackground(vararg params: String): JSONObject {
+            try {
+                //It retrieves the latest version by scraping the content of current version from play store at runtime
+                val doc = Jsoup.connect(urlOfAppFromPlayStore).get()
+                latestVersion = doc.getElementsByAttributeValue("itemprop", "softwareVersion").first().text()
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            return JSONObject()
+        }
+
+        override fun onPostExecute(jsonObject: JSONObject) {
+            if (latestVersion != null) {
+                Log.d("Test", "=== latest version:" + latestVersion)
+                if (currentVersion != latestVersion) {
+                    if (!isFinishing) { //This would help to prevent Error : BinderProxy@45d459c0 is not valid; is your activity running? error
+                        showUpdateDialog()
+                    }
+                }
+            }
+
+            super.onPostExecute(jsonObject)
+        }
+    }
+
+    private fun showUpdateDialog() {
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("A new version of PRIMO is available for update!")
+        builder.setPositiveButton("Update") {
+            dialog, whichButton ->
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.primo")))
+                dialog.dismiss()
+        }
+
+        builder.setNegativeButton("Cancel") {
+            dialog, whichButton ->
+                dialog.dismiss()
+        }
+
+        builder.setCancelable(false)
+        val alertDialog = builder.create()
+
+        alertDialog.show()
     }
 
     fun showToolbar(state: Boolean){

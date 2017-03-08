@@ -35,6 +35,7 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
         val auth = MainClass.getAuth()
         val token = auth.access_token
         val cartId = auth.cart_id
+        Log.d("Test", "update cart stockId:" + stockId + "cartId:" + cartId)
 
         if (token.isEmpty() || cartId.isEmpty()) {
 
@@ -438,17 +439,16 @@ class GoodsTotalPresenterImpl(view: GoodsTotalView) : GoodsTotalPresenter(view) 
             val signInCall: SignIn = SignInImpl(object: ApiResult<Auth?> {
 
                 override fun onStart() {
-                    view?.showProgress()
+                    //view?.showProgress()
                 }
 
                 override fun onResult(result: Auth?) {
 
+                    view?.hideProgress()
                     if (result != null) {
                         Log.d("Test", result.toString())
                         view?.onSigned(result)
                     }
-
-                    view?.hideProgress()
                 }
 
                 override fun onError(message: String, code: Int) {

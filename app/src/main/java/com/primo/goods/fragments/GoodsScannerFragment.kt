@@ -115,6 +115,10 @@ class GoodsScannerFragment : BasePresenterFragment<GoodsScannerView, GoodsScanne
                 checkPermission()
             } else {
                 presenter?.setPermission(true)
+
+                val country_code = MainClass.getSavedCountry()
+                if (country_code.isEmpty())
+                    getUserCountry()
             }
 
             (activity as MainActivity).showToolbar(false)

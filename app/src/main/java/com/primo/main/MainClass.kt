@@ -129,6 +129,6 @@ object MainClass {
     }
 
     fun getSavedCountry(): String{
-        return getSharedPreferences().getString(USER_COUNTRY, "")
+        return getSharedPreferences().getString(USER_COUNTRY, "236")
     }
 }

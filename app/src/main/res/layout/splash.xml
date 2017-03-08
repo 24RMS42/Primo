@@ -18,7 +18,7 @@
         android:layout_gravity="bottom"
         android:gravity="center"
         android:layout_marginBottom="20dp"
-        android:text="Ver 1.5.9.3"
+        android:text="Ver 1.5.9.5"
         android:textColor="@color/color_white"
         android:textSize="20sp"/>
 </FrameLayout>
